@@ -360,7 +360,7 @@ Table of Contents
 2.1.4.1.  InterestGroupResponse
 
    The schema below is defined following the spec by https://json-
-   schema.org/. For values for keys from the interestGroupNames
+   schema.org/ For values for keys from the interestGroupNames
    namespace, they must conform to the following schema, prior to being
    serialized to string:
 
