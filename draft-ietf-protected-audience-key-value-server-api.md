@@ -1,5 +1,3 @@
-# IETF ID
-
 ---
 
 coding: utf-8
