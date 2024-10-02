@@ -71,8 +71,6 @@ Responses.
 
 ## Overview
 
-{::include ../assets/kv_server_api.png}
-
 On a high level, the Key Value Service adheres to the following communication protocol:
 
 -   Data is transmitted over HTTPS using the `POST` method.
