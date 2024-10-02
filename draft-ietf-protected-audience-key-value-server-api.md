@@ -4,23 +4,34 @@
 
 coding: utf-8
 
-title: "Protected Audience Key Value Service APIs" abbrev: "KV Servers APIs" docname:
-draft-ietf-protected-audience-key-value-service-api-latest category: std
+title: "Protected Audience Key Value Service APIs" abbrev: "KV Servers APIs"
+docname: draft-ietf-protected-audience-key-value-server-api-latest
+category: std
 
-area: TBD workgroup: TBD keyword:
+area: TBD 
+workgroup: TBD 
+keyword:
 
 -   protected audience
 -   fledge
 
-submissiontype: IETF stand_alone: yes pi: [toc, sortrefs, symrefs]
+submissiontype: IETF 
+stand_alone: yes 
+pi: [toc, sortrefs, symrefs]
 
 author:
 
 -   fullname: "Peiwen Hu" organization: Google email: "<peiwenhu@google.com>"
 -   fullname: "Benjamin Russ Hamilton" organization: Google email: "<behamilton@google.com>"
 
-normative: CBOR: RFC8949 CDDL: RFC8610 JSON: RFC8259 OHTTP: RFC9458 HPKE: RFC9180 GZIP: RFC1952
-Brotli: RFC7932
+normative: 
+  CBOR: RFC8949 
+  CDDL: RFC8610 
+  JSON: RFC8259 
+  OHTTP: RFC9458 
+  HPKE: RFC9180 
+  GZIP: RFC1952
+  Brotli: RFC7932
 
 informative:
 
