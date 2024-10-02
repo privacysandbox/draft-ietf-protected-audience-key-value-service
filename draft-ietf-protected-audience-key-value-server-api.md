@@ -1,28 +1,42 @@
 ---
-
 coding: utf-8
 
-title: "Protected Audience Key Value Service APIs" abbrev: "KV Servers APIs"
+title: "Protected Audience Key Value Service APIs"
+abbrev: "KV Servers APIs"
 docname: draft-ietf-protected-audience-key-value-server-api-latest
 category: std
+submissionType: IETF
 
 area: TBD
 workgroup: TBD
-keyword:
+keyword: Internet-Draft
 
--   protected audience
--   fledge
+ipr: trust200902
 
-submissiontype: IETF
 stand_alone: yes
 pi: [toc, sortrefs, symrefs]
 
 author:
-
--   fullname: "Peiwen Hu" organization: Google email: "<peiwenhu@google.com>"
--   fullname: "Benjamin Russ Hamilton" organization: Google email: "<behamilton@google.com>"
+ -
+    name: Peiwen Hu
+    organization: Google
+    email: peiwenhu@google.com
+ -
+    ins: B. R. Hamilton
+    name: Benjamin "Russ" Hamilton
+    organization: Google
+    email: behamilton@google.com
 
 normative:
+  RFC8949: CBOR
+  RFC8610: CDDL
+  RFC8259: JSON
+  RFC9458: OHTTP
+  RFC9180: HPKE
+  RFC1952: GZIP
+  RFC7932: Brotli
+
+informative:
   CBOR: RFC8949
   CDDL: RFC8610
   JSON: RFC8259
@@ -31,7 +45,6 @@ normative:
   GZIP: RFC1952
   Brotli: RFC7932
 
-informative:
 
 --- abstract
 
@@ -82,12 +95,12 @@ On a high level, the Key Value Service adheres to the following communication pr
 The Key Value Service uses [HPKE] with the following configuration for encryption:
 
 -   KEM (Key encapsulation mechanisms): 0x0020 DHKEM(X25519, HKDF-SHA256), see
-    {{!Section 7.1 of RFC9180}}
--   KDF (key derivation functions): 0x0001 HKDF-SHA256, see {{!Section 7.2 of RFC9180}}
+    {{Section 1 of RFC9180}}
+-   KDF (key derivation functions): 0x0001 HKDF-SHA256, see {{Section 7.2 of RFC9180}}
 -   AEAD (Authenticated Encryption with Associated Data): AES-256-GCM, see
-    {{!Section 7.3 of RFC9180}}
+    {{Section 7.3 of RFC9180}}
 
-The server is repurposing the [OHTTP] encapsulation mechanism ({{!Section 4.6 of RFC9458}}), new
+The server is repurposing the [OHTTP] encapsulation mechanism ({{Section 4.6 of RFC9458}}), new
 media types need to be defined:
 
 -   The OHTTP request media type is `message/ad-auction-trusted-signals-request`
@@ -128,8 +141,8 @@ For requests, the byte value is 0x00. For responses, the byte value depends on t
 ### Padding {#padding}
 
 Padding is applied with sizes as multiples of 2^n KBs ranging from 0 to 2MB. So the valid response
-sizes will be [0, 128B, 256B, 512B, 1KB, 2KB, 4KB, 8KB, 16KB, 32KB, 64KB, 128KB, 256KB, 512KB, 1MB,
-2MB].
+sizes will be `[0, 128B, 256B, 512B, 1KB, 2KB, 4KB, 8KB, 16KB, 32KB, 64KB, 128KB, 256KB, 512KB, 1MB,
+2MB]`.
 
 ## Core Request Data {#request}
 
@@ -150,14 +163,14 @@ Requests are not compressed and have a tree-like hierarchy:
 ### Encryption {#request-encryption}
 
 The request is encrypted with [HPKE]. The request uses a repurposed [OHTTP] encapsulation format
-(see {{!Section 4.3 of RFC9458}} and {{!Section 4.6 of RFC9458}}) with a
+(see {{Section 4.3 of RFC9458}} and {{Section 4.6 of RFC9458}}) with a
 `message/ad-auction-trusted-signals-request` media type instead of `message/bhttp request`.
 
 ### Request Schema {#request-schema}
 
-The request is a [CBOR] encoded message with the following [CCDL] schema:
+The request is a [CBOR] encoded message with the following [CDDL] schema:
 
-```cddl
+~~~~~ cddl
 request = {
     ? acceptCompression: [* tstr],
     ; must contain at least one of none, gzip, brotli
@@ -193,48 +206,19 @@ requestArgument = {
     ? data: [* tstr],
     ; List of keys to get values for
 }
-```
+~~~~~
 
 #### Available Tags
 
-<table>
-  <tr>
-   <td>Tag category
-   </td>
-   <td>Category description
-   </td>
-   <td>Tag
-   </td>
-   <td>Description
-   </td>
-  </tr>
-  <tr>
-   <td rowspan="4">Namespace
-   </td>
-   <td rowspan="4">Each key group has exactly one tag from this category.
-   </td>
-   <td>interestGroupNames
-   </td>
-   <td>Names of interest groups in the encompassing partition.
-   </td>
-  </tr>
-  <tr>
-   <td>keys
-   </td>
-   <td><em>“keys” is a list of trustedBiddingSignalsKeys strings.</em>
-   </td>
-  </tr>
-  <tr>
-   <td>renderUrls
-   </td>
-   <td rowspan="2"><em>Similarly, sellers may want to fetch information about a specific creative, e.g. the results of some out-of-band ad scanning system. This works in much the same way, with the base URL coming from the trustedScoringSignalsUrl property of the seller's auction configuration object.</em>
-   </td>
-  </tr>
-  <tr>
-   <td>adComponentRenderUrls
-   </td>
-  </tr>
-</table>
+Each key group has exactly one tag from the `namespace` category.
+
+| Tag | Description |
+|---|---|
+| interestGroupNames | Names of interest groups in the encompassing partition. |
+| keys | “keys” is a list of trustedBiddingSignalsKeys strings. |
+| renderUrls | Similarly, sellers may want to fetch information about a specific creative, e.g. the results of some out-of-band ad scanning system. This works in much the same way, with the base URL coming from the trustedScoringSignalsUrl property of the seller's auction configuration object.  |
+| adComponentRenderUrls | Similar to renderUrls |
+
 
 ### Generating a Request
 
@@ -273,7 +257,7 @@ a request message the Key Value Service can consume along with an HPKE context.
 The [CBOR] representation consists of the following item, represented using the extended diagnostic
 notation from [CDDL] appendix G:
 
-```cbor-diag
+~~~~~ cbor-diag
 {
   "acceptCompression": [
     "none",
@@ -334,7 +318,7 @@ notation from [CDDL] appendix G:
     }
   ]
 }
-```
+~~~~~
 
 ## Core Response Data {#response}
 
@@ -346,14 +330,14 @@ as specified in the request.
 ### Encryption {#response-encryption}
 
 The response uses the a similar encapsulated response format to that used by [OHTTP] (see
-{{!Section 4.4 from RFC9458}}), but with the custom `message/ad-auction-trusted-signals-request`
+{{Section 4.4 of RFC9458}}), but with the custom `message/ad-auction-trusted-signals-request`
 media type instead of `message/bhttp response`
 
 ### Response Schema {#response-schema}
 
 The response is a [CBOR] encoded message with the following [CDDL] schema:
 
-```cddl
+~~~~~ cddl
 response = {
   ? compressionGroups : [* compressionGroup]
 }
@@ -368,7 +352,7 @@ compressionGroup = {
   ; Compressed CBOR binary string using the algorithm specified in the request
   ; For details see compressed response content schema below.
 }
-```
+~~~~~
 
 ##### CompressionGroup {#compression-group}
 
@@ -376,7 +360,7 @@ The content of each `compressionGroup` is a serialized [CBOR] list of partition 
 contains actual key value results for partitions in the corresponding compression group. The
 uncompressed, deserialized [CBOR] content has the following [CDDL] schema:
 
-```cddl
+~~~~~ cddl
 [* partitionOutput]
 ; Array of PartitionOutput objects
 
@@ -401,14 +385,14 @@ keyValue = {
   value: tstr
 }
 
-```
+~~~~~
 
 #### Example Compression Group
 
 The [CBOR] representation consists of the following item, represented using the extended diagnostic
 notation from [CDDL] appendix G:
 
-```cbor-diag
+~~~~~ cbor-diag
 [
   {
     "id": 0,
@@ -439,7 +423,7 @@ notation from [CDDL] appendix G:
     ]
   }
 ]
-```
+~~~~~
 
 ### Structured keys response specification
 
@@ -451,11 +435,11 @@ Note that they must be serialized to string when stored as the value.
 
 #### InterestGroupResponse
 
-The schema below is defined following the spec by <https://json-schema.org/> For values for keys
+The schema below is defined following the spec by https://json-schema.org. For values for keys
 from the `interestGroupNames` namespace, they must conform to the following schema, prior to being
 serialized to string.
 
-```json
+~~~~~ json
 {
     "title": "tkv.response.v2.InterestGroupResponse",
     "description": "Format for value of keys in groups tagged 'interestGroupNames'",
@@ -477,11 +461,11 @@ serialized to string.
         }
     }
 }
-```
+~~~~~
 
 Example:
 
-```json
+~~~~~ json
 {
     "priorityVector": {
         "signal1": 1,
@@ -489,7 +473,7 @@ Example:
     },
     "updateIfOlderThanMs": 10000
 }
-```
+~~~~~
 
 ### Generating a Response
 
@@ -528,7 +512,6 @@ This document has no IANA actions.
 --- back
 
 # Acknowledgments
-
 {:numbered="false"}
 
 TODO
