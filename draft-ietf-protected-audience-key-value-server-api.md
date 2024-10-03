@@ -28,15 +28,6 @@ author:
     email: behamilton@google.com
 
 normative:
-  RFC8949: CBOR
-  RFC8610: CDDL
-  RFC8259: JSON
-  RFC9458: OHTTP
-  RFC9180: HPKE
-  RFC1952: GZIP
-  RFC7932: Brotli
-
-informative:
   CBOR: RFC8949
   CDDL: RFC8610
   JSON: RFC8259
@@ -45,6 +36,8 @@ informative:
   GZIP: RFC1952
   Brotli: RFC7932
 
+
+informative:
 
 --- abstract
 
@@ -101,12 +94,12 @@ On a high level, the Key Value Service adheres to the following communication pr
 The Key Value Service uses [HPKE] with the following configuration for encryption:
 
 -   KEM (Key encapsulation mechanisms): 0x0020 DHKEM(X25519, HKDF-SHA256), see
-    {{Section 1 of RFC9180}}
--   KDF (key derivation functions): 0x0001 HKDF-SHA256, see {{Section 7.2 of RFC9180}}
+    {{Section 1 of HPKE}}
+-   KDF (key derivation functions): 0x0001 HKDF-SHA256, see {{Section 7.2 of HPKE}}
 -   AEAD (Authenticated Encryption with Associated Data): AES-256-GCM, see
-    {{Section 7.3 of RFC9180}}
+    {{Section 7.3 of HPKE}}
 
-The server is repurposing the [OHTTP] encapsulation mechanism ({{Section 4.6 of RFC9458}}), new
+The server is repurposing the [OHTTP] encapsulation mechanism ({{Section 4.6 of OHTTP}}), new
 media types need to be defined:
 
 -   The OHTTP request media type is `message/ad-auction-trusted-signals-request`
@@ -169,7 +162,7 @@ Requests are not compressed and have a tree-like hierarchy:
 ### Encryption {#request-encryption}
 
 The request is encrypted with [HPKE]. The request uses a repurposed [OHTTP] encapsulation format
-(see {{Section 4.3 of RFC9458}} and {{Section 4.6 of RFC9458}}) with a
+(see {{Section 4.3 of OHTTP}} and {{Section 4.6 of OHTTP}}) with a
 `message/ad-auction-trusted-signals-request` media type instead of `message/bhttp request`.
 
 ### Request Schema {#request-schema}
@@ -336,7 +329,7 @@ as specified in the request.
 ### Encryption {#response-encryption}
 
 The response uses the a similar encapsulated response format to that used by [OHTTP] (see
-{{Section 4.4 of RFC9458}}), but with the custom `message/ad-auction-trusted-signals-request`
+{{Section 4.4 of OHTTP}}), but with the custom `message/ad-auction-trusted-signals-request`
 media type instead of `message/bhttp response`
 
 ### Response Schema {#response-schema}
@@ -395,8 +388,8 @@ keyValue = {
 
 #### Example Compression Group
 
-The [CBOR] representation consists of the following item, represented using the extended diagnostic
-notation from [CDDL] appendix G:
+The [CBOR] representation consists of the following item, represented
+using the extended diagnostic notation from [CDDL] appendix G:
 
 ~~~~~ cbor-diag
 [
@@ -433,16 +426,20 @@ notation from [CDDL] appendix G:
 
 ### Structured keys response specification
 
-Structured keys are keys that the browser is aware of and the browser can use the response to do
-additional processing. The value of these keys must abide by the following schema for the browser to
+Structured keys are keys that the browser is aware of and the browser
+can use the response to do
+additional processing. The value of these keys must abide by the
+following schema for the browser to
 successfully parse them.
 
 Note that they must be serialized to string when stored as the value.
 
 #### InterestGroupResponse
 
-The schema below is defined following the spec by https://json-schema.org. For values for keys
-from the `interestGroupNames` namespace, they must conform to the following schema, prior to being
+The schema below is defined following the spec by
+https://json-schema.org. For values for keys
+from the `interestGroupNames` namespace, they must conform to the
+following schema, prior to being
 serialized to string.
 
 ~~~~~ json
