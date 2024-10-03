@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-01T01:21:50.691770+00:00",
+  "timestamp": "2024-10-03T01:15:06.947107+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -50,5 +50,32 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOMnZLYc59apvN",
+      "title": "Update initial draft",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/1",
+      "state": "OPEN",
+      "author": "lusayaa",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-02T19:05:15Z",
+      "updatedAt": "2024-10-02T20:33:21Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "a0519f89956cf539ba3e8f0fbfb881f0ea3a5cbe",
+      "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "main",
+      "headRefOid": "27e0ec82906eab3cd9b62ab05d61c24f49faa66e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
