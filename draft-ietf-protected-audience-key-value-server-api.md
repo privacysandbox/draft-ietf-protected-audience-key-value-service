@@ -54,11 +54,17 @@ The Key Value Service provides real-time signals to ad auctions while preserving
 
 # Introduction
 
-Protected Audience is a privacy-preserving API that facilitates interest group based advertising.
-Key Value Servers in Protected Audience are used to add real-time signals into ad selection for both
-buyers and sellers. The Protected Audience proposal specifies that these servers should provide
-basic key-value lookups to facilitate fetching these signals but do no event-level logging or have
-other side effects.
+Protected Audience is a privacy advancing API that facilitates
+interest group based advertising.
+Key Value Servers in Protected Audience are used to add
+real-time signals into ad selection for both buyers and sellers.
+The Protected Audience proposal leverages Key Value
+servers to incorporate real-time signals into ad selection.
+These servers utilize User-Defined Functions (UDFs) to
+provide a flexible mechanism for fetching and processing data.
+While event-level logging is explicitly prohibited, the servers
+may have operational side effects like monitoring to ensure
+security and prevent abuse.
 
 ## Scope
 
