@@ -86,7 +86,7 @@ Responses.
 On a high level, the Key Value Service adheres to the following communication protocol:
 
 -   Data is transmitted over HTTPS using the `POST` method.
--   Data within the request and response is encrypted with [HPKE] using [OHTTP].
+-   Data within the request and response is encrypted with [HPKE].
 -   The core request and response data is in [CBOR].
 
 ### Encryption {#encryption}
