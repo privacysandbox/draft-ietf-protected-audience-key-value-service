@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-03T01:15:06.947107+00:00",
+  "timestamp": "2024-10-06T01:20:06.918637+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -58,24 +58,118 @@
       "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/1",
       "state": "OPEN",
       "author": "lusayaa",
-      "authorAssociation": "NONE",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-10-02T19:05:15Z",
-      "updatedAt": "2024-10-02T20:33:21Z",
+      "updatedAt": "2024-10-04T16:38:32Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "a0519f89956cf539ba3e8f0fbfb881f0ea3a5cbe",
       "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
       "headRefName": "main",
-      "headRefOid": "27e0ec82906eab3cd9b62ab05d61c24f49faa66e",
+      "headRefOid": "d1bbfa3deddeccb8217f2d85f8a17cb6148bda6b",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMnZLYc6Lz3I-",
+          "commit": {
+            "abbreviatedOid": "27e0ec8"
+          },
+          "author": "lx3-g",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-03T13:29:47Z",
+          "updatedAt": "2024-10-03T13:29:47Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6L2lQl",
+          "commit": {
+            "abbreviatedOid": "022e163"
+          },
+          "author": "brusshamilton",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-03T17:52:01Z",
+          "updatedAt": "2024-10-03T17:52:01Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "Why are all of these under \"informative\" references? Informative references are used in explanations of use cases and applications. They are not supposed to describe how to implement parts of a standard. The ones listed below also seem essential to describing the standard, so they should be normative references. Perhaps just replace the current \"normative\" references with these references and leave \"informative\" empty.",
+              "createdAt": "2024-10-03T17:52:01Z",
+              "updatedAt": "2024-10-03T17:52:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6L3tqj",
+          "commit": {
+            "abbreviatedOid": "022e163"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-03T20:28:20Z",
+          "updatedAt": "2024-10-03T20:28:20Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "Done.",
+              "createdAt": "2024-10-03T20:28:20Z",
+              "updatedAt": "2024-10-03T20:28:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6L4Idh",
+          "commit": {
+            "abbreviatedOid": "022e163"
+          },
+          "author": "brusshamilton",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-03T21:44:31Z",
+          "updatedAt": "2024-10-03T21:44:31Z",
+          "comments": [
+            {
+              "originalPosition": 135,
+              "body": "We're not using [OHTTP]. ",
+              "createdAt": "2024-10-03T21:44:31Z",
+              "updatedAt": "2024-10-03T21:44:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6L-yc1",
+          "commit": {
+            "abbreviatedOid": "022e163"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-04T16:38:32Z",
+          "updatedAt": "2024-10-04T16:38:32Z",
+          "comments": [
+            {
+              "originalPosition": 135,
+              "body": "Done.",
+              "createdAt": "2024-10-04T16:38:32Z",
+              "updatedAt": "2024-10-04T16:38:32Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
