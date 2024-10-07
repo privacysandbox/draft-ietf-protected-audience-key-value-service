@@ -3,7 +3,7 @@ coding: utf-8
 
 title: Protected Audience Key Value Services
 abbrev: "KV Services"
-docname: draft-ietf-protected-audience-key-value-server-api-latest
+docname: draft-ietf-protected-audience-key-value-services-latest
 category: std
 submissionType: IETF
 
@@ -122,12 +122,15 @@ Before encryption and after decryption, the requests and responses have the foll
 
 The request/response is framed with this 5 byte header.
 
-The first byte is the format+compression byte. The lower 2 bits specify the format and compression.
+The first byte is the format+compression byte. The lower 2 bits specify the format and compression ({{compression}}).
 The higher 6 bits are currently unused.
 
 The following 4 bytes are the length of the request message in network byte order.
 
 Then the request is zero padded to a set of pre-configured lengths.
+Padding is applied with sizes as multiples of 2^n KBs ranging from 0 to 2MB. So the valid response
+sizes will be `[0, 128B, 256B, 512B, 1KB, 2KB, 4KB, 8KB, 16KB, 32KB, 64KB, 128KB, 256KB, 512KB, 1MB,
+2MB]`.
 
 ### Format+compression byte {#compression}
 
@@ -138,13 +141,7 @@ Then the request is zero padded to a set of pre-configured lengths.
 |    0x02     | [CBOR], compressed in [GZIP]   |
 
 For requests, the byte value is 0x00. For responses, the byte value depends on the
-`acceptCompression` field in the request and the server behavior.
-
-### Padding {#padding}
-
-Padding is applied with sizes as multiples of 2^n KBs ranging from 0 to 2MB. So the valid response
-sizes will be `[0, 128B, 256B, 512B, 1KB, 2KB, 4KB, 8KB, 16KB, 32KB, 64KB, 128KB, 256KB, 512KB, 1MB,
-2MB]`.
+`acceptCompression` (see {{request-schema}}) field in the request and the server behavior.
 
 ## Core Request Data {#request}
 
@@ -153,14 +150,14 @@ Requests are not compressed and have a tree-like hierarchy:
 -   Each request contains one or more partitions. Each partition is a collection of keys that can be
     processed together by the service without any potential privacy leakage. Keys from one interest
     group must be in the same partition. Keys from different interest groups with the same joining
-    site may or may not be in the same partition.
+    site (see https://wicg.github.io/turtledove/#joining-interest-groups) may or may not be in the same partition.
 -   Each partition contains one or more key groups. Each key group has its unique attributes among
     all key groups in the partition. The attributes are represented by a list of `tags`. Besides
     tags, the key group contains a list of keys to look up.
 -   Each partition has a unique id.
 -   Each partition has a compression group field. Results of partitions belonging to the same
     compression group can be compressed together in the response. Different compression groups must
-    be compressed separately. See more details below.
+    be compressed separately (see {{compression-group}}).
 
 ### Encryption {#request-encryption}
 
@@ -175,7 +172,7 @@ The request is a [CBOR] encoded message with the following [CDDL] schema:
 ~~~~~ cddl
 request = {
     ? acceptCompression: [* tstr],
-    ; must contain at least one of none, gzip, brotli
+    ; must contain at least one of "none", "gzip", "brotli"
     partitions: [* partition],
     ; A list of partitions. Each must be processed independently. Accessible by UDF.
 }
@@ -332,7 +329,7 @@ as specified in the request.
 ### Encryption {#response-encryption}
 
 The response uses the a similar encapsulated response format to that used by [OHTTP] (see
-{{Section 4.4 of OHTTP}}), but with the custom `message/ad-auction-trusted-signals-request`
+{{Section 4.4 of OHTTP}}), but with the custom `message/ad-auction-trusted-signals-response`
 media type instead of `message/bhttp response`
 
 ### Response Schema {#response-schema}
