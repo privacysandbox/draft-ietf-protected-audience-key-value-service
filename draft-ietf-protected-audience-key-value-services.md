@@ -498,11 +498,11 @@ The output is a `response` to be sent to a Client.
     1. Set the `framing header` `Size` to the size of `compressed payload`.
     1. Let `framed payload` equal the result of prepending the framing header to
        `compressed payload`.
-    1. Padding MAY be added to `framing header`, as described in {{padding}}.
-    1. Return an empty `response` on failure of any of the previous steps.
-1. Let `response` equal the result of the encryption and encapsulation of `framed payload` with
+    2. Padding MAY be added to `framing header`.
+    3. Return an empty `response` on failure of any of the previous steps.
+2. Let `response` equal the result of the encryption and encapsulation of `framed payload` with
    `rctxt`, as described in {{response-encryption}}. Return an empty `response` on failure.
-1. Return `response`.
+3. Return `response`.
 
 ### Parsing a Response
 
