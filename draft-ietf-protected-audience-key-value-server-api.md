@@ -1,8 +1,8 @@
 ---
 coding: utf-8
 
-title: "Protected Audience Key Value Service APIs"
-abbrev: "KV Servers APIs"
+title: Protected Audience Key Value Services
+abbrev: "KV Services"
 docname: draft-ietf-protected-audience-key-value-server-api-latest
 category: std
 submissionType: IETF
@@ -49,11 +49,11 @@ The Key Value Service provides real-time signals to ad auctions while preserving
 
 Protected Audience is a privacy advancing API that facilitates
 interest group based advertising.
-Key Value Servers in Protected Audience are used to add
-real-time signals into ad selection for both buyers and sellers.
+Key Value Services are used by Protected Audience to provide
+real-time signals to buyers and sellers during ad selection.
 The Protected Audience proposal leverages Key Value
-servers to incorporate real-time signals into ad selection.
-These servers utilize User-Defined Functions (UDFs) to
+services to incorporate real-time signals into ad selection.
+These services utilize User-Defined Functions (UDFs) to
 provide a flexible mechanism for fetching and processing data.
 While event-level logging is explicitly prohibited, the servers
 may have operational side effects like monitoring to ensure
@@ -83,11 +83,14 @@ Responses.
 
 ## Overview
 
-On a high level, the Key Value Service adheres to the following communication protocol:
+To understand this document, it is important to know that the
+communication between the client and the remote services uses a
+request-response message exchange pattern.
+On a high level, these request and response messages adhere to the following communication protocol:
 
 -   Data is transmitted over HTTPS using the `POST` method.
 -   Data within the request and response is encrypted with [HPKE].
--   The core request and response data is in [CBOR].
+-   The core request and response data is encoded using [CBOR].
 
 ### Encryption {#encryption}
 
@@ -109,7 +112,7 @@ These media types are concatenated with other fields when creating the [HPKE] en
 
 ### Message Framing {#framing}
 
-Inside the ciphertext, the requests and responses have the following framing:
+Before encryption and after decryption, the requests and responses have the following framing:
 
 | Byte     | 0         | 0             | 1 to 4   | 5 to Size+4       | Size+5 to end   |
 | -------- | --------- | ------------- | -------- | ----------------- | --------------- |
@@ -117,10 +120,10 @@ Inside the ciphertext, the requests and responses have the following framing:
 | -------- | --------- | ------------- | -------- | ----------------- | --------------- |
 | Contents | Unused    | Compression   | Size     | Request Payload   | Padding         |
 
-The request/response is framed with a 5 byte header.
+The request/response is framed with this 5 byte header.
 
-The first byte is the format+compression byte. The lower 2 bits are used for compression
-specification. The higher 6 bits are currently unused.
+The first byte is the format+compression byte. The lower 2 bits specify the format and compression.
+The higher 6 bits are currently unused.
 
 The following 4 bytes are the length of the request message in network byte order.
 
