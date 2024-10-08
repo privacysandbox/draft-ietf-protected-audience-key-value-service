@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-06T01:20:06.918637+00:00",
+  "timestamp": "2024-10-08T01:14:54.615535+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -63,13 +63,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-10-02T19:05:15Z",
-      "updatedAt": "2024-10-04T16:38:32Z",
+      "updatedAt": "2024-10-07T19:20:59Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "a0519f89956cf539ba3e8f0fbfb881f0ea3a5cbe",
       "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
       "headRefName": "main",
-      "headRefOid": "d1bbfa3deddeccb8217f2d85f8a17cb6148bda6b",
+      "headRefOid": "1e51780323c8197ddadb7da0af1bf69e1d82c52e",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -166,6 +166,306 @@
               "body": "Done.",
               "createdAt": "2024-10-04T16:38:32Z",
               "updatedAt": "2024-10-04T16:38:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MNzen",
+          "commit": {
+            "abbreviatedOid": "d1bbfa3"
+          },
+          "author": "JensenPaul",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T16:24:34Z",
+          "updatedAt": "2024-10-07T17:42:33Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\ntitle: Protected Audience Key Value Services\r\n```",
+              "createdAt": "2024-10-07T16:24:34Z",
+              "updatedAt": "2024-10-07T17:42:33Z"
+            },
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nabbrev: \"KV Services\"\r\n```",
+              "createdAt": "2024-10-07T16:24:53Z",
+              "updatedAt": "2024-10-07T17:42:33Z"
+            },
+            {
+              "originalPosition": 7,
+              "body": "Hmm should we change \"server-api\" to \"services\" here and in the file name and in README.md?",
+              "createdAt": "2024-10-07T16:26:25Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 80,
+              "body": "```suggestion\r\nKey Value Services are used by Protected Audience to provide\r\nreal-time signals to buyers and sellers during ad selection.\r\n```",
+              "createdAt": "2024-10-07T16:31:19Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 82,
+              "body": "```suggestion\r\nservices to incorporate real-time signals into ad selection.\r\n```",
+              "createdAt": "2024-10-07T16:31:44Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 83,
+              "body": "```suggestion\r\nThese services utilize User-Defined Functions (UDFs) to\r\n```",
+              "createdAt": "2024-10-07T16:33:37Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 128,
+              "body": "```suggestion\r\n-   The core request and response data is encoded using [CBOR].\r\n```",
+              "createdAt": "2024-10-07T16:34:35Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 123,
+              "body": "```suggestion\r\n\r\nTo understand this document, it is important to know that the\r\ncommunication between the client and the remote services uses a\r\nrequest-response message exchange pattern.\r\n```",
+              "createdAt": "2024-10-07T16:36:00Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 124,
+              "body": "```suggestion\r\nOn a high level, these request and response messages adhere to the following communication protocol:\r\n```",
+              "createdAt": "2024-10-07T16:37:00Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 158,
+              "body": "```suggestion\r\nThe request/response is framed with this 5 byte header.\r\n```",
+              "createdAt": "2024-10-07T16:49:48Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 150,
+              "body": "```suggestion\r\nBefore encryption and after decryption, the requests and responses have the following framing:\r\n```",
+              "createdAt": "2024-10-07T16:53:39Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 156,
+              "body": "I think we should use some bits to specify a version number, like B&A does.",
+              "createdAt": "2024-10-07T17:01:31Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 161,
+              "body": "```suggestion\r\nThe first byte is the format+compression byte. The lower 2 bits specify the format and compression.\r\nThe higher 6 bits are currently unused.\r\n```",
+              "createdAt": "2024-10-07T17:02:41Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 160,
+              "body": "This should link to the #compression section.",
+              "createdAt": "2024-10-07T17:05:02Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 165,
+              "body": "This should link to the #padding section.",
+              "createdAt": "2024-10-07T17:05:25Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 176,
+              "body": "Can we link this to the definition of acceptCompression?",
+              "createdAt": "2024-10-07T17:06:29Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 178,
+              "body": "Can we move this sentence into another section?  I don't think it makes sense to have a one sentence section. \r\n Preferably move it alongside where we specify how padding is done, like line 127.",
+              "createdAt": "2024-10-07T17:15:03Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 190,
+              "body": "I think we need to explain or link to definitions of \"interest group\" and \"joining site\" here.",
+              "createdAt": "2024-10-07T17:36:40Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 198,
+              "body": "Can we link \"See more details below\" to the details?",
+              "createdAt": "2024-10-07T17:37:28Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 215,
+              "body": "if \"none\" is a string, we should put quotes around none, gzip, and brotli",
+              "createdAt": "2024-10-07T17:38:37Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            },
+            {
+              "originalPosition": 307,
+              "body": "Should the response have the response media type? not request?",
+              "createdAt": "2024-10-07T17:41:05Z",
+              "updatedAt": "2024-10-07T17:42:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MO88i",
+          "commit": {
+            "abbreviatedOid": "d1bbfa3"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T19:07:27Z",
+          "updatedAt": "2024-10-07T19:07:27Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "updated",
+              "createdAt": "2024-10-07T19:07:27Z",
+              "updatedAt": "2024-10-07T19:07:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MO9AM",
+          "commit": {
+            "abbreviatedOid": "d1bbfa3"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T19:07:35Z",
+          "updatedAt": "2024-10-07T19:07:35Z",
+          "comments": [
+            {
+              "originalPosition": 178,
+              "body": "Done.",
+              "createdAt": "2024-10-07T19:07:35Z",
+              "updatedAt": "2024-10-07T19:07:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MO9DE",
+          "commit": {
+            "abbreviatedOid": "d1bbfa3"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T19:07:41Z",
+          "updatedAt": "2024-10-07T19:07:41Z",
+          "comments": [
+            {
+              "originalPosition": 190,
+              "body": "Done.",
+              "createdAt": "2024-10-07T19:07:41Z",
+              "updatedAt": "2024-10-07T19:07:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MO9GQ",
+          "commit": {
+            "abbreviatedOid": "d1bbfa3"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T19:07:46Z",
+          "updatedAt": "2024-10-07T19:07:47Z",
+          "comments": [
+            {
+              "originalPosition": 198,
+              "body": "Done.",
+              "createdAt": "2024-10-07T19:07:47Z",
+              "updatedAt": "2024-10-07T19:07:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MO9I0",
+          "commit": {
+            "abbreviatedOid": "d1bbfa3"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T19:07:52Z",
+          "updatedAt": "2024-10-07T19:07:52Z",
+          "comments": [
+            {
+              "originalPosition": 215,
+              "body": "Done.",
+              "createdAt": "2024-10-07T19:07:52Z",
+              "updatedAt": "2024-10-07T19:07:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MO9L3",
+          "commit": {
+            "abbreviatedOid": "d1bbfa3"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T19:07:59Z",
+          "updatedAt": "2024-10-07T19:07:59Z",
+          "comments": [
+            {
+              "originalPosition": 307,
+              "body": "Done.",
+              "createdAt": "2024-10-07T19:07:59Z",
+              "updatedAt": "2024-10-07T19:07:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MO-J6",
+          "commit": {
+            "abbreviatedOid": "d1bbfa3"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T19:10:01Z",
+          "updatedAt": "2024-10-07T19:10:01Z",
+          "comments": [
+            {
+              "originalPosition": 160,
+              "body": "Done.",
+              "createdAt": "2024-10-07T19:10:01Z",
+              "updatedAt": "2024-10-07T19:10:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MO_CF",
+          "commit": {
+            "abbreviatedOid": "d1bbfa3"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T19:11:58Z",
+          "updatedAt": "2024-10-07T19:11:58Z",
+          "comments": [
+            {
+              "originalPosition": 156,
+              "body": "I'd like to resolve this for now and if we do decide to add it, I'll do that in a follow-up",
+              "createdAt": "2024-10-07T19:11:58Z",
+              "updatedAt": "2024-10-07T19:11:58Z"
             }
           ]
         }
