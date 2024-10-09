@@ -50,7 +50,7 @@ The Key Value Service provides real-time signals to ad auctions while preserving
 Protected Audience is a privacy advancing API that facilitates
 interest group based advertising.
 Key Value Services are used by Protected Audience to provide
-real-time signals to buyers and sellers during ad selection.
+real-time signals to buyers and sellers during auctions performing ad selection.
 The Protected Audience proposal leverages Key Value
 services to incorporate real-time signals into ad selection.
 These services utilize User-Defined Functions (UDFs) to
@@ -172,14 +172,14 @@ The request is a [CBOR] encoded message with the following [CDDL] schema:
 ~~~~~ cddl
 request = {
     ? acceptCompression: [* tstr],
-    ; must contain at least one of "none", "gzip", "brotli"
+    ; A list of supported response compression algorithms; must contain at least one of "none", "gzip", "brotli"
     partitions: [* partition],
     ; A list of partitions. Each must be processed independently. Accessible by UDF.
 }
 
 partition = {
     id: uint,
-    ; Unique id of the partition in this request
+    ; Unique id of the partition in this request. Used by responses to refer to request partitions.
     compressionGroupId: uint,
     ; Unique id of a compression group in this request. Only partitions belonging to the same compression group will be compressed together in the response
     ? metadata: partitionMetadata,
@@ -426,10 +426,10 @@ using the extended diagnostic notation from [CDDL] appendix G:
 
 ### Structured keys response specification
 
-Structured keys are keys that the browser is aware of and the browser
+Structured keys are keys that the client is aware of and the client
 can use the response to do
 additional processing. The value of these keys must abide by the
-following schema for the browser to
+following schema for the client to
 successfully parse them.
 
 Note that they must be serialized to string when stored as the value.
