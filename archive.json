@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-08T01:14:54.615535+00:00",
+  "timestamp": "2024-10-10T01:14:31.178886+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -63,13 +63,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-10-02T19:05:15Z",
-      "updatedAt": "2024-10-07T19:20:59Z",
+      "updatedAt": "2024-10-09T17:47:07Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "a0519f89956cf539ba3e8f0fbfb881f0ea3a5cbe",
       "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
       "headRefName": "main",
-      "headRefOid": "1e51780323c8197ddadb7da0af1bf69e1d82c52e",
+      "headRefOid": "e95b4e4d6475f215d236e0589a7ad9bc637bfe15",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -466,6 +466,56 @@
               "body": "I'd like to resolve this for now and if we do decide to add it, I'll do that in a follow-up",
               "createdAt": "2024-10-07T19:11:58Z",
               "updatedAt": "2024-10-07T19:11:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MiLc-",
+          "commit": {
+            "abbreviatedOid": "1e51780"
+          },
+          "author": "JensenPaul",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-09T17:25:21Z",
+          "updatedAt": "2024-10-09T17:46:16Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "I feel like we should link to the Protected Audience spec",
+              "createdAt": "2024-10-09T17:25:21Z",
+              "updatedAt": "2024-10-09T17:46:16Z"
+            },
+            {
+              "originalPosition": 53,
+              "body": "```suggestion\r\nreal-time signals to buyers and sellers during auctions performing ad selection.\r\n```",
+              "createdAt": "2024-10-09T17:25:44Z",
+              "updatedAt": "2024-10-09T17:46:16Z"
+            },
+            {
+              "originalPosition": 66,
+              "body": "Should this also link to the PA spec?",
+              "createdAt": "2024-10-09T17:26:22Z",
+              "updatedAt": "2024-10-09T17:46:16Z"
+            },
+            {
+              "originalPosition": 432,
+              "body": "```suggestion\r\nStructured keys are keys that the client is aware of and the client\r\ncan use the response to do\r\nadditional processing. The value of these keys must abide by the\r\nfollowing schema for the client to\r\n```",
+              "createdAt": "2024-10-09T17:27:15Z",
+              "updatedAt": "2024-10-09T17:46:16Z"
+            },
+            {
+              "originalPosition": 175,
+              "body": "```suggestion\r\n    ; A list of supported response compression algorithms; must contain at least one of \"none\", \"gzip\", \"brotli\"\r\n```",
+              "createdAt": "2024-10-09T17:28:20Z",
+              "updatedAt": "2024-10-09T17:46:16Z"
+            },
+            {
+              "originalPosition": 182,
+              "body": "```suggestion\r\n    ; Unique id of the partition in this request. Used by responses to refer to request partitions.\r\n```",
+              "createdAt": "2024-10-09T17:29:15Z",
+              "updatedAt": "2024-10-09T17:46:16Z"
             }
           ]
         }
