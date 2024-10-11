@@ -47,14 +47,14 @@ The Key Value Service provides real-time signals to ad auctions while preserving
 
 # Introduction
 
-[Protected Audience](https://wicg.github.io/turtledove/) is a privacy advancing API that facilitates
-interest group based advertising.
+[Protected Audience](https://wicg.github.io/turtledove/) is a privacy advancing API that serves
+remarketing and custom audiences use cases.
 Key Value Services are TEE based Key/Value databases that can be used to store
 and integrate real-time data into Protected Audiences Auctions. The Protected
 Audience proposal leverages Key Value Services to incorporate real-time signals
-into ad selection for both buyers and sellers. These servers provide a
+into ad selection for both buyers and sellers. These services provide a
 flexible mechanism for fetching and processing data. While event-level logging
-is explicitly prohibited, the servers may have operational side effects like
+is explicitly prohibited, the services may have operational side effects like
 monitoring to ensure security and prevent abuse.
 
 ## Scope
