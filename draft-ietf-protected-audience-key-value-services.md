@@ -22,12 +22,16 @@ author:
     organization: Google
     email: peiwenhu@google.com
  -
-    ins: B. R. Hamilton
-    name: Benjamin "Russ" Hamilton
+    name: Tianyang Xu
     organization: Google
-    email: behamilton@google.com
+    email: xtlsheep@google.com
+ -
+    name: Lusa Zhan
+    organization: Google
+    email: lusazhan@google.com
 
 normative:
+  HTTPS: RFC2818
   CBOR: RFC8949
   CDDL: RFC8610
   JSON: RFC8259
@@ -41,7 +45,7 @@ informative:
 
 --- abstract
 
-The Key Value Service provides real-time signals to ad auctions while preserving user privacy.
+This document specifies a protocol for a Key Value Service that can serve data with low latency and no side effects. The data served can be used by clients for advertisement selection. The lack of side effects advances user privacy.
 
 --- middle
 
@@ -49,7 +53,7 @@ The Key Value Service provides real-time signals to ad auctions while preserving
 
 [Protected Audience](https://wicg.github.io/turtledove/) is a privacy advancing API that serves
 remarketing and custom audiences use cases.
-Key Value Services are TEE based Key/Value databases that can be used to store
+Key Value Services are trusted execution environment (TEE) based Key/Value databases that can be used to store
 and integrate real-time data into Protected Audiences Auctions. The Protected
 Audience proposal leverages Key Value Services to incorporate real-time signals
 into ad selection for both buyers and sellers. These services provide a
@@ -86,7 +90,7 @@ communication between the client and the remote services uses a
 request-response message exchange pattern.
 On a high level, these request and response messages adhere to the following communication protocol:
 
--   Data is transmitted over HTTPS using the `POST` method.
+-   Data is transmitted over [HTTPS] using the `POST` method.
 -   Data within the request and response is encrypted with [HPKE].
 -   The core request and response data is encoded using [CBOR].
 
@@ -94,19 +98,11 @@ On a high level, these request and response messages adhere to the following com
 
 The Key Value Service uses [HPKE] with the following configuration for encryption:
 
--   KEM (Key encapsulation mechanisms): 0x0020 DHKEM(X25519, HKDF-SHA256), see
-    {{Section 1 of HPKE}}
--   KDF (key derivation functions): 0x0001 HKDF-SHA256, see {{Section 7.2 of HPKE}}
--   AEAD (Authenticated Encryption with Associated Data): AES-256-GCM, see
+-   HPKE KEM ID (Key encapsulation mechanisms):
+    0x0020 DHKEM(X25519, HKDF-SHA256), see {{Section 1 of HPKE}}
+-   HPKE KDF ID (key derivation functions): 0x0001 HKDF-SHA256, see {{Section 7.2 of HPKE}}
+-   HPKE AEAD ID (Authenticated Encryption with Associated Data): AES-256-GCM, see
     {{Section 7.3 of HPKE}}
-
-The server is repurposing the [OHTTP] encapsulation mechanism ({{Section 4.6 of OHTTP}}), new
-media types need to be defined:
-
--   The OHTTP request media type is `message/ad-auction-trusted-signals-request`
--   The OHTTP response media type is `message/ad-auction-trusted-signals-response`
-
-These media types are concatenated with other fields when creating the [HPKE] encryption context.
 
 ### Message Framing {#framing}
 
@@ -116,7 +112,7 @@ Before encryption and after decryption, the requests and responses have the foll
 | -------- | --------- | ------------- | -------- | ----------------- | --------------- |
 | Bits     | 7-2       | 1-0           | \*       | \*                | \*              |
 | -------- | --------- | ------------- | -------- | ----------------- | --------------- |
-| Contents | Unused    | Compression   | Size     | Request Payload   | Padding         |
+| Contents | Unused    | Compression   | Size     | Payload           | Padding         |
 
 The request/response is framed with this 5 byte header.
 
@@ -125,10 +121,8 @@ The higher 6 bits are currently unused.
 
 The following 4 bytes are the length of the request message in network byte order.
 
-Then the request is zero padded to a set of pre-configured lengths.
-Padding is applied with sizes as multiples of 2^n KBs ranging from 0 to 2MB. So the valid response
-sizes will be `[0, 128B, 256B, 512B, 1KB, 2KB, 4KB, 8KB, 16KB, 32KB, 64KB, 128KB, 256KB, 512KB, 1MB,
-2MB]`.
+Padding is applied differently for request and response and will be discussed in the respective
+sections.
 
 ### Format+compression byte {#compression}
 
@@ -137,42 +131,146 @@ sizes will be `[0, 128B, 256B, 512B, 1KB, 2KB, 4KB, 8KB, 16KB, 32KB, 64KB, 128KB
 |    0x00     | [CBOR], no compression         |
 |    0x01     | [CBOR], compressed in [Brotli] |
 |    0x02     | [CBOR], compressed in [GZIP]   |
+|    0x03     | Reserved                       |
 
-For requests, the byte value is 0x00. For responses, the byte value depends on the
-`acceptCompression` (see {{request-schema}}) field in the request and the server behavior.
+Requests are always uncompressed so the Format+compression byte is 0x00.
 
-## Core Request Data {#request}
+For responses, the byte value depends on the `acceptCompression` field
+(see {{request-schema}}) in the request and the server behavior.
+
+## Request Data {#request}
 
 Requests are not compressed and have a tree-like hierarchy:
 
--   Each request contains one or more partitions. Each partition is a collection of keys that can be
-    processed together by the service without any potential privacy leakage. Keys from one interest
-    group must be in the same partition. Keys from different interest groups with the same joining
-    site (see https://wicg.github.io/turtledove/#joining-interest-groups) may or may not be in the same partition.
--   Each partition contains one or more key groups. Each key group has its unique attributes among
-    all key groups in the partition. The attributes are represented by a list of `tags`. Besides
-    tags, the key group contains a list of keys to look up.
--   Each partition has a unique id.
--   Each partition has a compression group field. Results of partitions belonging to the same
-    compression group can be compressed together in the response. Different compression groups must
-    be compressed separately (see {{compression-group}}).
+-   Each request contains one or more partitions. Each partition is a collection of keys that SHALL
+    be processed together by the service. Keys from separate partitions MUST NOT be processed together by the service.
+-   Each partition contains one or more key groups.
+    Each key group contains a list of `tags` set by the client.
+    Each key group contains a list of keys to be looked up in the service's internal datastore.
+-   Each partition has a unique identifier.
+    This allows the client to match the request partition with the corresponding
+    `partitionOutput` (see {{compression-group}}) in the response.
+-   Each partition has a compression group field.
+    Results of partitions belonging to the same compression group can be compressed together
+    in the response.
+    Different compression groups must be compressed separately (see {{compression-group}}).
 
 ### Encryption {#request-encryption}
 
-The request is encrypted with [HPKE]. The request uses a repurposed [OHTTP] encapsulation format
-(see {{Section 4.3 of OHTTP}} and {{Section 4.6 of OHTTP}}) with a
-`message/ad-auction-trusted-signals-request` media type instead of `message/bhttp request`.
+The request is encrypted with [HPKE] with the configuration specified at {{encryption}}.
+
+The request uses a similar encapsulated message format to that used by [OHTTP].
+
+~~~~~
+Encapsulated Request {
+  Key Identifier (8),
+  HPKE KEM ID (16),
+  HPKE KDF ID (16),
+  HPKE AEAD ID (16),
+  Encapsulated KEM Shared Secret (8 * Nenc),
+  HPKE-Protected Request (..),
+}
+~~~~~
+
+The service uses a repurposed [OHTTP] encapsulation mechanism (see {{Section 4.6 of OHTTP}})
+for which it defines a new `message/ad-auction-trusted-signals-request` media type.
+
+Request encapsulation is similar to {{Section 4.3 of OHTTP}}, only with the
+`message/ad-auction-trusted-signals-request` media type:
+
+1. Construct a message header (`hdr`) by concatenating the values of the
+   `Key Identifier`, `HPKE KEM ID`, `HPKE KDF ID`, and `HPKE AEAD ID` in network
+   byte order.
+2. Build a sequence of bytes (`info`) by concatenating the ASCII-encoded string
+   "message/ad-auction-trusted-signals-request", a zero byte, and `hdr`.
+3. Create a sending HPKE context by invoking `SetupBaseS()`
+   ([Section 5.1.1](https://rfc-editor.org/rfc/rfc9180#section-5.1.1) of [HPKE])
+   with the public key of the receiver `pkR` and `info`. This yields the context
+   `sctxt` and an encapsulation key `enc`.
+4. Encrypt `request` by invoking the `Seal()` method on `sctxt`
+   ([Section 5.2](https://rfc-editor.org/rfc/rfc9180#section-5.2) of [HPKE])
+   with empty associated data `aad`, yielding ciphertext `ct`.
+5. Concatenate the values of `hdr`, `enc`, and `ct`.
+
+In pseudocode, this procedure is as follows:
+
+~~~~~
+hdr = concat(encode(1, key_id),
+             encode(2, kem_id),
+             encode(2, kdf_id),
+             encode(2, aead_id))
+info = concat(encode_str("message/ad-auction-trusted-signals-request"),
+              encode(1, 0),
+              hdr)
+enc, sctxt = SetupBaseS(pkR, info)
+ct = sctxt.Seal("", request)
+enc_request = concat(hdr, enc, ct)
+~~~~~
+
+A Key Value Service endpoint decrypts this encapsulated message in a
+similar manner to [OHTTP]
+[Section 4.3](https://www.rfc-editor.org/rfc/rfc9458#name-encapsulation-of-requests),
+or more explicitly as follows:
+
+1. Parse `enc_request` into `key_id`, `kem_id`, `kdf_id`, `aead_id`,
+   `enc`, and `ct`.
+2. Find the matching HPKE private key, `skR`, corresponding to `key_id`. If
+   there is no matching key, return an error.
+3. Build a sequence of bytes (`info`) by concatenating the ASCII-encoded string
+   "message/ad-auction-trusted-signals-request"; a zero byte;
+   `key_id` as an 8-bit integer; plus
+   `kem_id`, `kdf_id`, and `aead_id` as three 16-bit integers.
+4. Create a receiving HPKE context, `rctxt`, by invoking `SetupBaseR()`
+   ([Section 5.1.1](https://rfc-editor.org/rfc/rfc9180#section-5.1.1) of [HPKE])
+   with `skR`, `enc`, and `info`.
+5. Decrypt `ct` by invoking the `Open()` method on `rctxt`
+   ([Section 5.2](https://rfc-editor.org/rfc/rfc9180#section-5.2) of [HPKE]),
+   with an empty associated data `aad`, yielding `request` and returning an
+   error on failure.
+
+In pseudocode, this procedure is as follows:
+
+~~~~~
+key_id, kem_id, kdf_id, aead_id, enc, ct = parse(enc_request)
+if version != 0 then return error
+info = concat(encode_str("message/ad-auction-trusted-signals-request"),
+              encode(1, 0),
+              encode(1, key_id),
+              encode(2, kem_id),
+              encode(2, kdf_id),
+              encode(2, aead_id))
+rctxt = SetupBaseR(enc, skR, info)
+request, error = rctxt.Open("", ct)
+~~~~~
+
+Key Value Services retain the HPKE context, `rctxt`, so that it can
+encapsulate a response.
+
+### Framing and Padding {#request-framing}
+
+The plaintext request message uses the framing described in {{framing}}.
+
+Messages MAY be zero padded to a set of preconfigured lengths.
 
 ### Request Schema {#request-schema}
 
 The request is a [CBOR] encoded message with the following [CDDL] schema:
 
 ~~~~~ cddl
+
+compressionType = "none" / "gzip" / "brotli"
+
 request = {
-    ? acceptCompression: [* tstr],
+    ? acceptCompression: [* compressionType],
     ; A list of supported response compression algorithms; must contain at least one of "none", "gzip", "brotli"
+    ? metadata: requestMetadata,
     partitions: [* partition],
     ; A list of partitions. Each must be processed independently. Accessible by UDF.
+}
+
+requestMetadata = {
+    ? hostname: tstr,
+    ; The hostname of the top-level frame calling runAdAuction
 }
 
 partition = {
@@ -186,35 +284,30 @@ partition = {
 }
 ;Single partition object. A collection of keys that can be processed together.
 
-
 partitionMetadata = {
-    ? hostname: tstr,
-    ; The hostname of the top-level frame calling runAdAuction
     ? experimentGroupId: tstr,
     ? slotSize: tstr,
-    ; Available if trustedBiddingSignalsSlotSizeMode=slot-size. In the form of <width>,<height>
     ? allSlotsRequestedSizes: tstr,
-    ; Available if trustedBiddingSignalsSlotSizeMode=all-slots-requested-sizes. In the form of <width1>,<height1>,<width2>,<height2>,...
 }
 
 requestArgument = {
     ? tags: [* tstr],
-    ; List of tags describing this group's attributes
+    ; List of tags describing this group's attributes. These MAY be picked from the list of available tags in {{tags}}.
     ? data: [* tstr],
     ; List of keys to get values for
 }
 ~~~~~
 
-#### Available Tags
+#### Available Tags {#tags}
 
 Each key group has exactly one tag from the `namespace` category.
 
 | Tag | Description |
 |---|---|
 | interestGroupNames | Names of interest groups in the encompassing partition. |
-| keys | “keys” is a list of trustedBiddingSignalsKeys strings. |
-| renderUrls | Similarly, sellers may want to fetch information about a specific creative, e.g. the results of some out-of-band ad scanning system. This works in much the same way, with the base URL coming from the trustedScoringSignalsUrl property of the seller's auction configuration object.  |
-| adComponentRenderUrls | Similar to renderUrls |
+| keys | "keys" represent the keys to be looked up from the service's internal datastore. |
+| renderUrls | "renderUrls" represent URLs for advertisements to be looked up from the service's internal datastore. |
+| adComponentRenderUrls | "adComponentRenderUrls" represent component URLs for advertisements to be looked up from the service's internal datastore. |
 
 
 ### Generating a Request
@@ -233,26 +326,271 @@ a request message the Key Value Service can consume along with an HPKE context.
 
 1. Let `encrypted request` be the request received from the client.
 1. Let `error_msg` be an empty string.
-1. De-encapsulate and decrypt `encrypted request` by using the input private key corresponding to
-   `key_id` as descripten in {{request-encryption}}, to get the decrypted message and `rctxt`.
-    1. If decapsulation or decryption fails, return failure.
-    1. Else, save the decrypted output as `framed request` and save `rctxt`.
-1. Remove and extract the first 5 bytes from `framed request` as the `framing header` (described in
+1. Decrypt `encrypted request` by using the input private key corresponding to
+   `key_id` as described in {{request-encryption}}, to get the decrypted message and `rctxt`.
+    1. If decryption fails, return failure.
+    2. Else, save the decrypted output as `framed request` and save `rctxt`.
+2. Remove and extract the first 5 bytes from `framed request` as the `framing header` (described in
    {{framing}}), removing them from `framed request`.
-    1. If the `framing header`'s `Compression` field is not supported, return failure.
-1. Let `length` be equal to the `framing header`'s `Size` field.
-1. If `length` is greater than the length of the remaining bytes in `framed request`, return
+    1. If the `framing header`'s `Compression` field is not `0x00` (no compression), return failure.
+3. Let `length` be equal to the `framing header`'s `Size` field.
+4. If `length` is greater than the length of the remaining bytes in `framed request`, return
    failure.
-1. Take the first `length` remaining bytes in `framed response` as `decodable request`, discarding
+5. Take the first `length` remaining bytes in `framed response` as `decodable request`, discarding
    the rest.
-1. [CBOR] decode `decodable request` into the message represented in {{request-schema}}. Let this be
+6. [CBOR] decode `decodable request` into the message represented in {{request-schema}}. Let this be
    `processed request`.
-1. Return `processed request` and `rctxt`.
+    1. If decoding fails, return failure.
+7. If no `partitions` are present, return failure.
+8. Set `compression group map` to an empty map.
+9. For each `partition` in `partitions`:
+   1. Set `partition id` to the value of the `id` field in `partition` if
+      present, otherwise `0`.
+   2. Set `compression group id` to the value of the `compressionGroupid` field in `partition` if
+      present, otherwise `0`.
+   3. Set `compression group map[compression group id]` to `compression group map`.
+10. Return `processed request`, `compression group map`, and `rctxt`.
 
-### Example Request
+## Response Data {#response}
 
-The [CBOR] representation consists of the following item, represented using the extended diagnostic
-notation from [CDDL] appendix G:
+The response is an HPKE encrypted message sent as a Response to a Request, containing a framed top-level
+CBOR encoded payload that itself can contain multiple, possibly compressed, CBOR encoded messages.
+
+### Encryption {#response-encryption}
+
+The response uses a similar encapsulated response format to that used by
+[OHTTP].
+
+~~~~~
+Encapsulated Response {
+  Nonce (8 * max(Nn, Nk)),
+  AEAD-Protected Response (..),
+}
+~~~~~
+
+
+The response uses the a similar encapsulated response format to that used by [OHTTP] (see
+{{Section 4.4 of OHTTP}}), but with the custom `message/ad-auction-trusted-signals-response`
+media type instead of `message/bhttp response`:
+
+1. Export a secret (`secret`) from `context`, using the string
+   "message/ad-auction-trusted-signals-response" as the `exporter_context` parameter to
+   `context.Export`; see [Section 5.3](https://www.rfc-editor.org/rfc/rfc9180.html#name-secret-export)
+   of [HPKE]. The length of this secret is `max(Nn, Nk)`, where `Nn` and `Nk` are
+   the length of the AEAD key and nonce that are associated with `context`.
+2. Generate a random value of length `max(Nn, Nk)` bytes, called `response_nonce`.
+3. Extract a pseudorandom key (`prk`) using the `Extract` function provided by
+   the KDF algorithm associated with context. The `ikm` input to this function
+   is `secret`; the `salt` input is the concatenation of `enc` (from
+  `enc_request`) and `response_nonce`.
+1. Use the `Expand` function provided by the same KDF to create an AEAD key,
+   `key`, of length `Nk` -- the length of the keys used by the AEAD associated
+   with `context`. Generating `aead_key` uses a label of "key".
+2. Use the same `Expand` function to create a nonce, `nonce`, of length `Nn`
+   -- the length of the nonce used by the AEAD. Generating `aead_nonce` uses a
+  label of "nonce".
+1. Encrypt `response`, passing the AEAD function `Seal` the values of `aead_key`,
+   `aead_nonce`, an empty `aad`, and a `pt` input of `response`. This yields `ct`.
+2. Concatenate `response_nonce` and `ct`, yielding an Encapsulated Response,
+   `enc_response`. Note that `response_nonce` is of fixed length, so there is no
+  ambiguity in parsing either `response_nonce` or `ct`.
+
+In pseudocode, this procedure is as follows:
+
+~~~~~
+secret = context.Export("message/ad-auction-trusted-signals-response", max(Nn, Nk))
+response_nonce = random(max(Nn, Nk))
+salt = concat(enc, response_nonce)
+prk = Extract(salt, secret)
+aead_key = Expand(prk, "key", Nk)
+aead_nonce = Expand(prk, "nonce", Nn)
+ct = Seal(aead_key, aead_nonce, "", response)
+enc_response = concat(response_nonce, ct)
+~~~~~
+
+Clients decrypt an Encapsulated Response by reversing this process. That is,
+Clients first parse `enc_response` into `response_nonce` and `ct`. Then, they
+follow the same process to derive values for `aead_key` and `aead_nonce`, using
+their sending HPKE context, `sctxt`, as the HPKE context, `context`.
+
+The Client uses these values to decrypt `ct` using the AEAD function `Open`.
+Decrypting might produce an error, as follows:
+
+~~~~~
+response, error = Open(aead_key, aead_nonce, "", ct)
+~~~~~
+
+### Framing and Padding {#response-framing}
+
+The plaintext response message uses the framing described in {{framing}}.
+
+Padding is applied with sizes as multiples of 2^n KBs ranging from 0 to 2MB. So the valid response
+sizes will be `[0, 128B, 256B, 512B, 1KB, 2KB, 4KB, 8KB, 16KB, 32KB, 64KB, 128KB, 256KB, 512KB, 1MB,
+2MB]`.
+
+### Response Schema {#response-schema}
+
+The response MAY be compressed. The compression is applied independently to each compression group. That
+means, the response object mainly contains a list of compressed blobs, each for one compression
+group. Each blob is for outputs of one or more partitions, sharing the same `compressionGroup` value
+as specified in the request.
+
+The response is a [CBOR] encoded message with the following [CDDL] schema:
+
+~~~~~ cddl
+response = {
+  ? compressionGroups : [* compressionGroup]
+}
+
+compressionGroup = {
+  ? compressionGroupId: uint,
+  ; Partition outputs with the same `compressionGroupId` specified in the request
+  ; are compressed together.
+  ? ttl_ms: uint,
+  ; Adtech-specified TTL for client-side caching. In milliseconds. Unset means no caching.
+  ? content: bstrs
+  ; Compressed CBOR binary string using the algorithm specified in the request
+  ; For details see compressed response content schema below.
+}
+~~~~~
+
+#### CompressionGroup {#compression-group}
+
+The content of each `compressionGroup` is a serialized [CBOR] list of partition outputs. This object
+contains actual key value results for partitions in the corresponding compression group. The
+uncompressed, deserialized [CBOR] content has the following [CDDL] schema:
+
+~~~~~ cddl
+compressionGroup = [* partitionOutput]
+; Array of PartitionOutput objects
+
+partitionOutput = {
+  ? id: uint
+  ; Unique id of the partition from the request
+  ? keyGroupOutputs: [* keyGroupOutput]
+}
+
+keyGroupOutput = {
+  tags: [* tstr]
+  ; List of tags describing this key group's attributes
+  ? keyValues: {
+    ; At least one key-value pair if present
+    * tstr => keyValue
+  }
+  ; One value to be returned in response for one key
+  ; If a keyValues object exists, it must at least contain one key-value pair. If no key-value pair can be returned, the key group should not be in the response
+}
+
+keyValue = {
+  value: tstr
+}
+
+~~~~~
+
+### Structured keys response specification
+
+Structured keys are keys that the client is aware of and the client
+can use the response to do
+additional processing. The value of these keys must abide by the
+following schema for the client to
+successfully parse them.
+
+Note that they must be serialized to string when stored as the value.
+
+#### InterestGroupResponse {#interest-group-response}
+
+The schema below is defined following the spec by
+https://json-schema.org. For values for keys
+from the `interestGroupNames` namespace, they must conform to the
+following schema, prior to being
+serialized to string.
+
+~~~~~ json
+{
+    "title": "tkv.response.v2.InterestGroupResponse",
+    "description": "Format for value of keys in groups tagged 'interestGroupNames'",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "priorityVector": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "description": "signals",
+                    "type": "number"
+                }
+            }
+        },
+        "updateIfOlderThanMs": {
+            "description": "This optional field specifies that the interest group should be updated if the interest group hasn't been joined or updated in a duration of time exceeding `updateIfOlderThanMs` milliseconds. Updates that ended in failure, either parse or network failure, are not considered to increment the last update or join time. An `updateIfOlderThanMs` that's less than 10 minutes will be clamped to 10 minutes.",
+            "type": "unsigned integer"
+        }
+    }
+}
+~~~~~
+
+### Generating a Response
+
+This algorithm describes how the Key Value Service MAY generate a response to a request.
+
+The input is a list of [deterministically encoded CBOR](https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c) `partitionOutputs` in {{response-schema}} as well as
+the `compression group map` and the HPKE receiver, `rctxt`, context saved in {{request-parsing}}.
+
+The output is a `response` to be sent to a Client.
+
+1. Create `payload`.
+2. Set `compression groups` to an empty list.
+3. Set `partition output map` to an empty map.
+4. For each `partitionOutput` in the list of `partitionOutputs`:
+   1. Set `partition id` to `partitionOutput["id"]` if present, otherwise 0.
+   2. Add key value pair `partition id`, `partitionOutput` to `partition output map`.
+5. For each (`compression group id`, `partition ids`) in `compression group map`:
+   1. Create `compression group`.
+   2. Set `cbor partitions array` to an empty CBOR array.
+   3. For each `partition id` in `partition ids`:
+      1. Set `partition output` to `partition output map[partition id]`.
+         1. On failure to find the partition, continue.
+      2. Add `partition output` to `cbor partitions array`.
+   4. Set `cbor serialized payload` to the CBOR serialized `cbor partitions array`.
+      1. On serialization failure, continue.
+   5. Set `compression group content` to the [GZIP] compressed `cbor serialized payload`.
+      1. On failure, set `compression group content` to empty.
+   6. Set `compression group["compressionGroupId"]` to `compression group id`
+   7. Set `compression group["content"]` to `compression group content`.
+   8. Add `compression group` to `compression groups`.
+1. Set `payload["compressionGroups"]` to `compression groups`.
+2. Create a framed payload, as described in {{framing}}:
+    1. Create a `framing header`.
+    2. Set the `framing header` `Compression` to one of 2.
+    3. Set the `framing header` `Size` to the size of `compressed payload`.
+    4. Let `framed payload` equal the result of prepending the framing header to
+       `payload`.
+    5. Padding MAY be added to `framing header`.
+    6. Return an empty `response` on failure of any of the previous steps.
+3. Let `response` equal the result of the encryption and encapsulation of `framed payload` with
+   `rctxt`, as described in {{response-encryption}}. Return an empty `response` on failure.
+4. Return `response`.
+
+### Parsing a Response
+
+TODO
+
+# Security Considerations
+
+TODO
+
+# IANA Considerations
+
+This document has no IANA actions.
+
+--- back
+
+# Appendix
+
+## Example Request
+
+An example of the [CBOR] representation for {{request-schema}} using the extended diagnostic notation
+from [CDDL] [Appendix G](https://datatracker.ietf.org/doc/html/rfc8610#appendix-G):
 
 ~~~~~ cbor-diag
 {
@@ -317,77 +655,10 @@ notation from [CDDL] appendix G:
 }
 ~~~~~
 
-## Core Response Data {#response}
+## Example Compression Group
 
-The response is compressed. The compression is applied independently to each compression group. That
-means, the response object mainly contains a list of compressed blobs, each for one compression
-group. Each blob is for outputs of one or more partitions, sharing the same `compressionGroup` value
-as specified in the request.
-
-### Encryption {#response-encryption}
-
-The response uses the a similar encapsulated response format to that used by [OHTTP] (see
-{{Section 4.4 of OHTTP}}), but with the custom `message/ad-auction-trusted-signals-response`
-media type instead of `message/bhttp response`
-
-### Response Schema {#response-schema}
-
-The response is a [CBOR] encoded message with the following [CDDL] schema:
-
-~~~~~ cddl
-response = {
-  ? compressionGroups : [* compressionGroup]
-}
-
-compressionGroup = {
-  ? compressionGroupId: uint,
-  ; Partition outputs with the same `compressionGroupId` specified in the request
-  ; are compressed together.
-  ? ttl_ms: uint,
-  ; Adtech-specified TTL for client-side caching. In milliseconds. Unset means no caching.
-  ? content: bstrs
-  ; Compressed CBOR binary string using the algorithm specified in the request
-  ; For details see compressed response content schema below.
-}
-~~~~~
-
-##### CompressionGroup {#compression-group}
-
-The content of each `compressionGroup` is a serialized [CBOR] list of partition outputs. This object
-contains actual key value results for partitions in the corresponding compression group. The
-uncompressed, deserialized [CBOR] content has the following [CDDL] schema:
-
-~~~~~ cddl
-[* partitionOutput]
-; Array of PartitionOutput objects
-
-partitionOutput = {
-  ? id: uint
-  ; Unique id of the partition from the request
-  ? keyGroupOutputs: [* keyGroupOutput]
-}
-
-keyGroupOutput = {
-  tags: [* tstr]
-  ; List of tags describing this key group's attributes
-  ? keyValues: {
-    ; At least one key-value pair if present
-    * tstr => keyValue
-  }
-  ; One value to be returned in response for one key
-  ; If a keyValues object exists, it must at least contain one key-value pair. If no key-value pair can be returned, the key group should not be in the response
-}
-
-keyValue = {
-  value: tstr
-}
-
-~~~~~
-
-#### Example Compression Group
-
-The [CBOR] representation consists of the following item, represented
-using the extended diagnostic notation from [CDDL] appendix G:
+An example of the [CBOR] representation for {{compression-group}} using the extended diagnostic notation
+from [CDDL] [Appendix G](https://datatracker.ietf.org/doc/html/rfc8610#appendix-G):
 
 ~~~~~ cbor-diag
 [
@@ -422,95 +693,20 @@ using the extended diagnostic notation from [CDDL] appendix G:
 ]
 ~~~~~
 
-### Structured keys response specification
+## Example
 
-Structured keys are keys that the client is aware of and the client
-can use the response to do
-additional processing. The value of these keys must abide by the
-following schema for the client to
-successfully parse them.
-
-Note that they must be serialized to string when stored as the value.
-
-#### InterestGroupResponse
-
-The schema below is defined following the spec by
-https://json-schema.org. For values for keys
-from the `interestGroupNames` namespace, they must conform to the
-following schema, prior to being
-serialized to string.
-
-~~~~~ json
-{
-    "title": "tkv.response.v2.InterestGroupResponse",
-    "description": "Format for value of keys in groups tagged 'interestGroupNames'",
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-        "priorityVector": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "description": "signals",
-                    "type": "number"
-                }
-            }
-        },
-        "updateIfOlderThanMs": {
-            "description": "This optional field specifies that the interest group should be updated if the interest group hasn't been joined or updated in a duration of time exceeding `updateIfOlderThanMs` milliseconds. Updates that ended in failure, either parse or network failure, are not considered to increment the last update or join time. An `updateIfOlderThanMs` that's less than 10 minutes will be clamped to 10 minutes.",
-            "type": "unsigned integer"
-        }
-    }
-}
-~~~~~
-
-Example:
+An example of {{interest-group-response}}.
 
 ~~~~~ json
 {
     "priorityVector": {
-        "signal1": 1,
-        "signal2": 2
+        "aSignal": 1,
+        "anotherSignal": 2
     },
     "updateIfOlderThanMs": 10000
 }
 ~~~~~
 
-### Generating a Response
-
-This algorithm describes how the Key Value Service MAY generate a response to a request.
-
-The input is a `payload` corresponding to {{response-schema}} and the HPKE receiver context saved in
-{{request-parsing}}, `rctxt`.
-
-The output is a `response` to be sent to a Client.
-
-1. Let `cbor payload` equal the
-   [deterministically encoded CBOR](https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c)
-   `payload`. Return an empty `response` on CBOR encoding failure.
-1. Let `compressed payload` equal the [GZIP] compressed `cbor payload`, returning an empty
-   `response` on compression failure.
-1. Create a framed payload, as described in {{framing}}:
-    1. Create a `framing header`.
-    1. Set the `framing header` `Compression` to one of 2.
-    1. Set the `framing header` `Size` to the size of `compressed payload`.
-    1. Let `framed payload` equal the result of prepending the framing header to
-       `compressed payload`.
-    2. Padding MAY be added to `framing header`.
-    3. Return an empty `response` on failure of any of the previous steps.
-2. Let `response` equal the result of the encryption and encapsulation of `framed payload` with
-   `rctxt`, as described in {{response-encryption}}. Return an empty `response` on failure.
-3. Return `response`.
-
-### Parsing a Response
-
-TODO
-
-# IANA Considerations
-
-This document has no IANA actions.
-
---- back
 
 # Acknowledgments
 {:numbered="false"}
