@@ -57,8 +57,9 @@ lack of side effects can be used to advance user privacy.
 remarketing and custom audiences use cases.
 Key Value Services are trusted execution environment (TEE) based Key/Value databases that can be used to store
 and integrate real-time data into Protected Audiences Auctions. The Protected
-Audience proposal leverages Key Value Services to incorporate real-time signals
-into ad selection for both buyers and sellers. These services provide a
+Audience proposal leverages Key Value Services to incorporate real-time information
+into ad selection for both buyers and sellers. This information could be used,
+for example, to add budgeting data about each ad. These services provide a
 flexible mechanism for fetching and processing data. While event-level logging
 is explicitly prohibited, the services may have operational side effects like
 monitoring to ensure security and prevent abuse.
