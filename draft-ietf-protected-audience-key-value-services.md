@@ -45,7 +45,9 @@ informative:
 
 --- abstract
 
-This document specifies a protocol for a Key Value Service that can serve data with low latency and no side effects. The data served can be used by clients for advertisement selection. The lack of side effects advances user privacy.
+This document specifies a protocol for a Key Value Service that can serve data with low latency
+and no side effects. The data served can be used by clients for advertisement selection and the
+lack of side effects can be used to advance user privacy.
 
 --- middle
 
