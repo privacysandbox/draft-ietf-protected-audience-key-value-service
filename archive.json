@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-10T01:14:31.178886+00:00",
+  "timestamp": "2024-10-13T01:19:46.660444+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -63,13 +63,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-10-02T19:05:15Z",
-      "updatedAt": "2024-10-09T17:47:07Z",
+      "updatedAt": "2024-10-12T02:46:00Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "a0519f89956cf539ba3e8f0fbfb881f0ea3a5cbe",
       "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
       "headRefName": "main",
-      "headRefOid": "e95b4e4d6475f215d236e0589a7ad9bc637bfe15",
+      "headRefOid": "991394d494c48ac260ccfd4f97441b7f3ad990aa",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -516,6 +516,988 @@
               "body": "```suggestion\r\n    ; Unique id of the partition in this request. Used by responses to refer to request partitions.\r\n```",
               "createdAt": "2024-10-09T17:29:15Z",
               "updatedAt": "2024-10-09T17:46:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6MtRW6",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "brusshamilton",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-10T15:06:55Z",
+          "updatedAt": "2024-10-10T17:50:16Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "I don't feel I contributed enough to be listed as an author here. Lusa, do you want to put yourself here?",
+              "createdAt": "2024-10-10T15:06:55Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "What are real-time signals? What are ad auctions? The abstract can be longer than a sentence and should provide a description of what the standard is about that can be understood without any context.",
+              "createdAt": "2024-10-10T15:08:00Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 53,
+              "body": "define real-time signals. What sort of use cases (rate limiting, creative approval, etc)?",
+              "createdAt": "2024-10-10T15:09:39Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 105,
+              "body": "The definition of media types here is confusing. It might be better to move the description of media types to where they are actually used for the Request and Response. Then you can demonstrate how they are intended to be used.",
+              "createdAt": "2024-10-10T15:13:02Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 130,
+              "body": "\"a set of pre-configured lengths\" - What are these lengths?\r\nAlso, you may want to delegate descriptions of padding for requests and responses to subsections in the description of requests and responses.",
+              "createdAt": "2024-10-10T15:14:49Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 131,
+              "body": ">Padding is applied with sizes as multiples of 2^n KBs ranging from 0 to 2MB.\r\n\r\nThis is for the response?",
+              "createdAt": "2024-10-10T15:15:23Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 133,
+              "body": "What happens when the response doesn't fit in 2MB?",
+              "createdAt": "2024-10-10T15:15:39Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 142,
+              "body": "```\r\n|    0x03     | Reserved                            |\r\n```",
+              "createdAt": "2024-10-10T15:16:30Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 143,
+              "body": "> For requests, the byte value is 0x00\r\n\r\nDoes that mean that requests are always uncompressed? Can we just say that - \"Requests are always uncompressed so the Format+compression byte is 0x00\"",
+              "createdAt": "2024-10-10T15:17:42Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 146,
+              "body": "What do you mean by \"Core\" here?",
+              "createdAt": "2024-10-10T15:18:34Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 151,
+              "body": "> Keys from one interest\r\n    group must be in the same partition. Keys from different interest groups with the same joining\r\n    site (see https://wicg.github.io/turtledove/#joining-interest-groups) may or may not be in the same partition.\r\n\r\nI'm not sure this is necessary. It should be up to the client to decide how to partition keys when it assembles a request ",
+              "createdAt": "2024-10-10T15:19:41Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 150,
+              "body": ">Each partition is a collection of keys that can be processed together\r\n\r\nProbably should be \"Each partition is a collection of keys that SHALL be processed together\"\r\n\r\nWe also probably don't need \"without any potential privacy leakage\". We may also want to add \"Keys from separate partitions MUST NOT be processed together by the service.\" Then we could add a reference to the Security Considerations section where we can say that \"Using separate partitions allow clients to break up the request to achieve desired privacy goals, such as preventing keys from an interest group joined on one origin from influencing the response for keys from an interest group joined on another origin\".",
+              "createdAt": "2024-10-10T15:25:22Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 160,
+              "body": "We could also add a reference here to the Security Considerations section describing why we need separate compression groups.",
+              "createdAt": "2024-10-10T15:27:33Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 164,
+              "body": "Can we be more explicit here? I'd rather err on the side of being too explicit. In the B&A spec I wrote the procedure for encryption in a similar section to this.",
+              "createdAt": "2024-10-10T15:28:25Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 174,
+              "body": "Instead of `tstr` as the type you should use a new type defined as `\"none\" / \"gzip\" / \"brotli\"`. That makes it explicit that this is a string enum.",
+              "createdAt": "2024-10-10T15:29:40Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 197,
+              "body": "What is `trustedBiddingSignalsSlotSizeMode`? It's not defined in this document. Either omit it or reference the field in the Protected Audience spec (https://wicg.github.io/turtledove/#dom-generatebidinterestgroup-trustedbiddingsignalsslotsizemode)",
+              "createdAt": "2024-10-10T16:08:25Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 197,
+              "body": "That also seems to get into how a client might use the protocol instead of a description of the protocol.",
+              "createdAt": "2024-10-10T16:09:07Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 239,
+              "body": "descripten -> described",
+              "createdAt": "2024-10-10T16:10:20Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 238,
+              "body": "The method for de-encapsulation and decryption are not specified in this spec. You should describe in more detail either here or in the relevant section.",
+              "createdAt": "2024-10-10T16:11:37Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 238,
+              "body": " By de-encapsulation and decryption you seem to just mean decrypting not removing the framing. We should probably be more explicit about this.",
+              "createdAt": "2024-10-10T16:13:03Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 244,
+              "body": "For requests the only supported compression is \"none\", correct?",
+              "createdAt": "2024-10-10T16:13:40Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 250,
+              "body": "How do you handle decoding errors? Also, do you require deterministic CBOR? Are there any other requirements?",
+              "createdAt": "2024-10-10T16:14:41Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 252,
+              "body": "What about handling fields? Are there scenarios where you would throw an error - like a compression group with no partitions, or too many partitions? What about missing fields?",
+              "createdAt": "2024-10-10T16:15:44Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 256,
+              "body": "Let's emphasize that this is an example. \"An example of the [CBOR] representation using the extended diagnostic notation from [CDDL] Appendix G\" (also link \"Appendix G\" to the actual Appendix G here).\r\n\r\nIn general, examples should go in the Appendices since they are non-normative.",
+              "createdAt": "2024-10-10T16:18:08Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 322,
+              "body": "Again, I'm not sure what \"Core\" means here.",
+              "createdAt": "2024-10-10T16:18:50Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 324,
+              "body": "\"The response is compressed\" is not technically true for compression scheme \"None\".",
+              "createdAt": "2024-10-10T16:19:19Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 324,
+              "body": "This paragraph feels like it belongs in {{response-schema}}.\r\n\r\nHere we should probably have something describing a high level view of the responses - \"An HPKE encrypted message sent as a Response to a Request, containing a framed top-level CBOR encoded payload that itself can contain multiple, possibly compressed, CBOR encoded messages.\"",
+              "createdAt": "2024-10-10T16:21:39Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 331,
+              "body": "Be more explicit here as well.",
+              "createdAt": "2024-10-10T16:21:56Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 363,
+              "body": "It's better to name things:\r\n```\r\ncompressionGroup = [* partitionOutput]\r\n```",
+              "createdAt": "2024-10-10T16:22:58Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 384,
+              "body": "This is more of a question about the response format than the spec itself. Why do we have a dictionary containing a single string field instead of just putting the string field directly? It make be good to have a comment about this here in case someone asks.",
+              "createdAt": "2024-10-10T17:41:24Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 389,
+              "body": "Move examples to Appendices.",
+              "createdAt": "2024-10-10T17:43:17Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 469,
+              "body": "Examples go in Appendices.",
+              "createdAt": "2024-10-10T17:44:17Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 474,
+              "body": "Use a different prefix for one of them. That makes it clear that they don't have to be \"signal#\"",
+              "createdAt": "2024-10-10T17:44:51Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 493,
+              "body": "This is not correct. We can't compress the top-level response. That leaves us open to compression ratio side-channel attacks (something to also mention in security considerations).",
+              "createdAt": "2024-10-10T17:46:35Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 485,
+              "body": "It might be more natural to start with key-value responses to one or more partitions and compression groups. It feels like we're starting from the half-way point instead of the beginning.",
+              "createdAt": "2024-10-10T17:47:56Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            },
+            {
+              "originalPosition": 511,
+              "body": "Add Security Considerations section.\r\n\r\nAlso IANA Considerations will likely include the new HTTP media types to be used with HTTP \"content-type\" headers (if specified in this spec).",
+              "createdAt": "2024-10-10T17:49:42Z",
+              "updatedAt": "2024-10-10T17:50:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M0w7l",
+          "commit": {
+            "abbreviatedOid": "bbe192e"
+          },
+          "author": "JensenPaul",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-11T11:59:06Z",
+          "updatedAt": "2024-10-11T12:31:01Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "+1 to what Russ said, perhaps something like \"This document specifies a protocol for a service that can serve data with low latency and no side effects.  The data served can be used by clients for advertisement selection and the lack of side effects can be used to advance user privacy.\"",
+              "createdAt": "2024-10-11T11:59:06Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 52,
+              "body": "I think we need to define TEE before we use the term.",
+              "createdAt": "2024-10-11T11:59:45Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 51,
+              "body": "Words  from https://developers.google.com/privacy-sandbox/private-advertising/protected-audience\r\n```suggestion\r\n[Protected Audience](https://wicg.github.io/turtledove/) is a privacy advancing API that serves\r\nremarketing and custom audiences use cases.\r\n```",
+              "createdAt": "2024-10-11T12:03:19Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 55,
+              "body": "```suggestion\r\ninto ad selection for both buyers and sellers. These services provide a\r\n```",
+              "createdAt": "2024-10-11T12:03:54Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 57,
+              "body": "```suggestion\r\nis explicitly prohibited, the services may have operational side effects like\r\n```",
+              "createdAt": "2024-10-11T12:04:06Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 89,
+              "body": "I think we should link HTTPS to the appropriate specification",
+              "createdAt": "2024-10-11T12:05:41Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 154,
+              "body": "I find this really hard to understand.  I don't understand how each key group is \"unique\".  What is unique about it? is this a requirement of the key group or just something the client does?\r\nI don't understand what the \"tags\" are for.  I think we need some motivation.\r\nI don't understand what it means \"to look up\" a key.  Can we explain what this means and what it is looked up in?",
+              "createdAt": "2024-10-11T12:17:23Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 155,
+              "body": "Why?  How is this used?",
+              "createdAt": "2024-10-11T12:17:47Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 150,
+              "body": "I think we need to introduce the term interest group before using it.  Perhaps describe it as \"an identifier of information about a user collected on a particular website or application\".",
+              "createdAt": "2024-10-11T12:20:33Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 202,
+              "body": "Are these picked from the below list of \"Available Tags\"?  If so, we should link to that section.\r\nIf this is an enumeration, we should declare its possible values rather than use the type \"tstr\" I think like Russ mentioned above for `acceptCompression`",
+              "createdAt": "2024-10-11T12:22:21Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 215,
+              "body": "trustedBiddingSignalsKeys needs a definition, which is going to be very complicated.  Perhaps it's better to give some more general description like `\"keys\" represent the keys to be used to look up values in a table` or something that ties back to the \"to look up\" mention above.",
+              "createdAt": "2024-10-11T12:24:57Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 216,
+              "body": "I don't know what \"Similarly\" is referring similarity to.\r\nIt's unclear how \"sellers may want to fetch information about a specific creative\" relates to renderUrls.\r\ntrustedScoringSignalsUrl needs a definiition, which is going to be very complicated.  Perhaps its better to give a more general description like `\"renderUrls\" represent URLs for advertisements that are used to look up values in a table`",
+              "createdAt": "2024-10-11T12:25:20Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            },
+            {
+              "originalPosition": 217,
+              "body": "This needs more description.",
+              "createdAt": "2024-10-11T12:28:32Z",
+              "updatedAt": "2024-10-11T12:31:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M435v",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:20:45Z",
+          "updatedAt": "2024-10-12T02:20:46Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "Sure, I'll add Tianyang too. ",
+              "createdAt": "2024-10-12T02:20:46Z",
+              "updatedAt": "2024-10-12T02:20:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M439Y",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:22:13Z",
+          "updatedAt": "2024-10-12T02:22:13Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:22:13Z",
+              "updatedAt": "2024-10-12T02:22:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M43-i",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:22:52Z",
+          "updatedAt": "2024-10-12T02:22:52Z",
+          "comments": [
+            {
+              "originalPosition": 105,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:22:52Z",
+              "updatedAt": "2024-10-12T02:22:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44DC",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:24:48Z",
+          "updatedAt": "2024-10-12T02:24:48Z",
+          "comments": [
+            {
+              "originalPosition": 130,
+              "body": "Moved to other section. ",
+              "createdAt": "2024-10-12T02:24:48Z",
+              "updatedAt": "2024-10-12T02:24:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44EG",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:25:14Z",
+          "updatedAt": "2024-10-12T02:25:14Z",
+          "comments": [
+            {
+              "originalPosition": 131,
+              "body": "Moved it to different sections so it's clearer.",
+              "createdAt": "2024-10-12T02:25:14Z",
+              "updatedAt": "2024-10-12T02:25:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44EX",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:25:20Z",
+          "updatedAt": "2024-10-12T02:25:21Z",
+          "comments": [
+            {
+              "originalPosition": 142,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:25:20Z",
+              "updatedAt": "2024-10-12T02:25:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44Fm",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:25:53Z",
+          "updatedAt": "2024-10-12T02:25:53Z",
+          "comments": [
+            {
+              "originalPosition": 133,
+              "body": "@peiwenhu how do we want to handle large responses?",
+              "createdAt": "2024-10-12T02:25:53Z",
+              "updatedAt": "2024-10-12T02:25:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44F5",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:26:01Z",
+          "updatedAt": "2024-10-12T02:26:01Z",
+          "comments": [
+            {
+              "originalPosition": 143,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:26:01Z",
+              "updatedAt": "2024-10-12T02:26:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44Gf",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:26:13Z",
+          "updatedAt": "2024-10-12T02:26:14Z",
+          "comments": [
+            {
+              "originalPosition": 151,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:26:14Z",
+              "updatedAt": "2024-10-12T02:26:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44HF",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:26:26Z",
+          "updatedAt": "2024-10-12T02:26:26Z",
+          "comments": [
+            {
+              "originalPosition": 160,
+              "body": "Will do. ",
+              "createdAt": "2024-10-12T02:26:26Z",
+              "updatedAt": "2024-10-12T02:26:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44HZ",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:26:34Z",
+          "updatedAt": "2024-10-12T02:26:34Z",
+          "comments": [
+            {
+              "originalPosition": 164,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:26:34Z",
+              "updatedAt": "2024-10-12T02:26:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44Hp",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:26:41Z",
+          "updatedAt": "2024-10-12T02:26:41Z",
+          "comments": [
+            {
+              "originalPosition": 174,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:26:41Z",
+              "updatedAt": "2024-10-12T02:26:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44Ih",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:26:57Z",
+          "updatedAt": "2024-10-12T02:26:58Z",
+          "comments": [
+            {
+              "originalPosition": 197,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:26:58Z",
+              "updatedAt": "2024-10-12T02:26:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44Jg",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:27:27Z",
+          "updatedAt": "2024-10-12T02:27:28Z",
+          "comments": [
+            {
+              "originalPosition": 239,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:27:27Z",
+              "updatedAt": "2024-10-12T02:27:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44KC",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:27:42Z",
+          "updatedAt": "2024-10-12T02:27:42Z",
+          "comments": [
+            {
+              "originalPosition": 238,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:27:42Z",
+              "updatedAt": "2024-10-12T02:27:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44LC",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:28:12Z",
+          "updatedAt": "2024-10-12T02:28:12Z",
+          "comments": [
+            {
+              "originalPosition": 250,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:28:12Z",
+              "updatedAt": "2024-10-12T02:28:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44LT",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:28:17Z",
+          "updatedAt": "2024-10-12T02:28:17Z",
+          "comments": [
+            {
+              "originalPosition": 256,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:28:17Z",
+              "updatedAt": "2024-10-12T02:28:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44Lf",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:28:26Z",
+          "updatedAt": "2024-10-12T02:28:26Z",
+          "comments": [
+            {
+              "originalPosition": 324,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:28:26Z",
+              "updatedAt": "2024-10-12T02:28:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44MQ",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:28:58Z",
+          "updatedAt": "2024-10-12T02:28:58Z",
+          "comments": [
+            {
+              "originalPosition": 324,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:28:58Z",
+              "updatedAt": "2024-10-12T02:28:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44Mj",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:29:07Z",
+          "updatedAt": "2024-10-12T02:29:08Z",
+          "comments": [
+            {
+              "originalPosition": 331,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:29:07Z",
+              "updatedAt": "2024-10-12T02:29:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44Mx",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:29:13Z",
+          "updatedAt": "2024-10-12T02:29:13Z",
+          "comments": [
+            {
+              "originalPosition": 363,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:29:13Z",
+              "updatedAt": "2024-10-12T02:29:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44Nr",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:29:45Z",
+          "updatedAt": "2024-10-12T02:29:45Z",
+          "comments": [
+            {
+              "originalPosition": 384,
+              "body": "@peiwenhu I don't remember exactly why we had it like this. Do you? ",
+              "createdAt": "2024-10-12T02:29:45Z",
+              "updatedAt": "2024-10-12T02:29:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44N4",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:29:52Z",
+          "updatedAt": "2024-10-12T02:29:52Z",
+          "comments": [
+            {
+              "originalPosition": 389,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:29:52Z",
+              "updatedAt": "2024-10-12T02:29:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44OI",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:30:02Z",
+          "updatedAt": "2024-10-12T02:30:02Z",
+          "comments": [
+            {
+              "originalPosition": 474,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:30:02Z",
+              "updatedAt": "2024-10-12T02:30:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44PA",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:30:28Z",
+          "updatedAt": "2024-10-12T02:30:28Z",
+          "comments": [
+            {
+              "originalPosition": 493,
+              "body": "Thanks for catching that. ",
+              "createdAt": "2024-10-12T02:30:28Z",
+              "updatedAt": "2024-10-12T02:30:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44PR",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:30:35Z",
+          "updatedAt": "2024-10-12T02:30:35Z",
+          "comments": [
+            {
+              "originalPosition": 485,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:30:35Z",
+              "updatedAt": "2024-10-12T02:30:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44RI",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:31:24Z",
+          "updatedAt": "2024-10-12T02:31:24Z",
+          "comments": [
+            {
+              "originalPosition": 511,
+              "body": "Done. Will start a doc on that. ",
+              "createdAt": "2024-10-12T02:31:24Z",
+              "updatedAt": "2024-10-12T02:31:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44UG",
+          "commit": {
+            "abbreviatedOid": "bbe192e"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:32:49Z",
+          "updatedAt": "2024-10-12T02:32:50Z",
+          "comments": [
+            {
+              "originalPosition": 202,
+              "body": "@peiwenhu are we prescribing that it is from the list of available tags? I don't think we should, since this will be input to the UDF.",
+              "createdAt": "2024-10-12T02:32:49Z",
+              "updatedAt": "2024-10-12T02:32:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44Uu",
+          "commit": {
+            "abbreviatedOid": "bbe192e"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:33:05Z",
+          "updatedAt": "2024-10-12T02:33:06Z",
+          "comments": [
+            {
+              "originalPosition": 215,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:33:05Z",
+              "updatedAt": "2024-10-12T02:33:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44WU",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:33:52Z",
+          "updatedAt": "2024-10-12T02:33:52Z",
+          "comments": [
+            {
+              "originalPosition": 146,
+              "body": "Removed that",
+              "createdAt": "2024-10-12T02:33:52Z",
+              "updatedAt": "2024-10-12T02:33:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44XJ",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:34:13Z",
+          "updatedAt": "2024-10-12T02:34:13Z",
+          "comments": [
+            {
+              "originalPosition": 244,
+              "body": "Right, fixed it. ",
+              "createdAt": "2024-10-12T02:34:13Z",
+              "updatedAt": "2024-10-12T02:34:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44a4",
+          "commit": {
+            "abbreviatedOid": "bbe192e"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:36:15Z",
+          "updatedAt": "2024-10-12T02:36:15Z",
+          "comments": [
+            {
+              "originalPosition": 154,
+              "body": "Changed the wording.",
+              "createdAt": "2024-10-12T02:36:15Z",
+              "updatedAt": "2024-10-12T02:36:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6M44uU",
+          "commit": {
+            "abbreviatedOid": "e95b4e4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-12T02:45:09Z",
+          "updatedAt": "2024-10-12T02:45:10Z",
+          "comments": [
+            {
+              "originalPosition": 53,
+              "body": "Done.",
+              "createdAt": "2024-10-12T02:45:10Z",
+              "updatedAt": "2024-10-12T02:45:10Z"
             }
           ]
         }
