@@ -257,7 +257,7 @@ encapsulate a response.
 
 The plaintext request message uses the framing described in {{framing}}.
 
-Messages MAY be zero padded to a set of preconfigured lengths.
+Messages MAY be zero padded.
 
 ### Request Schema {#request-schema}
 
@@ -271,6 +271,7 @@ request = {
     ? acceptCompression: [* compressionType],
     ; A list of supported response compression algorithms; must contain at least one of "none", "gzip", "brotli"
     ? metadata: requestMetadata,
+    ; Metadata that applies for the request as a whole.
     partitions: [1* partition],
     ; A list of partitions. Each must be processed independently. Accessible by user-defined functions.
 }
@@ -286,6 +287,7 @@ partition = {
     compressionGroupId: uint,
     ; Unique id of a compression group in this request. Only partitions belonging to the same compression group will be compressed together in the response
     ? metadata: partitionMetadata,
+    ; Partition-level metadata.
     arguments: [* requestArgument],
     ; One group of keys and common attributes about them
 }
@@ -307,7 +309,7 @@ requestArgument = {
 
 #### Available Tags {#tags}
 
-Each key group has exactly one tag from the `namespace` category.
+Each key group is expected to have exactly one tag from the following list:
 
 | Tag | Description |
 |---|---|
@@ -351,7 +353,7 @@ a request message the Key Value Service can consume along with an HPKE context.
 7. If no `partitions` are present, return failure.
 8. Set `compressionGroupMap` to an empty map.
 9. For each `partition` in `partitions`:
-   1. Set `compressionGroupMap[compression group id]` to `compressionGroupMap`.
+   1. Set `compressionGroupMap[compression group id]` to `partition[`id`]`.
 10. Return `processed request`, `compressionGroupMap`, and `rctxt`.
 
 ## Response Data {#response}
@@ -431,6 +433,8 @@ Padding is applied with sizes as multiples of 2^n KBs ranging from 0 to 2MB. So 
 sizes will be `[0, 128B, 256B, 512B, 1KB, 2KB, 4KB, 8KB, 16KB, 32KB, 64KB, 128KB, 256KB, 512KB, 1MB,
 2MB]`.
 
+If the response message is larger than 2MB, an error is returned.
+
 ### Response Schema {#response-schema}
 
 The response MAY be compressed. The compression is applied independently to each compression group. That
@@ -478,16 +482,11 @@ keyGroupOutput = {
   ; List of tags describing this key group's attributes
   ? keyValues: {
     ; At least one key-value pair if present
-    * tstr => keyValue
+    * tstr => tstr
   }
   ; One value to be returned in response for one key
   ; If a keyValues object exists, it must at least contain one key-value pair. If no key-value pair can be returned, the key group should not be in the response
 }
-
-keyValue = {
-  value: tstr
-}
-
 ~~~~~
 
 ### Structured keys response specification
@@ -534,7 +533,11 @@ serialized to string.
 
 ### Generating a Response
 
-This algorithm describes how the Key Value Service MAY generate a response to a request.
+The Key Value Service runs user-defined functions (UDF) as part of request handling
+and response generation. User-Defined Functions (UDFs) are custom functions implemented by adtech that encapsulate adtech-specific business logic for processing partitions within the Key Value Service. These functions are executed within a sandboxed environment without network or disk access, but have read access to data loaded into the Key Value Service.
+Each UDF receives a single `partition` object from the client request as input. The output of a UDF is a `partitionOutput` object that contains the results of processing the partition.
+
+The below algorithm describes how the Key Value Service MAY generate a response to a request.
 
 The input is a list of [deterministically encoded CBOR](https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c) `partitionOutputs` in {{response-schema}} as well as
 the `compressionGroupMap` and the HPKE receiver, `rctxt`, context saved in {{request-parsing}}.
@@ -584,7 +587,7 @@ TODO
 
 # IANA Considerations
 
-This document has no IANA actions.
+TODO
 
 --- back
 
