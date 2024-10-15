@@ -156,7 +156,9 @@ Requests are not compressed and have a tree-like hierarchy:
 -   Each partition has a compression group field.
     Results of partitions belonging to the same compression group can be compressed together
     in the response.
-    Different compression groups must be compressed separately (see {{compression-group}}).
+    The responses for different compression groups will be compressed separately in the response
+    (see {{compression-group}}). Compressing the different groups separately avoids leaking the
+    similarity of responses for different groups.
 
 ### Encryption {#request-encryption}
 
@@ -209,6 +211,8 @@ enc, sctxt = SetupBaseS(pkR, info)
 ct = sctxt.Seal("", request)
 enc_request = concat(hdr, enc, ct)
 ~~~~~
+
+The client needs to save `sctxt` for decryption of the response (see {{response-encryption}}).
 
 A Key Value Service endpoint decrypts this encapsulated message in a
 similar manner to [OHTTP]
@@ -267,8 +271,8 @@ request = {
     ? acceptCompression: [* compressionType],
     ; A list of supported response compression algorithms; must contain at least one of "none", "gzip", "brotli"
     ? metadata: requestMetadata,
-    partitions: [* partition],
-    ; A list of partitions. Each must be processed independently. Accessible by UDF.
+    partitions: [1* partition],
+    ; A list of partitions. Each must be processed independently. Accessible by user-defined functions.
 }
 
 requestMetadata = {
@@ -345,14 +349,10 @@ a request message the Key Value Service can consume along with an HPKE context.
    `processed request`.
     1. If decoding fails, return failure.
 7. If no `partitions` are present, return failure.
-8. Set `compression group map` to an empty map.
+8. Set `compressionGroupMap` to an empty map.
 9. For each `partition` in `partitions`:
-   1. Set `partition id` to the value of the `id` field in `partition` if
-      present, otherwise `0`.
-   2. Set `compression group id` to the value of the `compressionGroupid` field in `partition` if
-      present, otherwise `0`.
-   3. Set `compression group map[compression group id]` to `compression group map`.
-10. Return `processed request`, `compression group map`, and `rctxt`.
+   1. Set `compressionGroupMap[compression group id]` to `compressionGroupMap`.
+10. Return `processed request`, `compressionGroupMap`, and `rctxt`.
 
 ## Response Data {#response}
 
@@ -468,7 +468,7 @@ compressionGroup = [* partitionOutput]
 ; Array of PartitionOutput objects
 
 partitionOutput = {
-  ? id: uint
+  id: uint
   ; Unique id of the partition from the request
   ? keyGroupOutputs: [* keyGroupOutput]
 }
@@ -537,42 +537,42 @@ serialized to string.
 This algorithm describes how the Key Value Service MAY generate a response to a request.
 
 The input is a list of [deterministically encoded CBOR](https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c) `partitionOutputs` in {{response-schema}} as well as
-the `compression group map` and the HPKE receiver, `rctxt`, context saved in {{request-parsing}}.
+the `compressionGroupMap` and the HPKE receiver, `rctxt`, context saved in {{request-parsing}}.
+Assume that this response is to a request that includes `gzip` in `acceptCompression`.
 
 The output is a `response` to be sent to a Client.
 
-1. Create `payload`.
+1. Create an empty `payload` object, corresponding to {{response-schema}}.
 2. Set `compression groups` to an empty list.
-3. Set `partition output map` to an empty map.
+3. Set `partitionOutputMap` to an empty map.
 4. For each `partitionOutput` in the list of `partitionOutputs`:
-   1. Set `partition id` to `partitionOutput["id"]` if present, otherwise 0.
-   2. Add key value pair `partition id`, `partitionOutput` to `partition output map`.
-5. For each (`compression group id`, `partition ids`) in `compression group map`:
-   1. Create `compression group`.
+   1. Set `partitionOutputMap[partitionOutput["id"]]` to `partitionOutput`.
+5. For each (`compression group id`, `partition ids`) in `compressionGroupMap`:
+   1. Create an empty `compression group` object, corresponding to {{compression-group}}.
    2. Set `cbor partitions array` to an empty CBOR array.
    3. For each `partition id` in `partition ids`:
-      1. Set `partition output` to `partition output map[partition id]`.
-         1. On failure to find the partition, continue.
-      2. Add `partition output` to `cbor partitions array`.
+      1. Set `partition output` to `partitionOutputMap[partition id]`.
+         1. On failure to find the `partition id`, continue.
+      2. Append `partition output` to `cbor partitions array`.
    4. Set `cbor serialized payload` to the CBOR serialized `cbor partitions array`.
       1. On serialization failure, continue.
    5. Set `compression group content` to the [GZIP] compressed `cbor serialized payload`.
-      1. On failure, set `compression group content` to empty.
+      1. On failure, continue.
    6. Set `compression group["compressionGroupId"]` to `compression group id`
    7. Set `compression group["content"]` to `compression group content`.
    8. Add `compression group` to `compression groups`.
-1. Set `payload["compressionGroups"]` to `compression groups`.
-2. Create a framed payload, as described in {{framing}}:
+6. Set `payload["compressionGroups"]` to `compression groups`.
+7. Create a framed payload, as described in {{framing}}:
     1. Create a `framing header`.
     2. Set the `framing header` `Compression` to one of 2.
     3. Set the `framing header` `Size` to the size of `compressed payload`.
     4. Let `framed payload` equal the result of prepending the framing header to
        `payload`.
-    5. Padding MAY be added to `framing header`.
+    5. Padding MAY be added to `framed payload`.
     6. Return an empty `response` on failure of any of the previous steps.
-3. Let `response` equal the result of the encryption and encapsulation of `framed payload` with
+8. Let `response` equal the result of the encryption and encapsulation of `framed payload` with
    `rctxt`, as described in {{response-encryption}}. Return an empty `response` on failure.
-4. Return `response`.
+9.  Return `response`.
 
 ### Parsing a Response
 
