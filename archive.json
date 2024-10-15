@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-13T01:19:46.660444+00:00",
+  "timestamp": "2024-10-15T01:15:51.969848+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -63,7 +63,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-10-02T19:05:15Z",
-      "updatedAt": "2024-10-12T02:46:00Z",
+      "updatedAt": "2024-10-14T21:37:50Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "a0519f89956cf539ba3e8f0fbfb881f0ea3a5cbe",
@@ -1498,6 +1498,104 @@
               "body": "Done.",
               "createdAt": "2024-10-12T02:45:10Z",
               "updatedAt": "2024-10-12T02:45:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NH7q5",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "brusshamilton",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-14T21:10:31Z",
+          "updatedAt": "2024-10-14T21:37:50Z",
+          "comments": [
+            {
+              "originalPosition": 159,
+              "body": "\"Different compression groups must be compressed separately...\" That's referring to the response, but from the context it could refer to the request.\r\n\r\nSo maybe something like:\r\n\"The responses for different compression groups will be compressed separately in the response (see {{compression-group}}). Compressing the different groups separately avoids leaking the similarity of responses for different groups.\"",
+              "createdAt": "2024-10-14T21:10:31Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 212,
+              "body": "The client needs to save `sctxt`.",
+              "createdAt": "2024-10-14T21:13:08Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 347,
+              "body": "Should the schema specify that at least one \"partitions\" is required (e.g. `partitions: [1* partition]`)?",
+              "createdAt": "2024-10-14T21:19:11Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 352,
+              "body": "`compressionGroupid` -> `compressionGroupId`",
+              "createdAt": "2024-10-14T21:21:25Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 350,
+              "body": "In the schema, the `id` and `compressionGroupId` fields are required in the request.  It seems unusual to check for the presence of a required field.",
+              "createdAt": "2024-10-14T21:21:48Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 430,
+              "body": "What does the server do if the response does not fit in 2MB?",
+              "createdAt": "2024-10-14T21:23:52Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 544,
+              "body": "What data type is `payload`?",
+              "createdAt": "2024-10-14T21:27:19Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 471,
+              "body": "Should this field be required? I'm not sure what a partitionOutput without an ID would mean.",
+              "createdAt": "2024-10-14T21:29:25Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 549,
+              "body": "Maybe clearer to rewrite as \"Set `partition output map[partition id]` to `partitionOutput`. Also consider renaming `partition output map` to not have spaces - either `partition_output_map` or `partitionOutputMap`.",
+              "createdAt": "2024-10-14T21:31:42Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 551,
+              "body": "What is the type of `compression group`?",
+              "createdAt": "2024-10-14T21:32:08Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 556,
+              "body": "Add -> Append?",
+              "createdAt": "2024-10-14T21:33:17Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 559,
+              "body": "It doesn't have to be GZIP though. Maybe we should specify at the top that this response is to a request that included \"gzip\" as one of the acceptable compressions.",
+              "createdAt": "2024-10-14T21:35:17Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 560,
+              "body": "So on compression failure, we send an empty message field instead of omitting it entirely? It seems like we should just skip the entire compression group.",
+              "createdAt": "2024-10-14T21:36:47Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
+            },
+            {
+              "originalPosition": 571,
+              "body": "`framing header` -> `framed payload`.",
+              "createdAt": "2024-10-14T21:37:27Z",
+              "updatedAt": "2024-10-14T21:37:50Z"
             }
           ]
         }
