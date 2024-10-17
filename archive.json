@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-15T01:15:51.969848+00:00",
+  "timestamp": "2024-10-17T01:15:10.745204+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -63,13 +63,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-10-02T19:05:15Z",
-      "updatedAt": "2024-10-14T21:37:50Z",
+      "updatedAt": "2024-10-16T20:26:22Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "a0519f89956cf539ba3e8f0fbfb881f0ea3a5cbe",
       "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
       "headRefName": "main",
-      "headRefOid": "991394d494c48ac260ccfd4f97441b7f3ad990aa",
+      "headRefOid": "a406bc4e52bfe0ab47fdf42098b5e61765464ddc",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1596,6 +1596,324 @@
               "body": "`framing header` -> `framed payload`.",
               "createdAt": "2024-10-14T21:37:27Z",
               "updatedAt": "2024-10-14T21:37:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRgHG",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T17:57:50Z",
+          "updatedAt": "2024-10-15T17:57:51Z",
+          "comments": [
+            {
+              "originalPosition": 159,
+              "body": "Done.",
+              "createdAt": "2024-10-15T17:57:50Z",
+              "updatedAt": "2024-10-15T17:57:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRgKy",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T17:57:54Z",
+          "updatedAt": "2024-10-15T17:57:54Z",
+          "comments": [
+            {
+              "originalPosition": 212,
+              "body": "Done.",
+              "createdAt": "2024-10-15T17:57:54Z",
+              "updatedAt": "2024-10-15T17:57:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRhbA",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T17:59:36Z",
+          "updatedAt": "2024-10-15T17:59:36Z",
+          "comments": [
+            {
+              "originalPosition": 352,
+              "body": "Done.",
+              "createdAt": "2024-10-15T17:59:36Z",
+              "updatedAt": "2024-10-15T17:59:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRhf1",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T17:59:46Z",
+          "updatedAt": "2024-10-15T17:59:46Z",
+          "comments": [
+            {
+              "originalPosition": 350,
+              "body": "Done.",
+              "createdAt": "2024-10-15T17:59:46Z",
+              "updatedAt": "2024-10-15T17:59:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRhob",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T18:00:01Z",
+          "updatedAt": "2024-10-15T18:00:02Z",
+          "comments": [
+            {
+              "originalPosition": 430,
+              "body": "@peiwenhu ",
+              "createdAt": "2024-10-15T18:00:01Z",
+              "updatedAt": "2024-10-15T18:00:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRhuv",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T18:00:13Z",
+          "updatedAt": "2024-10-15T18:00:13Z",
+          "comments": [
+            {
+              "originalPosition": 544,
+              "body": "Done.",
+              "createdAt": "2024-10-15T18:00:13Z",
+              "updatedAt": "2024-10-15T18:00:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRhzv",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T18:00:22Z",
+          "updatedAt": "2024-10-15T18:00:22Z",
+          "comments": [
+            {
+              "originalPosition": 471,
+              "body": "Done.",
+              "createdAt": "2024-10-15T18:00:22Z",
+              "updatedAt": "2024-10-15T18:00:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRh-Q",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T18:00:42Z",
+          "updatedAt": "2024-10-15T18:00:43Z",
+          "comments": [
+            {
+              "originalPosition": 549,
+              "body": "This is technically not correct, actually. Keeping it as is.",
+              "createdAt": "2024-10-15T18:00:42Z",
+              "updatedAt": "2024-10-15T18:00:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRiDc",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T18:00:53Z",
+          "updatedAt": "2024-10-15T18:00:53Z",
+          "comments": [
+            {
+              "originalPosition": 551,
+              "body": "Done.",
+              "createdAt": "2024-10-15T18:00:53Z",
+              "updatedAt": "2024-10-15T18:00:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRiFi",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T18:00:56Z",
+          "updatedAt": "2024-10-15T18:00:57Z",
+          "comments": [
+            {
+              "originalPosition": 556,
+              "body": "Done.",
+              "createdAt": "2024-10-15T18:00:56Z",
+              "updatedAt": "2024-10-15T18:00:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRiJp",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T18:01:05Z",
+          "updatedAt": "2024-10-15T18:01:05Z",
+          "comments": [
+            {
+              "originalPosition": 559,
+              "body": "Done.",
+              "createdAt": "2024-10-15T18:01:05Z",
+              "updatedAt": "2024-10-15T18:01:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRiP5",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T18:01:17Z",
+          "updatedAt": "2024-10-15T18:01:17Z",
+          "comments": [
+            {
+              "originalPosition": 560,
+              "body": "Done.",
+              "createdAt": "2024-10-15T18:01:17Z",
+              "updatedAt": "2024-10-15T18:01:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NRiTJ",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T18:01:23Z",
+          "updatedAt": "2024-10-15T18:01:24Z",
+          "comments": [
+            {
+              "originalPosition": 571,
+              "body": "Done.",
+              "createdAt": "2024-10-15T18:01:23Z",
+              "updatedAt": "2024-10-15T18:01:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NSMMC",
+          "commit": {
+            "abbreviatedOid": "a406bc4"
+          },
+          "author": "peiwenhu",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-15T19:21:38Z",
+          "updatedAt": "2024-10-15T19:21:38Z",
+          "comments": [
+            {
+              "originalPosition": 430,
+              "body": "It returns an error response code. in the future the response code can be inside the ciphertext once we have error handling defined.",
+              "createdAt": "2024-10-15T19:21:38Z",
+              "updatedAt": "2024-10-15T19:21:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NeADH",
+          "commit": {
+            "abbreviatedOid": "a406bc4"
+          },
+          "author": "brusshamilton",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-16T19:14:13Z",
+          "updatedAt": "2024-10-16T20:26:22Z",
+          "comments": [
+            {
+              "originalPosition": 256,
+              "body": "Are you going to specify the \"preconfigured lengths\" here? If not, you might just want to say that \"Messages MAY be zero padded\".",
+              "createdAt": "2024-10-16T19:14:13Z",
+              "updatedAt": "2024-10-16T20:26:22Z"
+            },
+            {
+              "originalPosition": 306,
+              "body": "It sounds like there are different types of tags: `namespace` tags and other unspecified tags. Can you describe this more explicitly?",
+              "createdAt": "2024-10-16T19:16:22Z",
+              "updatedAt": "2024-10-16T20:26:22Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "So the values in `compressionGroupMap` are...itself? Shouldn't it be a list of partitions?",
+              "createdAt": "2024-10-16T20:20:21Z",
+              "updatedAt": "2024-10-16T20:26:22Z"
+            },
+            {
+              "originalPosition": 61,
+              "body": "You may want to specify how the Key Value Service creates the \"partitionOutputs\"\r\n - as the output from the UDF given the keys (and what other fields) in the corresponding input\r\n - describe constraints on UDF?",
+              "createdAt": "2024-10-16T20:25:07Z",
+              "updatedAt": "2024-10-16T20:26:22Z"
             }
           ]
         }
