@@ -353,7 +353,10 @@ a request message the Key Value Service can consume along with an HPKE context.
 7. If no `partitions` are present, return failure.
 8. Set `compressionGroupMap` to an empty map.
 9. For each `partition` in `partitions`:
-   1. Set `compressionGroupMap[compression group id]` to `partition[`id`]`.
+   1. Let `partitionIds` be an empty list.
+   2. Set `partitionIds` to `compressionGroupMap[compression group id]` if the map entry exists.
+   3. Append `partition["id"]` to `partitionIds`.
+   4. Set `compressionGroupMap[compression group id]` to `partitionIds`.
 10. Return `processed request`, `compressionGroupMap`, and `rctxt`.
 
 ## Response Data {#response}
