@@ -268,7 +268,7 @@ The request is a [CBOR] encoded message with the following [CDDL] schema:
 compressionType = "none" / "gzip" / "brotli"
 
 request = {
-    ? acceptCompression: [* compressionType],
+    ? acceptCompression: [1* compressionType],
     ; A list of supported response compression algorithms; must contain at least one of "none", "gzip", "brotli"
     ? metadata: requestMetadata,
     ; Metadata that applies for the request as a whole.
@@ -300,10 +300,10 @@ partitionMetadata = {
 }
 
 requestArgument = {
-    ? tags: [* tstr],
+    ? tags: [1* tstr],
     ; List of tags describing this group's attributes. These MAY be picked from the list of available tags in {{tags}}.
     ? data: [* tstr],
-    ; List of keys to get values for
+    ; List of keys to get values for.
 }
 ~~~~~
 
@@ -317,7 +317,6 @@ Each key group is expected to have exactly one tag from the following list:
 | keys | "keys" represent the keys to be looked up from the service's internal datastore. |
 | renderUrls | "renderUrls" represent URLs for advertisements to be looked up from the service's internal datastore. |
 | adComponentRenderUrls | "adComponentRenderUrls" represent component URLs for advertisements to be looked up from the service's internal datastore. |
-
 
 ### Generating a Request
 
