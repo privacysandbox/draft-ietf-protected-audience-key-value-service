@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-17T01:15:10.745204+00:00",
+  "timestamp": "2024-10-20T01:21:13.374062+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -63,13 +63,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-10-02T19:05:15Z",
-      "updatedAt": "2024-10-16T20:26:22Z",
+      "updatedAt": "2024-10-18T18:17:42Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "a0519f89956cf539ba3e8f0fbfb881f0ea3a5cbe",
       "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
       "headRefName": "main",
-      "headRefOid": "a406bc4e52bfe0ab47fdf42098b5e61765464ddc",
+      "headRefOid": "1714c5cd1a4c0cf68f37777e85b3fff98568e6a5",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1914,6 +1914,106 @@
               "body": "You may want to specify how the Key Value Service creates the \"partitionOutputs\"\r\n - as the output from the UDF given the keys (and what other fields) in the corresponding input\r\n - describe constraints on UDF?",
               "createdAt": "2024-10-16T20:25:07Z",
               "updatedAt": "2024-10-16T20:26:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6Nx-nj",
+          "commit": {
+            "abbreviatedOid": "8964519"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-18T18:00:14Z",
+          "updatedAt": "2024-10-18T18:00:14Z",
+          "comments": [
+            {
+              "originalPosition": 61,
+              "body": "Thanks, added a short paragraph on UDFs. ",
+              "createdAt": "2024-10-18T18:00:14Z",
+              "updatedAt": "2024-10-18T18:00:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NyA1S",
+          "commit": {
+            "abbreviatedOid": "a406bc4"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-18T18:06:10Z",
+          "updatedAt": "2024-10-18T18:06:10Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "Thanks for catching that. The values should be a list of partition Ids. ",
+              "createdAt": "2024-10-18T18:06:10Z",
+              "updatedAt": "2024-10-18T18:06:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NyCDI",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-18T18:09:20Z",
+          "updatedAt": "2024-10-18T18:09:20Z",
+          "comments": [
+            {
+              "originalPosition": 306,
+              "body": "It looks like we've updated the API spec to drop namespace. Updated it. ",
+              "createdAt": "2024-10-18T18:09:20Z",
+              "updatedAt": "2024-10-18T18:09:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NyCQp",
+          "commit": {
+            "abbreviatedOid": "991394d"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-18T18:09:55Z",
+          "updatedAt": "2024-10-18T18:09:55Z",
+          "comments": [
+            {
+              "originalPosition": 256,
+              "body": "Done.",
+              "createdAt": "2024-10-18T18:09:55Z",
+              "updatedAt": "2024-10-18T18:09:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6NyCw7",
+          "commit": {
+            "abbreviatedOid": "bbe192e"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-18T18:11:13Z",
+          "updatedAt": "2024-10-18T18:11:13Z",
+          "comments": [
+            {
+              "originalPosition": 202,
+              "body": "Discussed offline, we don't really want to restrict it to only those tags.",
+              "createdAt": "2024-10-18T18:11:13Z",
+              "updatedAt": "2024-10-18T18:11:13Z"
             }
           ]
         }
