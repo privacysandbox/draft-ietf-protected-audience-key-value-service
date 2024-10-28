@@ -585,7 +585,23 @@ TODO
 
 # Security Considerations
 
-TODO
+The Key Values Service is run by adtechs as service operators and relies on [HPKE] to encrypt communication between the client
+and the Key Value Service endpoint.
+This protects the confidentiality and integrity of requests and responses, particularly between the point of HTTPS/TLS termination and the TEE. By encrypting messages at this stage, [HPKE]
+prevents service operators from reading or modifying them in transit.
+While HPKE encryption protects message contents, the size of encrypted messages
+is still observable. This could potentially be exploited as a side-channel
+to leak information. Implementations MAY employ padding techniques described
+in this document to mitigate this risk.
+
+To achieve specific privacy goals, clients can break up the request into
+separate partitions. Partitions prevent one interest group from influencing the response to another one. This isolation ensures that information remains compartmentalized and prevents unintended interference between interest groups.
+
+A cross-site tracking risk exists where an adtech could attempt to link a user’s identity across different websites. An interest group owner could join a user to interest groups on multiple sites and observe changes in the request’s overall compression ratio. This protocol mitigates this risk by compressing interest groups for different sites separately.
+
+An implementation should ensure that public keys used for encryption
+are obtained from a trusted source to prevent impersonation and unauthorized access.
+Private keys should be stored securely to prevent compromise.
 
 # IANA Considerations
 
