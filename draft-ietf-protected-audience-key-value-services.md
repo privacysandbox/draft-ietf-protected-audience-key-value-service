@@ -318,9 +318,43 @@ Each key group is expected to have exactly one tag from the following list:
 | renderUrls | "renderUrls" represent URLs for advertisements to be looked up from the service's internal datastore. |
 | adComponentRenderUrls | "adComponentRenderUrls" represent component URLs for advertisements to be looked up from the service's internal datastore. |
 
-### Generating a Request
+### Generating a Request {#request-generate}
 
-TODO
+This section describes how the client MAY form and serialize request messages in order to fetch values from the Trusted Key Value server. 
+
+This algorithm takes as input an [HPKE] `public key` and its associated `key id`, a `metadata` map for global configuration, where both keys and values are strings, and a list of `signals`, each of which is a map, from a list of strings to a list of strings.
+
+The output is an [HPKE] ciphertext encrypted `request` and a context `request context`.
+
+1. Let `request map` be an empty map.
+1. Let `compression group id` be 0.
+1. Let `partitions` be an empty array.
+1. For each `signal` in `signals`:
+    1. Let `partition` be an empty map.
+    1. Set `partition["id"]` to 0.
+    1. Set `partition["compressionGroupId"]` to `compression group id`.
+    1. Let `compression group id` increase by 1.
+    1. Let `arguments` be an empty array.
+    1. For each `tags` → `data` in `signal`:
+        1. Let `argument` be an empty map.
+        1. Set `argument["tags"]` to `tags`.
+        1. Set `argument["data"]` to `data`.
+        1. Insert `argument` into `arguments`.
+    1. Set `partition["arguments"]` to `arguments`.
+    1. Insert `partition` into `partitions`.
+1. Set `request map["metadata"]` to `metadata`.
+1. Set `request map["partitions"]` to `partitions`.
+1. Set `request map["acceptCompression"]` to `["none", "gzip"]`.
+1. [CBOR] encode `request map` to `payload`.
+1. Create a `framed payload`, as described in {{framing}}:
+    1. Create a {{framing}} header `framing header`.
+    1. Set `framing header`'s `Compression` to 1.
+    1. Set `framing header`'s `Size` to the size of `payload`.
+    1. Set `framed payload` to the concatenation of `framing header` and `payload`.
+    1. Padding MAY be added to `framed payload`.
+    1. Return an empty `request` on failure of any of the previous steps.
+1. [HPKE] encrypt `framed payload` using `public key` and `key id` as in {{request-encryption}} to get the [HPKE] encrypted ciphertext `request` and [HPKE] encryption context `request context`.
+1. Return`request` and `request context`.
 
 ### Parsing a Request {#request-parsing}
 
@@ -579,9 +613,48 @@ The output is a `response` to be sent to a Client.
    `rctxt`, as described in {{response-encryption}}. Return an empty `response` on failure.
 9.  Return `response`.
 
-### Parsing a Response
+### Parsing a Response (#response-parsing)
 
-TODO
+This section describes how a conforming Client MUST parse and validate a response from a Trusted Key Value service. 
+
+It takes as input the `request context` returned from {{request-generate}} in addition to the `encrypted response`.
+
+The output is a `result` map, where the keys are strings, and the values are maps with both keys and values as strings.
+
+1. Use `request context` as the context to decrypt `encrypted response` and obtain `framed response`, returning failure if decryption fails.
+1. Remove and extract the first 5 bytes from `framed response` as the framing header (described in {{framing}}), removing them from `framed response`.
+1. If `framing header`'s `Version` field is not 0 or 2, return failure.
+1. Let `length` be equal to the `framing header`'s `Size` field.
+1. If `length` is greater than the length of the remaining bytes in `framed response`, return failure.
+1. Take the first `length` remaining bytes in `framed response` as `serialized response`, discarding the rest.
+1. [CBOR] decode the `serialized response` into `response`, returning failure if decoding fails.
+1. If `response` is not a map, return failure.
+1. If `response["compressionGroups"]` does not exist, or is not an array, return failure.
+1. Let `result` be an empty map.
+1. For each `group` in `response["compressionGroups"]`:
+    1. If `group` is not a map, return failure.
+    1. If `group["content"]` does not exist, return failure.
+    1. If `framing header`'s `Version` field is 0:
+        1. Set `serialized content` to `group["content"]`.
+    1. Otherwise:
+        1. [GZIP] decompress the `group["content"]` to `serialized content`, returning failure if decompression fails.
+    1. [CBOR] decode the `serialized content` into `content`, returning failure if decoding fails.
+    1. If `content` is not an array, return failure.
+    1. For each `partition` in `content`:
+        1. If `partition` is not a map, return failure.
+        1. If `partition["keyGroupOutputs"]` does not exist, or is not an array, return failure.
+        1. For each `output` in `partition["keyGroupOutputs"]`:
+            1. If `output` is not a map, return failure.
+            1. If `output["tags"]` does not exist, or is not an array, return failure.
+            1. If `output["keyValues"]` does not exist or is not a map, return failure.
+            1. Let `key value` be an empty map.
+            1. For each `key` → `value` in `output["keyValues"]`:
+                1. If `key` is not a string, return failure.
+                1. If `value` is not a map, return failure.
+                1. If `value["value"]` does not exist, or is not a string, return failure.
+                1. Set `key value[key]` to `value["value"]`.
+            1. Set `result[output["tags"]]` to `key value`.
+1. Return `result`.
 
 # Security Considerations
 
