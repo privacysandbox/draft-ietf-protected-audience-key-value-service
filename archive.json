@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-03T01:20:25.312622+00:00",
+  "timestamp": "2024-11-05T01:13:57.859763+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2020,6 +2020,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOMnZLYc6A2N_O",
+      "title": "Add request generating and response parsing sections",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/2",
+      "state": "OPEN",
+      "author": "xtlsheep",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-04T20:13:51Z",
+      "updatedAt": "2024-11-04T20:13:51Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "760aaf79db78ca6130e67c7a403ee5d1451c33f0",
+      "headRepository": "xtlsheep/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "patch-1",
+      "headRefOid": "b78f6c0f16f784445c9f2a8a6b72aa8fbbcbb9c7",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
