@@ -5,8 +5,8 @@
 TBD                                                                P. Hu
 Internet-Draft                                                     T. Xu
 Intended status: Standards Track                                 L. Zhan
-Expires: 1 May 2025                                               Google
-                                                         28 October 2024
+Expires: 10 May 2025                                              Google
+                                                         6 November 2024
 
 
                  Protected Audience Key Value Services
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 May 2025.
+   This Internet-Draft will expire on 10 May 2025.
 
 Copyright Notice
 
@@ -852,12 +852,14 @@ A.1.  Example Request
        "none",
        "gzip"
      ],
+     "metadata": {
+       "hostname": "example.com"
+     },
      "partitions": [
        {
          "id": 0,
          "compressionGroupId": 0,
          "metadata": {
-           "hostname": "example.com",
            "experimentGroupId": "12345",
            "slotSize": "100,200",
          },
