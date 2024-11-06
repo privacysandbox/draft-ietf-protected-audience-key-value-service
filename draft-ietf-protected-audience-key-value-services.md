@@ -622,12 +622,14 @@ from [CDDL] [Appendix G](https://datatracker.ietf.org/doc/html/rfc8610#appendix-
     "none",
     "gzip"
   ],
+  "metadata": {
+    "hostname": "example.com"
+  },
   "partitions": [
     {
       "id": 0,
       "compressionGroupId": 0,
       "metadata": {
-        "hostname": "example.com",
         "experimentGroupId": "12345",
         "slotSize": "100,200",
       },
