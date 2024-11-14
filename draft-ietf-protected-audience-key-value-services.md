@@ -654,6 +654,7 @@ The output is a `result` map, where the keys are strings, and the values are map
                 1. If `value["value"]` does not exist, or is not a string, return failure.
                 1. Set `key value[key]` to `value["value"]`.
             1. Set `result[output["tags"]]` to `key value`.
+            1. If `partition["dataVersion"]` exists, Set `result[output["dataVersion"]]` to `partition["dataVersion"]`.
 1. Return `result`.
 
 # Security Considerations
