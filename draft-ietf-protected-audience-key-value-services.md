@@ -630,7 +630,7 @@ The output is a `result` map, where the keys are strings, and the values are map
 1. [CBOR] decode the `serialized response` into `response`, returning failure if decoding fails.
 1. If `response` is not a map, return failure.
 1. If `response["compressionGroups"]` does not exist, or is not an array, return failure.
-1. Let `result` be an empty map.
+1. Let `results` be an empty array.
 1. For each `group` in `response["compressionGroups"]`:
     1. If `group` is not a map, return failure.
     1. If `group["content"]` does not exist, return failure.
@@ -643,6 +643,7 @@ The output is a `result` map, where the keys are strings, and the values are map
     1. For each `partition` in `content`:
         1. If `partition` is not a map, return failure.
         1. If `partition["keyGroupOutputs"]` does not exist, or is not an array, return failure.
+        1. Let `result` be an empty map.
         1. For each `output` in `partition["keyGroupOutputs"]`:
             1. If `output` is not a map, return failure.
             1. If `output["tags"]` does not exist, or is not an array, return failure.
@@ -654,8 +655,9 @@ The output is a `result` map, where the keys are strings, and the values are map
                 1. If `value["value"]` does not exist, or is not a string, return failure.
                 1. Set `key value[key]` to `value["value"]`.
             1. Set `result[output["tags"]]` to `key value`.
-            1. If `partition["dataVersion"]` exists, Set `result[output["dataVersion"]]` to `partition["dataVersion"]`.
-1. Return `result`.
+        1. If `partition["dataVersion"]` exists, Set `result["dataVersion"]` to `partition["dataVersion"]`.
+        1. Append `result` to `results`.
+1. Return `results`.
 
 # Security Considerations
 
