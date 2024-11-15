@@ -320,28 +320,33 @@ Each key group is expected to have exactly one tag from the following list:
 
 ### Generating a Request {#request-generate}
 
-This section describes how the client MAY form and serialize request messages in order to fetch values from the Trusted Key Value server. 
+This section describes how the client MAY form and serialize request messages in order to fetch values from the Trusted Key Value server.
 
-This algorithm takes as input an [HPKE] `public key` and its associated `key id`, a `metadata` map for global configuration, where both keys and values are strings, and a list of `signals`, each of which is a map, from a list of strings to a list of strings.
+This algorithm takes as input an [HPKE] `public key` and its associated `key id`, a `metadata` map for global configuration, where both keys and values are strings, and a `compression groups` list, each of which is a map, from key `"partitions"` to value `partitions` as a list of maps.
 
 The output is an [HPKE] ciphertext encrypted `request` and a context `request context`.
 
 1. Let `request map` be an empty map.
 1. Let `compression group id` be 0.
 1. Let `partitions` be an empty array.
-1. For each `signal` in `signals`:
-    1. Let `partition` be an empty map.
-    1. Set `partition["id"]` to 0.
-    1. Set `partition["compressionGroupId"]` to `compression group id`.
-    1. Let `compression group id` increase by 1.
+1. For each `group` in `compression groups`:
+  1. Let `partition id` be 0.
+  1. For each `partition` in `compression groups["partitions"]:
+    1. Let `p` be an empty map.
+    1. Set `p["compressionGroupId"]` to `compression group id`.
+    1. Set `p["id"]` to `partition id`.
     1. Let `arguments` be an empty array.
-    1. For each `tags` → `data` in `signal`:
+    1. For each `key` → `value` in `partition`:
+      1. If `key` equals "metadata":
+        1. Set `p["metadata"]` to `partition["metadata"].
+      1. Otherwise:
         1. Let `argument` be an empty map.
-        1. Set `argument["tags"]` to `tags`.
+        1. Set `argument["tags"]` to `key`.
         1. Set `argument["data"]` to `data`.
         1. Insert `argument` into `arguments`.
-    1. Set `partition["arguments"]` to `arguments`.
-    1. Insert `partition` into `partitions`.
+    1. Set `p["arguments"]` to `arguments`.
+    1. Insert `p` into `partitions`.
+  1. Let `compression group id` increase by 1.
 1. Set `request map["metadata"]` to `metadata`.
 1. Set `request map["partitions"]` to `partitions`.
 1. Set `request map["acceptCompression"]` to `["none", "gzip"]`.
