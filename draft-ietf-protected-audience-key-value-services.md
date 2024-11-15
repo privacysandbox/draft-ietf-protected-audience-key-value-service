@@ -628,7 +628,7 @@ The output is a `result` map, where the keys are strings, and the values are map
 
 1. Use `request context` as the context to decrypt `encrypted response` and obtain `framed response`, returning failure if decryption fails.
 1. Remove and extract the first 5 bytes from `framed response` as the framing header (described in {{framing}}), removing them from `framed response`.
-1. If `framing header`'s `Version` field is not 0 or 2, return failure.
+1. If `framing header`'s `Compression` field is not 0 or 2, return failure.
 1. Let `length` be equal to the `framing header`'s `Size` field.
 1. If `length` is greater than the length of the remaining bytes in `framed response`, return failure.
 1. Take the first `length` remaining bytes in `framed response` as `serialized response`, discarding the rest.
@@ -639,10 +639,7 @@ The output is a `result` map, where the keys are strings, and the values are map
 1. For each `group` in `response["compressionGroups"]`:
     1. If `group` is not a map, return failure.
     1. If `group["content"]` does not exist, return failure.
-    1. If `framing header`'s `Version` field is 0:
-        1. Set `serialized content` to `group["content"]`.
-    1. Otherwise:
-        1. [GZIP] decompress the `group["content"]` to `serialized content`, returning failure if decompression fails.
+    1. Set `serialized content` to the result of decompressing `group["content"]` according to the compression algorithm specified in the `framing header`'s `Compression` field, returning failure if decompression fails.
     1. [CBOR] decode the `serialized content` into `content`, returning failure if decoding fails.
     1. If `content` is not an array, return failure.
     1. For each `partition` in `content`:
@@ -661,6 +658,8 @@ The output is a `result` map, where the keys are strings, and the values are map
                 1. Set `key value[key]` to `value["value"]`.
             1. Set `result[output["tags"]]` to `key value`.
         1. If `partition["dataVersion"]` exists, Set `result["dataVersion"]` to `partition["dataVersion"]`.
+        1. Set `result["compressionGroupId"]` to `group["compressionGroupId"]`.
+        1. Set `result["id"]` to `partition["id"]`.
         1. Append `result` to `results`.
 1. Return `results`.
 
