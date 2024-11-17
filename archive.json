@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-14T01:14:55.016877+00:00",
+  "timestamp": "2024-11-17T01:23:09.000736+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2033,19 +2033,96 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-11-04T20:13:51Z",
-      "updatedAt": "2024-11-04T20:13:51Z",
+      "updatedAt": "2024-11-15T21:44:32Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "760aaf79db78ca6130e67c7a403ee5d1451c33f0",
       "headRepository": "xtlsheep/draft-ietf-protected-audience-key-value-service",
       "headRefName": "patch-1",
-      "headRefOid": "b78f6c0f16f784445c9f2a8a6b72aa8fbbcbb9c7",
+      "headRefOid": "60d4d47ca38a1ca0ebc4732ecba3f69932e69685",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMnZLYc6RO2dO",
+          "commit": {
+            "abbreviatedOid": "0455207"
+          },
+          "author": "brusshamilton",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-14T16:20:45Z",
+          "updatedAt": "2024-11-14T16:27:18Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "Should we be setting `partition[\"id\"]` to `compression group id` here? Otherwise all the partitions will have an ID of 0.",
+              "createdAt": "2024-11-14T16:20:45Z",
+              "updatedAt": "2024-11-14T16:27:18Z"
+            },
+            {
+              "originalPosition": 64,
+              "body": "The framing header doesn't have a Version field. Do you mean \"Compression\"?",
+              "createdAt": "2024-11-14T16:23:55Z",
+              "updatedAt": "2024-11-14T16:27:18Z"
+            },
+            {
+              "originalPosition": 75,
+              "body": "You could probably combine these cases to something like:\r\n\r\nSet `serialized content` to the result of decompressing `group[\"content\"]` according to the compression algorithm specified in the `framing header`'s `Compression` field, returning failure if decompression fails.",
+              "createdAt": "2024-11-14T16:25:36Z",
+              "updatedAt": "2024-11-14T16:27:18Z"
+            },
+            {
+              "originalPosition": 85,
+              "body": "You're not doing anything with the partition IDs or compression IDs here. I think those are necessary in order to map the response back to the request.",
+              "createdAt": "2024-11-14T16:27:13Z",
+              "updatedAt": "2024-11-14T16:27:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6RaPYU",
+          "commit": {
+            "abbreviatedOid": "60d4d47"
+          },
+          "author": "xtlsheep",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-15T20:35:21Z",
+          "updatedAt": "2024-11-15T21:44:32Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "Gotcha, this request generation part will be updated to a new version that takes a list of compression group, which has a list of partitions, and use counters to assign compression group id and partition id. Will let you know after the new patch is uploaded.",
+              "createdAt": "2024-11-15T20:35:21Z",
+              "updatedAt": "2024-11-15T21:44:32Z"
+            },
+            {
+              "originalPosition": 64,
+              "body": "Yeah, changed it to `Compression`.",
+              "createdAt": "2024-11-15T21:10:03Z",
+              "updatedAt": "2024-11-15T21:44:32Z"
+            },
+            {
+              "originalPosition": 75,
+              "body": "Done.",
+              "createdAt": "2024-11-15T21:12:31Z",
+              "updatedAt": "2024-11-15T21:44:32Z"
+            },
+            {
+              "originalPosition": 85,
+              "body": "Added compression group id and partition id to the output result map.",
+              "createdAt": "2024-11-15T21:44:02Z",
+              "updatedAt": "2024-11-15T21:44:32Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
