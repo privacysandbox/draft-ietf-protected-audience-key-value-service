@@ -655,8 +655,7 @@ The output is a `result` map, where the keys are strings, and the values are map
                 1. Set `key value[key]` to `value["value"]`.
             1. Set `result[output["tags"]]` to `key value`.
         1. If `partition["dataVersion"]` exists, Set `result["dataVersion"]` to `partition["dataVersion"]`.
-        1. Set `result["compressionGroupId"]` to `group["compressionGroupId"]`.
-        1. Set `result["id"]` to `partition["id"]`.
+        1. Set `result["index"]` to tuple of `group["compressionGroupId"]` and `partition["id"]`.
         1. Append `result` to `results`.
 1. Return `results`.
 
