@@ -327,14 +327,12 @@ This algorithm takes as input an [HPKE] `public key` and its associated `key id`
 The output is an [HPKE] ciphertext encrypted `request` and a context `request context`.
 
 1. Let `request map` be an empty map.
-1. Let `compression group id` be 0.
 1. Let `partitions` be an empty array.
 1. For each `group` in `compression groups`:
-  1. Let `partition id` be 0.
   1. For each `partition` in `compression groups["partitions"]:
     1. Let `p` be an empty map.
-    1. Set `p["compressionGroupId"]` to `compression group id`.
-    1. Set `p["id"]` to `partition id`.
+    1. Set `p["compressionGroupId"]` to `group[compressionGroupId"]`.
+    1. Set `p["id"]` to `partition["id"]`.
     1. Let `arguments` be an empty array.
     1. For each `key` → `value` in `partition`:
       1. If `key` equals "metadata":
@@ -346,7 +344,6 @@ The output is an [HPKE] ciphertext encrypted `request` and a context `request co
         1. Insert `argument` into `arguments`.
     1. Set `p["arguments"]` to `arguments`.
     1. Insert `p` into `partitions`.
-  1. Let `compression group id` increase by 1.
 1. Set `request map["metadata"]` to `metadata`.
 1. Set `request map["partitions"]` to `partitions`.
 1. Set `request map["acceptCompression"]` to `["none", "gzip"]`.
