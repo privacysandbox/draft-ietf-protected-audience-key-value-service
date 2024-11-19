@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-17T01:23:09.000736+00:00",
+  "timestamp": "2024-11-19T01:19:20.740515+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2033,13 +2033,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-11-04T20:13:51Z",
-      "updatedAt": "2024-11-15T21:44:32Z",
+      "updatedAt": "2024-11-18T19:32:08Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "760aaf79db78ca6130e67c7a403ee5d1451c33f0",
       "headRepository": "xtlsheep/draft-ietf-protected-audience-key-value-service",
       "headRefName": "patch-1",
-      "headRefOid": "60d4d47ca38a1ca0ebc4732ecba3f69932e69685",
+      "headRefOid": "0bc51be96e0f3f0adfc98b6924496dbe0009f301",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2119,6 +2119,32 @@
               "body": "Added compression group id and partition id to the output result map.",
               "createdAt": "2024-11-15T21:44:02Z",
               "updatedAt": "2024-11-15T21:44:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6RpOLt",
+          "commit": {
+            "abbreviatedOid": "0622706"
+          },
+          "author": "brusshamilton",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-18T19:18:35Z",
+          "updatedAt": "2024-11-18T19:32:08Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "I'm having trouble parsing what `compression groups` list looks like. What do you mean by \"from key `\"partitions\"` to value `partitions`? I don't see a definition from either type, and I'm not sure what the quote characters in `\"partitions`\" indicate.\r\n",
+              "createdAt": "2024-11-18T19:18:35Z",
+              "updatedAt": "2024-11-18T19:32:08Z"
+            },
+            {
+              "originalPosition": 21,
+              "body": "You're looping over `compression groups` and then over a field in  `compression groups`. It seems like that would give you all combinations of both, which is probably not what you want.",
+              "createdAt": "2024-11-18T19:30:04Z",
+              "updatedAt": "2024-11-18T19:32:08Z"
             }
           ]
         }
