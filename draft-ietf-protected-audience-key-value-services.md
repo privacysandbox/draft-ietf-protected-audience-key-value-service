@@ -322,26 +322,24 @@ Each key group is expected to have exactly one tag from the following list:
 
 This section describes how the client MAY form and serialize request messages in order to fetch values from the Trusted Key Value server.
 
-This algorithm takes as input an [HPKE] `public key` and its associated `key id`, a `metadata` map for global configuration, where both keys and values are strings, and a `compression groups` list, each of which is a map, from key `"partitions"` to value `partitions` as a list of maps.
+This algorithm takes as input an [HPKE] `public key` and its associated `key id`, a `metadata` map for global configuration, where both keys and values are strings, and `compression groups`, which is a list of compression group structs. Each struct contains a compression group with a compression group ID and one or more partitions. Each partition includes multiple keys, such as "id," whose value is an integer; "metadata," whose value is a map where both keys and values are strings; and "namespace," whose value is a map where keys are strings and values are lists of strings.
 
 The output is an [HPKE] ciphertext encrypted `request` and a context `request context`.
 
 1. Let `request map` be an empty map.
 1. Let `partitions` be an empty array.
 1. For each `group` in `compression groups`:
-  1. For each `partition` in `compression groups["partitions"]:
+  1. For each `partition` in `group["partitions"]:
     1. Let `p` be an empty map.
     1. Set `p["compressionGroupId"]` to `group[compressionGroupId"]`.
     1. Set `p["id"]` to `partition["id"]`.
+    1. Set `p["metadata"]` to `partition["metadata"].
     1. Let `arguments` be an empty array.
-    1. For each `key` → `value` in `partition`:
-      1. If `key` equals "metadata":
-        1. Set `p["metadata"]` to `partition["metadata"].
-      1. Otherwise:
-        1. Let `argument` be an empty map.
-        1. Set `argument["tags"]` to `key`.
-        1. Set `argument["data"]` to `data`.
-        1. Insert `argument` into `arguments`.
+    1. For each `tag` → `value` in `partition["namespace"]`:
+      1. Let `argument` be an empty map.
+      1. Set `argument["tags"]` to [`tag`].
+      1. Set `argument["data"]` to `value`.
+      1. Insert `argument` into `arguments`.
     1. Set `p["arguments"]` to `arguments`.
     1. Insert `p` into `partitions`.
 1. Set `request map["metadata"]` to `metadata`.
