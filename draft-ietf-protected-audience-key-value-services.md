@@ -336,10 +336,11 @@ The output is an [HPKE] ciphertext encrypted `request` and a context `request co
     1. Set `p["metadata"]` to `partition["metadata"].
     1. Let `arguments` be an empty array.
     1. For each `tag` → `value` in `partition["namespace"]`:
-      1. Let `argument` be an empty map.
-      1. Set `argument["tags"]` to [`tag`].
-      1. Set `argument["data"]` to `value`.
-      1. Insert `argument` into `arguments`.
+      1. If `tag` is one of [available tags](https://privacysandbox.github.io/draft-ietf-protected-audience-key-value-service/draft-ietf-protected-audience-key-value-services.html#section-2.2.3.1):
+        1. Let `argument` be an empty map.
+        1. Set `argument["tags"]` to [`tag`].
+        1. Set `argument["data"]` to `value`.
+        1. Insert `argument` into `arguments`.
     1. Set `p["arguments"]` to `arguments`.
     1. Insert `p` into `partitions`.
 1. Set `request map["metadata"]` to `metadata`.
@@ -354,7 +355,7 @@ The output is an [HPKE] ciphertext encrypted `request` and a context `request co
     1. Padding MAY be added to `framed payload`.
     1. Return an empty `request` on failure of any of the previous steps.
 1. [HPKE] encrypt `framed payload` using `public key` and `key id` as in {{request-encryption}} to get the [HPKE] encrypted ciphertext `request` and [HPKE] encryption context `request context`.
-1. Return`request` and `request context`.
+1. Return `request` and `request context`.
 
 ### Parsing a Request {#request-parsing}
 
