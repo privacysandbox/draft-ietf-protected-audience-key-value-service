@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-19T01:19:20.740515+00:00",
+  "timestamp": "2024-11-21T01:18:28.527710+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2033,13 +2033,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-11-04T20:13:51Z",
-      "updatedAt": "2024-11-18T19:32:08Z",
+      "updatedAt": "2024-11-20T18:48:52Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "760aaf79db78ca6130e67c7a403ee5d1451c33f0",
       "headRepository": "xtlsheep/draft-ietf-protected-audience-key-value-service",
       "headRefName": "patch-1",
-      "headRefOid": "0bc51be96e0f3f0adfc98b6924496dbe0009f301",
+      "headRefOid": "35cc405227c66f40a1ce57724d226bb6c13480d5",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2145,6 +2145,112 @@
               "body": "You're looping over `compression groups` and then over a field in  `compression groups`. It seems like that would give you all combinations of both, which is probably not what you want.",
               "createdAt": "2024-11-18T19:30:04Z",
               "updatedAt": "2024-11-18T19:32:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6R0tOH",
+          "commit": {
+            "abbreviatedOid": "993a20d"
+          },
+          "author": "xtlsheep",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-19T19:47:02Z",
+          "updatedAt": "2024-11-19T21:32:46Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "As discussed, this is a typo here. Changed `compression groups` to `group`.",
+              "createdAt": "2024-11-19T19:47:02Z",
+              "updatedAt": "2024-11-19T21:32:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6R1av7",
+          "commit": {
+            "abbreviatedOid": "0622706"
+          },
+          "author": "xtlsheep",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-19T21:34:08Z",
+          "updatedAt": "2024-11-19T21:34:08Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "As discussed, updated the description of input arguments, and add a new field \"namespace\" in the partition struct.",
+              "createdAt": "2024-11-19T21:34:08Z",
+              "updatedAt": "2024-11-19T21:34:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6R1oJW",
+          "commit": {
+            "abbreviatedOid": "993a20d"
+          },
+          "author": "brusshamilton",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Almost there, I think.",
+          "createdAt": "2024-11-19T22:09:43Z",
+          "updatedAt": "2024-11-19T22:16:30Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "We better not copy each tag blindly. We should look through each tag in [2.2.3.1](https://privacysandbox.github.io/draft-ietf-protected-audience-key-value-service/draft-ietf-protected-audience-key-value-services.html#section-2.2.3.1) so that we only extract recognized tags. Otherwise it may be a problem if we add new tag types.",
+              "createdAt": "2024-11-19T22:09:43Z",
+              "updatedAt": "2024-11-19T22:16:30Z"
+            },
+            {
+              "originalPosition": 43,
+              "body": "Return `request` and `request context`.\r\n(add missing space)",
+              "createdAt": "2024-11-19T22:10:30Z",
+              "updatedAt": "2024-11-19T22:16:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6R_4Je",
+          "commit": {
+            "abbreviatedOid": "35cc405"
+          },
+          "author": "xtlsheep",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-20T18:48:27Z",
+          "updatedAt": "2024-11-20T18:48:41Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "Add a if case to check if the tag is one of those available tags.",
+              "createdAt": "2024-11-20T18:48:27Z",
+              "updatedAt": "2024-11-20T18:48:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6R_4U7",
+          "commit": {
+            "abbreviatedOid": "993a20d"
+          },
+          "author": "xtlsheep",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-20T18:48:52Z",
+          "updatedAt": "2024-11-20T18:48:52Z",
+          "comments": [
+            {
+              "originalPosition": 43,
+              "body": "Done",
+              "createdAt": "2024-11-20T18:48:52Z",
+              "updatedAt": "2024-11-20T18:48:52Z"
             }
           ]
         }
