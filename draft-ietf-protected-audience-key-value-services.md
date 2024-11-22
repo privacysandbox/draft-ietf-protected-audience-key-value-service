@@ -320,11 +320,21 @@ Each key group is expected to have exactly one tag from the following list:
 
 ### Generating a Request {#request-generate}
 
-This section describes how the client MAY form and serialize request messages in order to fetch values from the Trusted Key Value server.
+This section describes how the client MAY form and serialize request
+messages in order to fetch values from the Trusted Key Value server.
 
-This algorithm takes as input an [HPKE] `public key` and its associated `key id`, a `metadata` map for global configuration, where both keys and values are strings, and `compression groups`, which is a list of compression group structs. Each struct contains a compression group with a compression group ID and one or more partitions. Each partition includes multiple keys, such as "id," whose value is an integer; "metadata," whose value is a map where both keys and values are strings; and "namespace," whose value is a map where keys are strings and values are lists of strings.
+This algorithm takes as input an [HPKE] `public key` and its associated
+`key id`, a `metadata` map for global configuration, where both keys and
+values are strings, and `compression groups`, which is a list of
+compression group structs. Each struct contains a compression group with
+a compression group ID and one or more partitions. Each partition
+includes multiple keys, such as "id," whose value is an integer;
+"metadata," whose value is a map where both keys and values are strings;
+and "namespace," whose value is a map where keys are strings and values
+are lists of strings.
 
-The output is an [HPKE] ciphertext encrypted `request` and a context `request context`.
+The output is an [HPKE] ciphertext encrypted `request` and a context
+`request context`.
 
 1. Let `request map` be an empty map.
 1. Let `partitions` be an empty array.
@@ -616,11 +626,14 @@ The output is a `response` to be sent to a Client.
 
 ### Parsing a Response (#response-parsing)
 
-This section describes how a conforming Client MUST parse and validate a response from a Trusted Key Value service. 
+This section describes how a conforming Client MUST parse and validate
+a response from a Trusted Key Value service. 
 
-It takes as input the `request context` returned from {{request-generate}} in addition to the `encrypted response`.
+It takes as input the `request context` returned from
+{{request-generate}} in addition to the `encrypted response`.
 
-The output is a `result` map, where the keys are strings, and the values are maps with both keys and values as strings.
+The output is a `result` map, where the keys are strings, and the
+values are maps with both keys and values as strings.
 
 1. Use `request context` as the context to decrypt `encrypted response` and obtain `framed response`, returning failure if decryption fails.
 1. Remove and extract the first 5 bytes from `framed response` as the framing header (described in {{framing}}), removing them from `framed response`.
