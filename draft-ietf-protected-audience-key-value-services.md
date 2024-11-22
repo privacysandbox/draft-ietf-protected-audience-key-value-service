@@ -627,7 +627,7 @@ The output is a `response` to be sent to a Client.
 ### Parsing a Response (#response-parsing)
 
 This section describes how a conforming Client MUST parse and validate
-a response from a Trusted Key Value service. 
+a response from a Trusted Key Value service.
 
 It takes as input the `request context` returned from
 {{request-generate}} in addition to the `encrypted response`.
