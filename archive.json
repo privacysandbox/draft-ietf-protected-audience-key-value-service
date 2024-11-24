@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-21T01:18:28.527710+00:00",
+  "timestamp": "2024-11-24T01:23:50.513752+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2033,13 +2033,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-11-04T20:13:51Z",
-      "updatedAt": "2024-11-20T18:48:52Z",
+      "updatedAt": "2024-11-22T22:46:03Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "760aaf79db78ca6130e67c7a403ee5d1451c33f0",
       "headRepository": "xtlsheep/draft-ietf-protected-audience-key-value-service",
       "headRefName": "patch-1",
-      "headRefOid": "35cc405227c66f40a1ce57724d226bb6c13480d5",
+      "headRefOid": "29e07339c7af31c33a69d52f593d275166a59021",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2251,6 +2251,86 @@
               "body": "Done",
               "createdAt": "2024-11-20T18:48:52Z",
               "updatedAt": "2024-11-20T18:48:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6SJ0E1",
+          "commit": {
+            "abbreviatedOid": "35cc405"
+          },
+          "author": "brusshamilton",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-21T16:36:48Z",
+          "updatedAt": "2024-11-21T16:39:36Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "I still think it is cleaner to loop through the available tags and then see if the tag exists, but I guess this works as well.",
+              "createdAt": "2024-11-21T16:36:48Z",
+              "updatedAt": "2024-11-21T16:39:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6SXL41",
+          "commit": {
+            "abbreviatedOid": "29e0733"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-22T20:12:25Z",
+          "updatedAt": "2024-11-22T20:12:25Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "I wonder if you also want to indicate here that this is an example that only is looking to accept no compression or gzip (0 or 2), which is why it checks for 0 or 2. \r\n\r\nOr you may want to change the language from \"Client MUST\" to \"Client MAY\". Otherwise it makes it seem like all clients MUST reject compression bit 1.",
+              "createdAt": "2024-11-22T20:12:25Z",
+              "updatedAt": "2024-11-22T20:12:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6SXaU1",
+          "commit": {
+            "abbreviatedOid": "29e0733"
+          },
+          "author": "xtlsheep",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-22T20:44:45Z",
+          "updatedAt": "2024-11-22T20:44:45Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "But don't we want to reject the the responses with compression bit as 1 for now?",
+              "createdAt": "2024-11-22T20:44:45Z",
+              "updatedAt": "2024-11-22T20:44:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6SYd3v",
+          "commit": {
+            "abbreviatedOid": "29e0733"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-22T22:46:02Z",
+          "updatedAt": "2024-11-22T22:46:03Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "Oh, for now, yes. We can update this later then.",
+              "createdAt": "2024-11-22T22:46:03Z",
+              "updatedAt": "2024-11-22T22:46:56Z"
             }
           ]
         }
