@@ -167,7 +167,7 @@ Requests are not compressed and have a tree-like hierarchy:
     The responses for different compression groups will be compressed separately in the response
     (see {{compression-group}}). Compressing the different groups separately avoids leaking the
     similarity of responses for different groups.
-  
+
 ### Encryption {#request-encryption}
 
 The request is encrypted with [HPKE] with the configuration specified at {{encryption}}.
