@@ -97,6 +97,11 @@ On a high level, these request and response messages adhere to the following com
 -   Data within the request and response is encrypted with [HPKE].
 -   The core request and response data is encoded using [CBOR].
 
+## HTTP Headers
+
+Requests MUST contain a cleartext HTTP `Content-Type` header with value `message/ad-auction-trusted-signals-request`.
+Responses MUST contain a cleartext HTTP `Content-Type` header with value `message/ad-auction-trusted-signals-response`.
+
 ### Encryption {#encryption}
 
 The Key Value Service uses [HPKE] with the following configuration for encryption:
@@ -159,7 +164,7 @@ Requests are not compressed and have a tree-like hierarchy:
     The responses for different compression groups will be compressed separately in the response
     (see {{compression-group}}). Compressing the different groups separately avoids leaking the
     similarity of responses for different groups.
-
+  
 ### Encryption {#request-encryption}
 
 The request is encrypted with [HPKE] with the configuration specified at {{encryption}}.
