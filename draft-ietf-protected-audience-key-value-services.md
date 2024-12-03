@@ -99,8 +99,11 @@ On a high level, these request and response messages adhere to the following com
 
 ## HTTP Headers
 
-Requests MUST contain a cleartext HTTP `Content-Type` header with value `message/ad-auction-trusted-signals-request`.
-Responses MUST contain a cleartext HTTP `Content-Type` header with value `message/ad-auction-trusted-signals-response`.
+Requests MUST contain a cleartext HTTP `Content-Type` header with
+value `message/ad-auction-trusted-signals-request`.
+
+Responses MUST contain a cleartext HTTP `Content-Type` header with
+value `message/ad-auction-trusted-signals-response`.
 
 ### Encryption {#encryption}
 
