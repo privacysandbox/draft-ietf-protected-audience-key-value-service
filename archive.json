@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-03T01:22:09.444528+00:00",
+  "timestamp": "2024-12-05T01:22:18.972135+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2033,13 +2033,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-11-04T20:13:51Z",
-      "updatedAt": "2024-12-02T20:29:19Z",
+      "updatedAt": "2024-12-04T20:16:33Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "760aaf79db78ca6130e67c7a403ee5d1451c33f0",
       "headRepository": "xtlsheep/draft-ietf-protected-audience-key-value-service",
       "headRefName": "patch-1",
-      "headRefOid": "29e07339c7af31c33a69d52f593d275166a59021",
+      "headRefOid": "31784bb5e106a1cdd2ece2ceee4c1c274e9becdb",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2408,6 +2408,106 @@
               "updatedAt": "2024-12-02T20:29:19Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6TgG_C",
+          "commit": {
+            "abbreviatedOid": "29e0733"
+          },
+          "author": "xtlsheep",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-03T06:10:41Z",
+          "updatedAt": "2024-12-03T06:10:41Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "Changed to `compression group id` which represents the value of partition[\"compressionGroupId\"].",
+              "createdAt": "2024-12-03T06:10:41Z",
+              "updatedAt": "2024-12-03T06:10:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6TgHQG",
+          "commit": {
+            "abbreviatedOid": "29e0733"
+          },
+          "author": "xtlsheep",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-03T06:11:32Z",
+          "updatedAt": "2024-12-03T06:11:32Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Changed to \"which contain\"",
+              "createdAt": "2024-12-03T06:11:32Z",
+              "updatedAt": "2024-12-03T06:11:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6TgKb3",
+          "commit": {
+            "abbreviatedOid": "29e0733"
+          },
+          "author": "xtlsheep",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-03T06:18:34Z",
+          "updatedAt": "2024-12-03T06:18:34Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Changed this sentence to\r\n```\r\nEach `partition` is a map with specified keys, which are \"id,\" ...\r\n```",
+              "createdAt": "2024-12-03T06:18:34Z",
+              "updatedAt": "2024-12-03T06:18:34Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOMnZLYc6D7ZHa",
+      "title": "Include clear text http headers in spec",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/3",
+      "state": "OPEN",
+      "author": "lusayaa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-03T17:57:50Z",
+      "updatedAt": "2024-12-03T18:01:49Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "7a532ff0c73c42fb8b098fb56cf5bf758f919454",
+      "headRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "lusayaa-patch-1",
+      "headRefOid": "107d80781abb7c26d0fd1ea9662a22ee31c69716",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMnZLYc6Tm4Rx",
+          "commit": {
+            "abbreviatedOid": "a7ba4f9"
+          },
+          "author": "lx3-g",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-12-03T18:01:15Z",
+          "updatedAt": "2024-12-03T18:01:15Z",
+          "comments": []
         }
       ]
     }
