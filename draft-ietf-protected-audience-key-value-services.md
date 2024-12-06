@@ -323,18 +323,21 @@ Each key group is expected to have exactly one tag from the following list:
 This section describes how the client MAY form and serialize request
 messages in order to fetch values from the Trusted Key Value server.
 
-This algorithm takes as input an [HPKE] `public key` and its associated
-`key id`, a `metadata` map for global configuration, where both keys and
-values are strings, and `compression groups`, which is a list of `group`s
+This algorithm takes as input:
+* an [HPKE] `public key`.
+* a `key id` integer associated with `public key`.
+* a `metadata` map for global configuration, where both keys and
+values are strings.
+* a `compression groups`, which is a list of `group`s, each
 with the following parameters:
-* `compressionGroupId`, an integer indicates the index of this compression
-  group.
-* `partitions`, contains all the `partition`s belong to this compression
-  group. A single `partition` has the following parameters:
-  * `id`, an integer indicates the index of this partition.
-  * `namespace`, an empty map, whose keys are strings and values are list of
-    strings.
-  * `metadata`, an empty map, whose keys and values are strings.
+ * a `compressionGroupId` integer identifier of this compression
+   group.
+ * a `partitions`, which is a list of `partition`s belonging to this compression
+   group. Each `partition` has the following parameters:
+   * an `id` integer identifier of this partition.
+   * a `namespace` map whose keys are strings and values are list of
+     strings.
+   * a `metadata` map whose keys and values are strings.
 
 The output is an [HPKE] ciphertext encrypted `request` and a context
 `request context`.
