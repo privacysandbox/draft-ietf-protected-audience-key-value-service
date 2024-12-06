@@ -13,11 +13,11 @@
 and no side effects. The data served can be used by clients for advertisement selection and the
 lack of side effects can be used to advance user privacy. 
     " name="description">
-<meta content="xml2rfc 3.24.0" name="generator">
+<meta content="xml2rfc 3.25.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-protected-audience-key-value-services-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.24.0
+  xml2rfc 3.25.0
     Python 3.12.7
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
@@ -282,6 +282,12 @@ body {
 }
 
 /* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-title);
   font-weight: 680;
@@ -313,6 +319,7 @@ h4, h5, h6 {
 /* general structure */
 .author {
   padding-bottom: 0.3em;
+  vertical-align: top;
 }
 #abstract+p {
   font-size: 18px;
@@ -390,25 +397,26 @@ svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
 ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
-}
-:is(ol, ul) :is(ol, ul) {
-  margin-left: 1em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
 }
 li {
   margin: 0 0 0.25em 0;
 }
-.ulCompact li {
-  margin: 0;
-}
 ul.empty, .ulEmpty {
   list-style-type: none;
-}
-ul.empty li, .ulEmpty li {
-  margin-top: 0.5em;
+  & li {
+    margin-top: 0.5em;
+  }
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 1;
   margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
 }
 
 /* definition lists */
@@ -416,38 +424,39 @@ dl {
   clear: left;
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
-}
-dl.olPercent {
-  --indent: 5ch;
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
 }
 dl > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
 }
-dl.dlNewline > dt {
-  float: none;
-}
 dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
 }
-dl.olPercent > dt {
-  min-width: calc(var(--indent) - 2ch);
-}
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
-  margin-top: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
-  margin-bottom: 0;
-}
-dl > dd > dl {
-  margin-top: 0.5em;
-  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
 }
 :is(dd, span).break {
   display: none;
@@ -511,6 +520,7 @@ figcaption, caption {
   font-style: italic;
   margin: 0.5em 1.5em;
   text-align: left;
+  caption-side: bottom;
 }
 @media screen {
   /* Auto-collapse boilerplate. */
@@ -565,6 +575,7 @@ cite {
 
 /* tables */
 table {
+  width: auto;
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
@@ -579,6 +590,16 @@ table.center {
 table.left {
   margin-right: auto;
 }
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
 thead, tbody {
   border: 1px solid var(--line-color);
 }
@@ -609,9 +630,11 @@ a.pilcrow {
   margin-left: 3px;
   opacity: 0.2;
   user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
 @media not print {
   :hover > a.pilcrow {
     opacity: 1;
@@ -651,26 +674,28 @@ sub, sup {
   font-size: var(--small-font-size);
   line-height: 18px;
   --identifier-width: 15ch;
-}
-#identifiers dt {
-  width: var(--identifier-width);
-  min-width: var(--identifier-width);
-  clear: left;
-  float: left;
-  text-align: right;
-  margin-right: 1ch;
-}
-#identifiers dd {
-  margin: 0;
-  margin-left: calc(1em + var(--identifier-width)) !important;
-  min-width: 5em;
-}
-#identifiers .authors .author {
-  display: inline-block;
-  margin-right: 1.5em;
-}
-#identifiers .authors .org {
-  font-style: italic;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
 }
 
 /* The prepared/rendered info at the very bottom of the page */
@@ -681,9 +706,6 @@ sub, sup {
   margin-top: 2em;
 }
 .docInfo .prepared {
-  float: left;
-}
-.docInfo .prepared {
   float: right;
 }
 
@@ -691,53 +713,48 @@ sub, sup {
 #toc {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
-}
-@media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
   }
 }
-#toc nav ul {
-  margin: 0 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-#toc nav li {
-  line-height: 1.3em;
-  margin: 2px 0;
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
-}
-/* references */
-.references dt {
-  text-align: right;
-  font-weight: bold;
-  min-width: 10ch;
-  margin-right: 1.5ch;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
-}
-.references dd {
-  margin-left: 12ch !important;
-  overflow: auto;
+
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
 }
 
-.refInstance {
-  margin-bottom: 1.25em;
-}
-
-.references .ascii {
-  margin-bottom: 0.25em;
-}
-
-/* index */
 #rfc\.index\.index + ul {
   margin-left: 0;
 }
@@ -745,21 +762,33 @@ sub, sup {
 /* authors */
 address.vcard {
   font-style: normal;
-  margin: 1em 0;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
 }
-address.vcard .nameRole {
-  font-weight: 700;
-  margin-left: 0;
-}
-address.vcard .label {
-  margin: 0.5em 0;
-}
-address.vcard .type {
-  display: none;
-}
-.alternative-contact {
-  margin: 1.5em 0 1em;
-}
+
 hr.addr {
   border-top: 1px dashed;
   margin: 0;
@@ -781,6 +810,7 @@ hr.addr {
   }
 }
 
+/* Comments */
 .rfcEditorRemove p:first-of-type {
   font-style: italic;
 }
@@ -791,7 +821,31 @@ hr.addr {
 .crefSource {
   font-style: italic;
 }
-/* alternative layout for smaller screens */
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
 @media screen and (max-width: 929px) {
   #toc {
     position: fixed;
@@ -802,9 +856,6 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
     margin: 0;
@@ -817,17 +868,17 @@ hr.addr {
     background-color: #444;
     color: white;
     cursor: pointer;
-  }
-  #toc h2::before { /* css hamburger */
-    float: right;
-    position: relative;
-    width: 1em;
-    height: 1px;
-    left: -164px;
-    margin: 8px 0 0 0;
-    background: white none repeat scroll 0 0;
-    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-    content: "";
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
   }
   #toc nav {
     display: none;
@@ -838,14 +889,13 @@ hr.addr {
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
   }
-  #toc.active nav {
-    display: block;
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
   }
   /* Make the collapsed ToC header render white on gray also when it's a link */
   #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
+  #toc h2 a:is(:link, :focus, :hover),
   #toc a.toplink,
   #toc a.toplink:hover {
     color: white;
@@ -853,11 +903,11 @@ hr.addr {
     text-decoration: none;
   }
   #toc a.toplink {
-    margin-top: 2px;
+    margin: 2px 0.5em 0;
   }
 }
 
-/* alternative layout for wide screens */
+/* TOC layout for wide screens */
 @media screen and (min-width: 930px) {
   body {
     padding-right: 360px;
@@ -886,20 +936,12 @@ hr.addr {
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
-  }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
   }
 }
 
@@ -942,9 +984,6 @@ hr.addr {
   td {
     border-top: 1px solid #ddd;
   }
-  .toplink {
-    display: none;
-  }
 }
 
 @page :first {
@@ -967,82 +1006,6 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
-}
-
-/* Changes introduced to fix issues found during implementation */
-
-/* Separate body from document info even without intervening H1 */
-section {
-  clear: both;
-}
-
-/* Top align author divs, to avoid names without organization dropping level with org names */
-.author {
-  vertical-align: top;
-}
-
-/* Style section numbers with more space between number and title */
-.section-number {
-  padding-right: 0.5em;
-}
-
-/* Add styling for a link in the ToC that points to the top of the document */
-a.toplink {
-  float: right;
-  margin: 8px 0.5em 0;
-}
-
-/* Provide styling for table cell text alignment */
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
-}
-
-/* Make the alternative author contact information look less like just another
-   author, and group it closer with the primary author contact information */
-.alternative-contact {
-  margin: 0.5em 0 0.25em 0;
-}
-address .non-ascii {
-  margin: 0 0 0 2em;
-}
-
-/* With it being possible to set tables with alignment
-  left, center, and right, { width: 100%; } does not make sense */
-table {
-  width: auto;
-}
-
-/* Avoid reference text that sits in a block with very wide left margin,
-   because of a long floating dt label.*/
-.references dd {
-  overflow: visible;
-}
-
-/* Control caption placement */
-caption {
-  caption-side: bottom;
-}
-
-/* Limit the width of the author address vcard, so names in right-to-left
-   script don't end up on the other side of the page. */
-
-address.vcard {
-  max-width: 20em;
-  margin-right: auto;
-}
-
-/* For address alignment dependent on LTR or RTL scripts */
-address div.left {
-  text-align: left;
-}
-address div.right {
-  text-align: right;
 }
 
 /* Dark mode. */
@@ -1081,11 +1044,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">KV Services</td>
-<td class="right">November 2024</td>
+<td class="right">December 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Hu, et al.</td>
-<td class="center">Expires 10 May 2025</td>
+<td class="center">Expires 9 June 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1098,12 +1061,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-protected-audience-key-value-services-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-11-06" class="published">6 November 2024</time>
+<time datetime="2024-12-06" class="published">6 December 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-05-10">10 May 2025</time></dd>
+<dd class="expires"><time datetime="2025-06-09">9 June 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1147,7 +1110,7 @@ lack of side effects can be used to advance user privacy.<a href="#section-abstr
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 10 May 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 9 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1243,7 +1206,7 @@ lack of side effects can be used to advance user privacy.<a href="#section-abstr
                     <p id="section-toc.1-1.2.2.3.2.5.1"><a href="#section-2.3.5" class="auto internal xref">2.3.5</a>.  <a href="#name-generating-a-response" class="internal xref">Generating a Response</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.6">
-                    <p id="section-toc.1-1.2.2.3.2.6.1"><a href="#section-2.3.6" class="auto internal xref">2.3.6</a>.  <a href="#name-parsing-a-response" class="internal xref">Parsing a Response</a></p>
+                    <p id="section-toc.1-1.2.2.3.2.6.1"><a href="#section-2.3.6" class="auto internal xref">2.3.6</a>.  <a href="#name-parsing-a-response-response" class="internal xref">Parsing a Response (#response-parsing)</a></p>
 </li>
                 </ul>
 </li>
@@ -1700,12 +1663,110 @@ requestArgument = {
 </div>
 </section>
 </div>
-<div id="generating-a-request">
+<div id="request-generate">
 <section id="section-2.2.4">
           <h4 id="name-generating-a-request">
 <a href="#section-2.2.4" class="section-number selfRef">2.2.4. </a><a href="#name-generating-a-request" class="section-name selfRef">Generating a Request</a>
           </h4>
-<p id="section-2.2.4-1">TODO<a href="#section-2.2.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.2.4-1">This section describes how the client MAY form and serialize request
+messages in order to fetch values from the Trusted Key Value server.<a href="#section-2.2.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.2.4-2">This algorithm takes as input:
+* an <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> <code>public key</code>.
+* a <code>key id</code> integer associated with <code>public key</code>.
+* a <code>metadata</code> map for global configuration, where both keys and
+values are strings.
+* a <code>compression groups</code>, which is a list of <code>group</code>s, each
+with the following parameters:
+ * a <code>compressionGroupId</code> integer identifier of this compression
+   group.
+ * a <code>partitions</code>, which is a list of <code>partition</code>s belonging to this compression
+   group. Each <code>partition</code> has the following parameters:
+   * an <code>id</code> integer identifier of this partition.
+   * a <code>namespace</code> map whose keys are strings and values are list of
+     strings.
+   * a <code>metadata</code> map whose keys and values are strings.<a href="#section-2.2.4-2" class="pilcrow">¶</a></p>
+<p id="section-2.2.4-3">The output is an <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> ciphertext encrypted <code>request</code> and a context
+<code>request context</code>.<a href="#section-2.2.4-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.2.4-4">
+<li id="section-2.2.4-4.1">
+              <p id="section-2.2.4-4.1.1">Let <code>request map</code> be an empty map.<a href="#section-2.2.4-4.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.2.4-4.2">
+              <p id="section-2.2.4-4.2.1">Let <code>partitions</code> be an empty array.<a href="#section-2.2.4-4.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.2.4-4.3">
+              <p id="section-2.2.4-4.3.1">For each <code>group</code> in <code>compression groups</code>:<a href="#section-2.2.4-4.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.2.4-4.4">
+              <p id="section-2.2.4-4.4.1">For each <code>partition</code> in <code>group</code>'s <code>partitions</code>:
+    1. Let <code>p</code> be an empty map.
+    1. Set <code>p["compressionGroupId"]</code> to <code>group</code>'s <code>compressionGroupId</code>.
+    1. Set <code>p["id"]</code> to <code>partition</code>'s <code>id</code>.
+    1. Set <code>p["metadata"]</code> to <code>partition</code>'s <code>metadata</code>.
+    1. Let <code>arguments</code> be an empty array.
+    1. For each <code>tag</code> → <code>value</code> in <code>partition</code>'s <code>namespace</code>:<a href="#section-2.2.4-4.4.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.2.4-4.4.2">
+<li id="section-2.2.4-4.4.2.1">
+                  <p id="section-2.2.4-4.4.2.1.1">If <code>tag</code> is one of <a href="#tags" class="auto internal xref">Section 2.2.3.1</a>:<a href="#section-2.2.4-4.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.2.4-4.4.2.2">
+                  <p id="section-2.2.4-4.4.2.2.1">Let <code>argument</code> be an empty map.<a href="#section-2.2.4-4.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.2.4-4.4.2.3">
+                  <p id="section-2.2.4-4.4.2.3.1">Set <code>argument["tags"]</code> to [<code>tag</code>].<a href="#section-2.2.4-4.4.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.2.4-4.4.2.4">
+                  <p id="section-2.2.4-4.4.2.4.1">Set <code>argument["data"]</code> to <code>value</code>.<a href="#section-2.2.4-4.4.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.2.4-4.4.2.5">
+                  <p id="section-2.2.4-4.4.2.5.1">Insert <code>argument</code> into <code>arguments</code>.
+    1. Set <code>p["arguments"]</code> to <code>arguments</code>.
+    1. Insert <code>p</code> into <code>partitions</code>.<a href="#section-2.2.4-4.4.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              </ol>
+</li>
+            <li id="section-2.2.4-4.5">
+              <p id="section-2.2.4-4.5.1">Set <code>request map["metadata"]</code> to <code>metadata</code>.<a href="#section-2.2.4-4.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.2.4-4.6">
+              <p id="section-2.2.4-4.6.1">Set <code>request map["partitions"]</code> to <code>partitions</code>.<a href="#section-2.2.4-4.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.2.4-4.7">
+              <p id="section-2.2.4-4.7.1">Set <code>request map["acceptCompression"]</code> to <code>["none", "gzip"]</code>.<a href="#section-2.2.4-4.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.2.4-4.8">
+              <p id="section-2.2.4-4.8.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> encode <code>request map</code> to <code>payload</code>.<a href="#section-2.2.4-4.8.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.2.4-4.9">
+              <p id="section-2.2.4-4.9.1">Create a <code>framed payload</code>, as described in <a href="#framing" class="auto internal xref">Section 2.1.2</a>:<a href="#section-2.2.4-4.9.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.2.4-4.9.2">
+<li id="section-2.2.4-4.9.2.1">
+                  <p id="section-2.2.4-4.9.2.1.1">Create a <a href="#framing" class="auto internal xref">Section 2.1.2</a> header <code>framing header</code>.<a href="#section-2.2.4-4.9.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.2.4-4.9.2.2">
+                  <p id="section-2.2.4-4.9.2.2.1">Set <code>framing header</code>'s <code>Compression</code> to 1.<a href="#section-2.2.4-4.9.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.2.4-4.9.2.3">
+                  <p id="section-2.2.4-4.9.2.3.1">Set <code>framing header</code>'s <code>Size</code> to the size of <code>payload</code>.<a href="#section-2.2.4-4.9.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.2.4-4.9.2.4">
+                  <p id="section-2.2.4-4.9.2.4.1">Set <code>framed payload</code> to the concatenation of <code>framing header</code> and <code>payload</code>.<a href="#section-2.2.4-4.9.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.2.4-4.9.2.5">
+                  <p id="section-2.2.4-4.9.2.5.1">Padding MAY be added to <code>framed payload</code>.<a href="#section-2.2.4-4.9.2.5.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.2.4-4.9.2.6">
+                  <p id="section-2.2.4-4.9.2.6.1">Return an empty <code>request</code> on failure of any of the previous steps.<a href="#section-2.2.4-4.9.2.6.1" class="pilcrow">¶</a></p>
+</li>
+              </ol>
+</li>
+            <li id="section-2.2.4-4.10">
+              <p id="section-2.2.4-4.10.1"><span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> encrypt <code>framed payload</code> using <code>public key</code> and <code>key id</code> as in <a href="#request-encryption" class="auto internal xref">Section 2.2.1</a> to get the <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> encrypted ciphertext <code>request</code> and <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> encryption context <code>request context</code>.<a href="#section-2.2.4-4.10.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.2.4-4.11">
+              <p id="section-2.2.4-4.11.1">Return <code>request</code> and <code>request context</code>.<a href="#section-2.2.4-4.11.1" class="pilcrow">¶</a></p>
+</li>
+          </ol>
 </section>
 </div>
 <div id="request-parsing">
@@ -2010,7 +2071,7 @@ serialized to string.<a href="#section-2.3.4.1-1" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
-<div id="generating-a-response">
+<div id="response-generate">
 <section id="section-2.3.5">
           <h4 id="name-generating-a-response">
 <a href="#section-2.3.5" class="section-number selfRef">2.3.5. </a><a href="#name-generating-a-response" class="section-name selfRef">Generating a Response</a>
@@ -2130,12 +2191,167 @@ Assume that this response is to a request that includes <code>gzip</code> in <co
           </ol>
 </section>
 </div>
-<div id="parsing-a-response">
+<div id="parsing-a-response-response-parsing">
 <section id="section-2.3.6">
-          <h4 id="name-parsing-a-response">
-<a href="#section-2.3.6" class="section-number selfRef">2.3.6. </a><a href="#name-parsing-a-response" class="section-name selfRef">Parsing a Response</a>
+          <h4 id="name-parsing-a-response-response">
+<a href="#section-2.3.6" class="section-number selfRef">2.3.6. </a><a href="#name-parsing-a-response-response" class="section-name selfRef">Parsing a Response (#response-parsing)</a>
           </h4>
-<p id="section-2.3.6-1">TODO<a href="#section-2.3.6-1" class="pilcrow">¶</a></p>
+<p id="section-2.3.6-1">This section describes how a conforming Client MUST parse and validate
+a response from a Trusted Key Value service.<a href="#section-2.3.6-1" class="pilcrow">¶</a></p>
+<p id="section-2.3.6-2">It takes as input the <code>request context</code>, returned from
+<a href="#request-generate" class="auto internal xref">Section 2.2.4</a>, and an <code>encrypted response</code>, an array of bytes
+from the Key Value Service generated by <a href="#response-generate" class="auto internal xref">Section 2.3.5</a>.<a href="#section-2.3.6-2" class="pilcrow">¶</a></p>
+<p id="section-2.3.6-3">The output is a <code>results</code> which is a list of <code>result</code> with the following parameters:
+* <code>index</code>, a tuple of an integer and an integer, records the compression group id and
+  partition id.
+* <code>interestGroupNames</code>, null or a map, whose keys and values are strings.
+* <code>keys</code>, null or a map, whose keys and values are strings.
+* <code>renderUrls</code>, null or a map, whose keys and values are strings.
+* <code>adComponentRenderUrls</code>, null or a map, whose keys and values are strings.<a href="#section-2.3.6-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4">
+<li id="section-2.3.6-4.1">
+              <p id="section-2.3.6-4.1.1">Use <code>request context</code> as the context to decrypt <code>encrypted response</code> and obtain <code>framed response</code>, returning failure if decryption fails.<a href="#section-2.3.6-4.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.6-4.2">
+              <p id="section-2.3.6-4.2.1">Remove and extract the first 5 bytes from <code>framed response</code> as the framing header (described in <a href="#framing" class="auto internal xref">Section 2.1.2</a>), removing them from <code>framed response</code>.<a href="#section-2.3.6-4.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.6-4.3">
+              <p id="section-2.3.6-4.3.1">If <code>framing header</code>'s <code>Compression</code> field is not 0 or 2, return failure.<a href="#section-2.3.6-4.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.6-4.4">
+              <p id="section-2.3.6-4.4.1">Let <code>length</code> be equal to the <code>framing header</code>'s <code>Size</code> field.<a href="#section-2.3.6-4.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.6-4.5">
+              <p id="section-2.3.6-4.5.1">If <code>length</code> is greater than the length of the remaining bytes in <code>framed response</code>, return failure.<a href="#section-2.3.6-4.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.6-4.6">
+              <p id="section-2.3.6-4.6.1">Take the first <code>length</code> remaining bytes in <code>framed response</code> as <code>serialized response</code>, discarding the rest.<a href="#section-2.3.6-4.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.6-4.7">
+              <p id="section-2.3.6-4.7.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> decode the <code>serialized response</code> into <code>response</code>, returning failure if decoding fails.<a href="#section-2.3.6-4.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.6-4.8">
+              <p id="section-2.3.6-4.8.1">If <code>response</code> is not a map, return failure.<a href="#section-2.3.6-4.8.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.6-4.9">
+              <p id="section-2.3.6-4.9.1">If <code>response["compressionGroups"]</code> does not exist, or is not an array, return failure.<a href="#section-2.3.6-4.9.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.6-4.10">
+              <p id="section-2.3.6-4.10.1">Let <code>results</code> be an empty array.<a href="#section-2.3.6-4.10.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.6-4.11">
+              <p id="section-2.3.6-4.11.1">For each <code>group</code> in <code>response["compressionGroups"]</code>:<a href="#section-2.3.6-4.11.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2">
+<li id="section-2.3.6-4.11.2.1">
+                  <p id="section-2.3.6-4.11.2.1.1">If <code>group</code> is not a map, return failure.<a href="#section-2.3.6-4.11.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.3.6-4.11.2.2">
+                  <p id="section-2.3.6-4.11.2.2.1">If <code>group["content"]</code> does not exist, return failure.<a href="#section-2.3.6-4.11.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.3.6-4.11.2.3">
+                  <p id="section-2.3.6-4.11.2.3.1">Set <code>serialized content</code> to the result of decompressing <code>group["content"]</code> according to the compression algorithm specified in the <code>framing header</code>'s <code>Compression</code> field, returning failure if decompression fails.<a href="#section-2.3.6-4.11.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.3.6-4.11.2.4">
+                  <p id="section-2.3.6-4.11.2.4.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> decode the <code>serialized content</code> into <code>content</code>, returning failure if decoding fails.<a href="#section-2.3.6-4.11.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.3.6-4.11.2.5">
+                  <p id="section-2.3.6-4.11.2.5.1">If <code>content</code> is not an array, return failure.<a href="#section-2.3.6-4.11.2.5.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.3.6-4.11.2.6">
+                  <p id="section-2.3.6-4.11.2.6.1">For each <code>partition</code> in <code>content</code>:<a href="#section-2.3.6-4.11.2.6.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2">
+<li id="section-2.3.6-4.11.2.6.2.1">
+                      <p id="section-2.3.6-4.11.2.6.2.1.1">If <code>partition</code> is not a map, return failure.<a href="#section-2.3.6-4.11.2.6.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                    <li id="section-2.3.6-4.11.2.6.2.2">
+                      <p id="section-2.3.6-4.11.2.6.2.2.1">If <code>partition["keyGroupOutputs"]</code> does not exist, or is not an array, return failure.<a href="#section-2.3.6-4.11.2.6.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                    <li id="section-2.3.6-4.11.2.6.2.3">
+                      <p id="section-2.3.6-4.11.2.6.2.3.1">Initialize an empty <code>result</code>.<a href="#section-2.3.6-4.11.2.6.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                    <li id="section-2.3.6-4.11.2.6.2.4">
+                      <p id="section-2.3.6-4.11.2.6.2.4.1">For each <code>output</code> in <code>partition["keyGroupOutputs"]</code>:<a href="#section-2.3.6-4.11.2.6.2.4.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2">
+<li id="section-2.3.6-4.11.2.6.2.4.2.1">
+                          <p id="section-2.3.6-4.11.2.6.2.4.2.1.1">If <code>output</code> is not a map, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                        <li id="section-2.3.6-4.11.2.6.2.4.2.2">
+                          <p id="section-2.3.6-4.11.2.6.2.4.2.2.1">If <code>output["tags"]</code> does not exist, or is not an array, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                        <li id="section-2.3.6-4.11.2.6.2.4.2.3">
+                          <p id="section-2.3.6-4.11.2.6.2.4.2.3.1">If <code>output["keyValues"]</code> does not exist or is not a map, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                        <li id="section-2.3.6-4.11.2.6.2.4.2.4">
+                          <p id="section-2.3.6-4.11.2.6.2.4.2.4.1">Let <code>key value</code> be an empty map.<a href="#section-2.3.6-4.11.2.6.2.4.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                        <li id="section-2.3.6-4.11.2.6.2.4.2.5">
+                          <p id="section-2.3.6-4.11.2.6.2.4.2.5.1">For each <code>key</code> → <code>value</code> in <code>output["keyValues"]</code>:<a href="#section-2.3.6-4.11.2.6.2.4.2.5.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2.5.2">
+<li id="section-2.3.6-4.11.2.6.2.4.2.5.2.1">
+                              <p id="section-2.3.6-4.11.2.6.2.4.2.5.2.1.1">If <code>key</code> is not a string, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.5.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                            <li id="section-2.3.6-4.11.2.6.2.4.2.5.2.2">
+                              <p id="section-2.3.6-4.11.2.6.2.4.2.5.2.2.1">If <code>value</code> is not a map, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.5.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                            <li id="section-2.3.6-4.11.2.6.2.4.2.5.2.3">
+                              <p id="section-2.3.6-4.11.2.6.2.4.2.5.2.3.1">If <code>value["value"]</code> does not exist, or is not a string, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.5.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                            <li id="section-2.3.6-4.11.2.6.2.4.2.5.2.4">
+                              <p id="section-2.3.6-4.11.2.6.2.4.2.5.2.4.1">Set <code>key value</code>[<code>key</code>] to <code>value["value"]</code>.<a href="#section-2.3.6-4.11.2.6.2.4.2.5.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                          </ol>
+</li>
+                        <li id="section-2.3.6-4.11.2.6.2.4.2.6">
+                          <p id="section-2.3.6-4.11.2.6.2.4.2.6.1">If <code>output["tags"]</code> equals to "interestGroupNames":<a href="#section-2.3.6-4.11.2.6.2.4.2.6.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2.6.2">
+<li id="section-2.3.6-4.11.2.6.2.4.2.6.2.1">
+                              <p id="section-2.3.6-4.11.2.6.2.4.2.6.2.1.1">Set <code>result</code>'s <code>interestGroupNames</code> to <code>key value</code>.<a href="#section-2.3.6-4.11.2.6.2.4.2.6.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                          </ol>
+</li>
+                        <li id="section-2.3.6-4.11.2.6.2.4.2.7">
+                          <p id="section-2.3.6-4.11.2.6.2.4.2.7.1">Otherwise, if <code>output["tags"]</code> equals to "keys":<a href="#section-2.3.6-4.11.2.6.2.4.2.7.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2.7.2">
+<li id="section-2.3.6-4.11.2.6.2.4.2.7.2.1">
+                              <p id="section-2.3.6-4.11.2.6.2.4.2.7.2.1.1">Set <code>result</code>'s <code>keys</code> to <code>key value</code>.<a href="#section-2.3.6-4.11.2.6.2.4.2.7.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                          </ol>
+</li>
+                        <li id="section-2.3.6-4.11.2.6.2.4.2.8">
+                          <p id="section-2.3.6-4.11.2.6.2.4.2.8.1">Otherwise, if <code>output["tags"]</code> equals to "renderUrls":<a href="#section-2.3.6-4.11.2.6.2.4.2.8.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2.8.2">
+<li id="section-2.3.6-4.11.2.6.2.4.2.8.2.1">
+                              <p id="section-2.3.6-4.11.2.6.2.4.2.8.2.1.1">Set <code>result</code>'s <code>renderUrls</code> to <code>key value</code>.<a href="#section-2.3.6-4.11.2.6.2.4.2.8.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                          </ol>
+</li>
+                        <li id="section-2.3.6-4.11.2.6.2.4.2.9">
+                          <p id="section-2.3.6-4.11.2.6.2.4.2.9.1">Otherwise, if <code>output["tags"]</code> equals to "adComponentRenderUrls":<a href="#section-2.3.6-4.11.2.6.2.4.2.9.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2.9.2">
+<li id="section-2.3.6-4.11.2.6.2.4.2.9.2.1">
+                              <p id="section-2.3.6-4.11.2.6.2.4.2.9.2.1.1">Set <code>result</code>'s <code>adComponentRenderUrls</code> to <code>key value</code>.<a href="#section-2.3.6-4.11.2.6.2.4.2.9.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                          </ol>
+</li>
+                      </ol>
+</li>
+                    <li id="section-2.3.6-4.11.2.6.2.5">
+                      <p id="section-2.3.6-4.11.2.6.2.5.1">If <code>partition["dataVersion"]</code> exists, Set <code>result</code>'s <code>dataVersion</code> to <code>partition["dataVersion"]</code>.<a href="#section-2.3.6-4.11.2.6.2.5.1" class="pilcrow">¶</a></p>
+</li>
+                    <li id="section-2.3.6-4.11.2.6.2.6">
+                      <p id="section-2.3.6-4.11.2.6.2.6.1">Set <code>result</code> <code>index</code> to tuple of <code>group["compressionGroupId"]</code> and <code>partition["id"]</code>.<a href="#section-2.3.6-4.11.2.6.2.6.1" class="pilcrow">¶</a></p>
+</li>
+                    <li id="section-2.3.6-4.11.2.6.2.7">
+                      <p id="section-2.3.6-4.11.2.6.2.7.1">Append <code>result</code> to <code>results</code>.<a href="#section-2.3.6-4.11.2.6.2.7.1" class="pilcrow">¶</a></p>
+</li>
+                  </ol>
+</li>
+              </ol>
+</li>
+            <li id="section-2.3.6-4.12">
+              <p id="section-2.3.6-4.12.1">Return <code>results</code>.<a href="#section-2.3.6-4.12.1" class="pilcrow">¶</a></p>
+</li>
+          </ol>
 </section>
 </div>
 </section>
