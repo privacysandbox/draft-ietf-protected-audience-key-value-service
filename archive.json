@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-05T01:22:18.972135+00:00",
+  "timestamp": "2024-12-08T01:27:41.051823+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2026,24 +2026,26 @@
       "id": "PR_kwDOMnZLYc6A2N_O",
       "title": "Add request generating and response parsing sections",
       "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/2",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "xtlsheep",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-11-04T20:13:51Z",
-      "updatedAt": "2024-12-04T20:16:33Z",
+      "updatedAt": "2024-12-06T20:09:36Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "760aaf79db78ca6130e67c7a403ee5d1451c33f0",
       "headRepository": "xtlsheep/draft-ietf-protected-audience-key-value-service",
       "headRefName": "patch-1",
-      "headRefOid": "31784bb5e106a1cdd2ece2ceee4c1c274e9becdb",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "78c461c46387ac3d3656b9a965ce71146bdc355e",
+      "closedAt": "2024-12-06T20:09:36Z",
+      "mergedAt": "2024-12-06T20:09:36Z",
+      "mergedBy": "JensenPaul",
+      "mergeCommit": {
+        "oid": "9b13bb02d42e3d5e6389e20c67d0b210574ca551"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2090,7 +2092,7 @@
             "abbreviatedOid": "60d4d47"
           },
           "author": "xtlsheep",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-11-15T20:35:21Z",
@@ -2154,7 +2156,7 @@
             "abbreviatedOid": "993a20d"
           },
           "author": "xtlsheep",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-11-19T19:47:02Z",
@@ -2174,7 +2176,7 @@
             "abbreviatedOid": "0622706"
           },
           "author": "xtlsheep",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-11-19T21:34:08Z",
@@ -2220,7 +2222,7 @@
             "abbreviatedOid": "35cc405"
           },
           "author": "xtlsheep",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-11-20T18:48:27Z",
@@ -2240,7 +2242,7 @@
             "abbreviatedOid": "993a20d"
           },
           "author": "xtlsheep",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-11-20T18:48:52Z",
@@ -2300,7 +2302,7 @@
             "abbreviatedOid": "29e0733"
           },
           "author": "xtlsheep",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-11-22T20:44:45Z",
@@ -2415,7 +2417,7 @@
             "abbreviatedOid": "29e0733"
           },
           "author": "xtlsheep",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-12-03T06:10:41Z",
@@ -2435,7 +2437,7 @@
             "abbreviatedOid": "29e0733"
           },
           "author": "xtlsheep",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-12-03T06:11:32Z",
@@ -2455,7 +2457,7 @@
             "abbreviatedOid": "29e0733"
           },
           "author": "xtlsheep",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-12-03T06:18:34Z",
@@ -2466,6 +2468,26 @@
               "body": "Changed this sentence to\r\n```\r\nEach `partition` is a map with specified keys, which are \"id,\" ...\r\n```",
               "createdAt": "2024-12-03T06:18:34Z",
               "updatedAt": "2024-12-03T06:18:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6UKPNo",
+          "commit": {
+            "abbreviatedOid": "31784bb"
+          },
+          "author": "JensenPaul",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-06T19:36:11Z",
+          "updatedAt": "2024-12-06T19:52:01Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\nThis algorithm takes as input:\r\n* an [HPKE] `public key`.\r\n* a `key id` integer associated with `public key`.\r\n* a `metadata` map for global configuration, where both keys and\r\nvalues are strings.\r\n* a `compression groups`, which is a list of `group`s, each\r\nwith the following parameters:\r\n * a `compressionGroupId` integer identifier of this compression\r\n   group.\r\n * a `partitions`, which is a list of `partition`s belonging to this compression\r\n   group. Each `partition` has the following parameters:\r\n   * an `id` integer identifier of this partition.\r\n   * a `namespace` map whose keys are strings and values are list of\r\n     strings.\r\n   * a `metadata` map whose keys and values are strings.\r\n```",
+              "createdAt": "2024-12-06T19:36:11Z",
+              "updatedAt": "2024-12-06T19:52:01Z"
             }
           ]
         }
