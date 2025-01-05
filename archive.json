@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-02T01:14:47.897188+00:00",
+  "timestamp": "2025-01-05T01:21:17.279086+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2505,7 +2505,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-12-03T17:57:50Z",
-      "updatedAt": "2024-12-03T18:01:49Z",
+      "updatedAt": "2025-01-02T16:11:23Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "7a532ff0c73c42fb8b098fb56cf5bf758f919454",
@@ -2529,6 +2529,19 @@
           "body": "",
           "createdAt": "2024-12-03T18:01:15Z",
           "updatedAt": "2024-12-03T18:01:15Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6Wq78a",
+          "commit": {
+            "abbreviatedOid": "107d807"
+          },
+          "author": "peiwenhu",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-02T16:11:23Z",
+          "updatedAt": "2025-01-02T16:11:23Z",
           "comments": []
         }
       ]
