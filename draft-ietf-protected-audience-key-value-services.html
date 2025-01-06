@@ -18,15 +18,15 @@ lack of side effects can be used to advance user privacy.
 <meta content="draft-ietf-protected-audience-key-value-services-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.25.0
-    Python 3.12.7
+    Python 3.12.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.4
+    Jinja2 3.1.5
     lxml 5.3.0
     platformdirs 4.3.6
-    pycountry 22.3.5
-    PyYAML 6.0.1
+    pycountry 24.6.1
+    PyYAML 6.0.2
     requests 2.32.3
     setuptools 70.3.0
     wcwidth 0.2.13
@@ -538,7 +538,11 @@ figcaption, caption {
   }
   pre, svg {
     display: inline-block;
-    overflow-x: auto;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
   }
   pre {
     max-width: 100%;
@@ -1044,11 +1048,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">KV Services</td>
-<td class="right">December 2024</td>
+<td class="right">January 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Hu, et al.</td>
-<td class="center">Expires 9 June 2025</td>
+<td class="center">Expires 10 July 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1061,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-protected-audience-key-value-services-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-12-06" class="published">6 December 2024</time>
+<time datetime="2025-01-06" class="published">6 January 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-06-09">9 June 2025</time></dd>
+<dd class="expires"><time datetime="2025-07-10">10 July 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1110,7 +1114,7 @@ lack of side effects can be used to advance user privacy.<a href="#section-abstr
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 9 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 July 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1119,7 +1123,7 @@ lack of side effects can be used to advance user privacy.<a href="#section-abstr
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2024 IETF Trust and the persons identified as the
+            Copyright (c) 2025 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1155,58 +1159,61 @@ lack of side effects can be used to advance user privacy.<a href="#section-abstr
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
                 <p id="section-toc.1-1.2.2.1.1"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-overview" class="internal xref">Overview</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1.2.1">
-                    <p id="section-toc.1-1.2.2.1.2.1.1"><a href="#section-2.1.1" class="auto internal xref">2.1.1</a>.  <a href="#name-encryption" class="internal xref">Encryption</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1.2.2">
-                    <p id="section-toc.1-1.2.2.1.2.2.1"><a href="#section-2.1.2" class="auto internal xref">2.1.2</a>.  <a href="#name-message-framing" class="internal xref">Message Framing</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1.2.3">
-                    <p id="section-toc.1-1.2.2.1.2.3.1"><a href="#section-2.1.3" class="auto internal xref">2.1.3</a>.  <a href="#name-formatcompression-byte" class="internal xref">Format+compression byte</a></p>
-</li>
-                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
-                <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-request-data" class="internal xref">Request Data</a></p>
+                <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-http-headers" class="internal xref">HTTP Headers</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2.2.1">
-                    <p id="section-toc.1-1.2.2.2.2.1.1"><a href="#section-2.2.1" class="auto internal xref">2.2.1</a>.  <a href="#name-encryption-2" class="internal xref">Encryption</a></p>
+                    <p id="section-toc.1-1.2.2.2.2.1.1"><a href="#section-2.2.1" class="auto internal xref">2.2.1</a>.  <a href="#name-encryption" class="internal xref">Encryption</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2.2.2">
-                    <p id="section-toc.1-1.2.2.2.2.2.1"><a href="#section-2.2.2" class="auto internal xref">2.2.2</a>.  <a href="#name-framing-and-padding" class="internal xref">Framing and Padding</a></p>
+                    <p id="section-toc.1-1.2.2.2.2.2.1"><a href="#section-2.2.2" class="auto internal xref">2.2.2</a>.  <a href="#name-message-framing" class="internal xref">Message Framing</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2.2.3">
-                    <p id="section-toc.1-1.2.2.2.2.3.1"><a href="#section-2.2.3" class="auto internal xref">2.2.3</a>.  <a href="#name-request-schema" class="internal xref">Request Schema</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2.2.4">
-                    <p id="section-toc.1-1.2.2.2.2.4.1"><a href="#section-2.2.4" class="auto internal xref">2.2.4</a>.  <a href="#name-generating-a-request" class="internal xref">Generating a Request</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2.2.5">
-                    <p id="section-toc.1-1.2.2.2.2.5.1"><a href="#section-2.2.5" class="auto internal xref">2.2.5</a>.  <a href="#name-parsing-a-request" class="internal xref">Parsing a Request</a></p>
+                    <p id="section-toc.1-1.2.2.2.2.3.1"><a href="#section-2.2.3" class="auto internal xref">2.2.3</a>.  <a href="#name-formatcompression-byte" class="internal xref">Format+compression byte</a></p>
 </li>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
-                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-response-data" class="internal xref">Response Data</a></p>
+                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-request-data" class="internal xref">Request Data</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.1">
-                    <p id="section-toc.1-1.2.2.3.2.1.1"><a href="#section-2.3.1" class="auto internal xref">2.3.1</a>.  <a href="#name-encryption-3" class="internal xref">Encryption</a></p>
+                    <p id="section-toc.1-1.2.2.3.2.1.1"><a href="#section-2.3.1" class="auto internal xref">2.3.1</a>.  <a href="#name-encryption-2" class="internal xref">Encryption</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.2">
-                    <p id="section-toc.1-1.2.2.3.2.2.1"><a href="#section-2.3.2" class="auto internal xref">2.3.2</a>.  <a href="#name-framing-and-padding-2" class="internal xref">Framing and Padding</a></p>
+                    <p id="section-toc.1-1.2.2.3.2.2.1"><a href="#section-2.3.2" class="auto internal xref">2.3.2</a>.  <a href="#name-framing-and-padding" class="internal xref">Framing and Padding</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.3">
-                    <p id="section-toc.1-1.2.2.3.2.3.1"><a href="#section-2.3.3" class="auto internal xref">2.3.3</a>.  <a href="#name-response-schema" class="internal xref">Response Schema</a></p>
+                    <p id="section-toc.1-1.2.2.3.2.3.1"><a href="#section-2.3.3" class="auto internal xref">2.3.3</a>.  <a href="#name-request-schema" class="internal xref">Request Schema</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.4">
-                    <p id="section-toc.1-1.2.2.3.2.4.1"><a href="#section-2.3.4" class="auto internal xref">2.3.4</a>.  <a href="#name-structured-keys-response-sp" class="internal xref">Structured keys response specification</a></p>
+                    <p id="section-toc.1-1.2.2.3.2.4.1"><a href="#section-2.3.4" class="auto internal xref">2.3.4</a>.  <a href="#name-generating-a-request" class="internal xref">Generating a Request</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.5">
-                    <p id="section-toc.1-1.2.2.3.2.5.1"><a href="#section-2.3.5" class="auto internal xref">2.3.5</a>.  <a href="#name-generating-a-response" class="internal xref">Generating a Response</a></p>
+                    <p id="section-toc.1-1.2.2.3.2.5.1"><a href="#section-2.3.5" class="auto internal xref">2.3.5</a>.  <a href="#name-parsing-a-request" class="internal xref">Parsing a Request</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.6">
-                    <p id="section-toc.1-1.2.2.3.2.6.1"><a href="#section-2.3.6" class="auto internal xref">2.3.6</a>.  <a href="#name-parsing-a-response-response" class="internal xref">Parsing a Response (#response-parsing)</a></p>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4">
+                <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="auto internal xref">2.4</a>.  <a href="#name-response-data" class="internal xref">Response Data</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4.2.1">
+                    <p id="section-toc.1-1.2.2.4.2.1.1"><a href="#section-2.4.1" class="auto internal xref">2.4.1</a>.  <a href="#name-encryption-3" class="internal xref">Encryption</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4.2.2">
+                    <p id="section-toc.1-1.2.2.4.2.2.1"><a href="#section-2.4.2" class="auto internal xref">2.4.2</a>.  <a href="#name-framing-and-padding-2" class="internal xref">Framing and Padding</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4.2.3">
+                    <p id="section-toc.1-1.2.2.4.2.3.1"><a href="#section-2.4.3" class="auto internal xref">2.4.3</a>.  <a href="#name-response-schema" class="internal xref">Response Schema</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4.2.4">
+                    <p id="section-toc.1-1.2.2.4.2.4.1"><a href="#section-2.4.4" class="auto internal xref">2.4.4</a>.  <a href="#name-structured-keys-response-sp" class="internal xref">Structured keys response specification</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4.2.5">
+                    <p id="section-toc.1-1.2.2.4.2.5.1"><a href="#section-2.4.5" class="auto internal xref">2.4.5</a>.  <a href="#name-generating-a-response" class="internal xref">Generating a Response</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4.2.6">
+                    <p id="section-toc.1-1.2.2.4.2.6.1"><a href="#section-2.4.6" class="auto internal xref">2.4.6</a>.  <a href="#name-parsing-a-response-response" class="internal xref">Parsing a Response (#response-parsing)</a></p>
 </li>
                 </ul>
 </li>
@@ -1281,7 +1288,7 @@ use to communicate with the Key Value Service as part of the client's implementa
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as
 shown here.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 <p id="section-1.2-2">The key word "client" is to be interpreted as an implementation of this document that creates
-Requests (<a href="#request" class="auto internal xref">Section 2.2</a>) and consumes Responses (<a href="#response" class="auto internal xref">Section 2.3</a>). The key phrase "Key Value Service" is
+Requests (<a href="#request" class="auto internal xref">Section 2.3</a>) and consumes Responses (<a href="#response" class="auto internal xref">Section 2.4</a>). The key phrase "Key Value Service" is
 to be interpreted as an implementation of this document that consumes Requests and creates
 Responses.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
 </section>
@@ -1313,33 +1320,44 @@ On a high level, these request and response messages adhere to the following com
             <p id="section-2.1-2.3.1">The core request and response data is encoded using <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span>.<a href="#section-2.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
+</section>
+</div>
+<div id="http-headers">
+<section id="section-2.2">
+        <h3 id="name-http-headers">
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-http-headers" class="section-name selfRef">HTTP Headers</a>
+        </h3>
+<p id="section-2.2-1">Requests MUST contain a cleartext HTTP <code>Content-Type</code> header with
+value <code>message/ad-auction-trusted-signals-request</code>.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-2">Responses MUST contain a cleartext HTTP <code>Content-Type</code> header with
+value <code>message/ad-auction-trusted-signals-response</code>.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
 <div id="encryption">
-<section id="section-2.1.1">
+<section id="section-2.2.1">
           <h4 id="name-encryption">
-<a href="#section-2.1.1" class="section-number selfRef">2.1.1. </a><a href="#name-encryption" class="section-name selfRef">Encryption</a>
+<a href="#section-2.2.1" class="section-number selfRef">2.2.1. </a><a href="#name-encryption" class="section-name selfRef">Encryption</a>
           </h4>
-<p id="section-2.1.1-1">The Key Value Service uses <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> with the following configuration for encryption:<a href="#section-2.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.2.1-1">The Key Value Service uses <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> with the following configuration for encryption:<a href="#section-2.2.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.1.1-2.1">
-              <p id="section-2.1.1-2.1.1">HPKE KEM ID (Key encapsulation mechanisms):
-0x0020 DHKEM(X25519, HKDF-SHA256), see <span><a href="https://rfc-editor.org/rfc/rfc9180#section-1" class="relref">Section 1</a> of [<a href="#HPKE" class="cite xref">HPKE</a>]</span><a href="#section-2.1.1-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-2.2.1-2.1">
+              <p id="section-2.2.1-2.1.1">HPKE KEM ID (Key encapsulation mechanisms):
+0x0020 DHKEM(X25519, HKDF-SHA256), see <span><a href="https://rfc-editor.org/rfc/rfc9180#section-1" class="relref">Section 1</a> of [<a href="#HPKE" class="cite xref">HPKE</a>]</span><a href="#section-2.2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-2.1.1-2.2">
-              <p id="section-2.1.1-2.2.1">HPKE KDF ID (key derivation functions): 0x0001 HKDF-SHA256, see <span><a href="https://rfc-editor.org/rfc/rfc9180#section-7.2" class="relref">Section 7.2</a> of [<a href="#HPKE" class="cite xref">HPKE</a>]</span><a href="#section-2.1.1-2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-2.2.1-2.2">
+              <p id="section-2.2.1-2.2.1">HPKE KDF ID (key derivation functions): 0x0001 HKDF-SHA256, see <span><a href="https://rfc-editor.org/rfc/rfc9180#section-7.2" class="relref">Section 7.2</a> of [<a href="#HPKE" class="cite xref">HPKE</a>]</span><a href="#section-2.2.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-2.1.1-2.3">
-              <p id="section-2.1.1-2.3.1">HPKE AEAD ID (Authenticated Encryption with Associated Data): AES-256-GCM, see
-<span><a href="https://rfc-editor.org/rfc/rfc9180#section-7.3" class="relref">Section 7.3</a> of [<a href="#HPKE" class="cite xref">HPKE</a>]</span><a href="#section-2.1.1-2.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-2.2.1-2.3">
+              <p id="section-2.2.1-2.3.1">HPKE AEAD ID (Authenticated Encryption with Associated Data): AES-256-GCM, see
+<span><a href="https://rfc-editor.org/rfc/rfc9180#section-7.3" class="relref">Section 7.3</a> of [<a href="#HPKE" class="cite xref">HPKE</a>]</span><a href="#section-2.2.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="framing">
-<section id="section-2.1.2">
+<section id="section-2.2.2">
           <h4 id="name-message-framing">
-<a href="#section-2.1.2" class="section-number selfRef">2.1.2. </a><a href="#name-message-framing" class="section-name selfRef">Message Framing</a>
+<a href="#section-2.2.2" class="section-number selfRef">2.2.2. </a><a href="#name-message-framing" class="section-name selfRef">Message Framing</a>
           </h4>
-<p id="section-2.1.2-1">Before encryption and after decryption, the requests and responses have the following framing:<a href="#section-2.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-1">Before encryption and after decryption, the requests and responses have the following framing:<a href="#section-2.2.2-1" class="pilcrow">¶</a></p>
 <table class="center" id="table-1">
             <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
 <thead>
@@ -1371,18 +1389,18 @@ On a high level, these request and response messages adhere to the following com
               </tr>
             </tbody>
           </table>
-<p id="section-2.1.2-3">The request/response is framed with this 5 byte header.<a href="#section-2.1.2-3" class="pilcrow">¶</a></p>
-<p id="section-2.1.2-4">The first byte is the format+compression byte. The lower 2 bits specify the format and compression (<a href="#compression" class="auto internal xref">Section 2.1.3</a>).
-The higher 6 bits are currently unused.<a href="#section-2.1.2-4" class="pilcrow">¶</a></p>
-<p id="section-2.1.2-5">The following 4 bytes are the length of the request message in network byte order.<a href="#section-2.1.2-5" class="pilcrow">¶</a></p>
-<p id="section-2.1.2-6">Padding is applied differently for request and response and will be discussed in the respective
-sections.<a href="#section-2.1.2-6" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-3">The request/response is framed with this 5 byte header.<a href="#section-2.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-4">The first byte is the format+compression byte. The lower 2 bits specify the format and compression (<a href="#compression" class="auto internal xref">Section 2.2.3</a>).
+The higher 6 bits are currently unused.<a href="#section-2.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-5">The following 4 bytes are the length of the request message in network byte order.<a href="#section-2.2.2-5" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-6">Padding is applied differently for request and response and will be discussed in the respective
+sections.<a href="#section-2.2.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="compression">
-<section id="section-2.1.3">
+<section id="section-2.2.3">
           <h4 id="name-formatcompression-byte">
-<a href="#section-2.1.3" class="section-number selfRef">2.1.3. </a><a href="#name-formatcompression-byte" class="section-name selfRef">Format+compression byte</a>
+<a href="#section-2.2.3" class="section-number selfRef">2.2.3. </a><a href="#name-formatcompression-byte" class="section-name selfRef">Format+compression byte</a>
           </h4>
 <table class="center" id="table-2">
             <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
@@ -1416,51 +1434,51 @@ sections.<a href="#section-2.1.2-6" class="pilcrow">¶</a></p>
               </tr>
             </tbody>
           </table>
-<p id="section-2.1.3-2">Requests are always uncompressed so the Format+compression byte is 0x00.<a href="#section-2.1.3-2" class="pilcrow">¶</a></p>
-<p id="section-2.1.3-3">For responses, the byte value depends on the <code>acceptCompression</code> field
-(see <a href="#request-schema" class="auto internal xref">Section 2.2.3</a>) in the request and the server behavior.<a href="#section-2.1.3-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.3-2">Requests are always uncompressed so the Format+compression byte is 0x00.<a href="#section-2.2.3-2" class="pilcrow">¶</a></p>
+<p id="section-2.2.3-3">For responses, the byte value depends on the <code>acceptCompression</code> field
+(see <a href="#request-schema" class="auto internal xref">Section 2.3.3</a>) in the request and the server behavior.<a href="#section-2.2.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="request">
-<section id="section-2.2">
+<section id="section-2.3">
         <h3 id="name-request-data">
-<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-request-data" class="section-name selfRef">Request Data</a>
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-request-data" class="section-name selfRef">Request Data</a>
         </h3>
-<p id="section-2.2-1">Requests are not compressed and have a tree-like hierarchy:<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-1">Requests are not compressed and have a tree-like hierarchy:<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.2-2.1">
-            <p id="section-2.2-2.1.1">Each request contains one or more partitions. Each partition is a collection of keys that SHALL
-be processed together by the service. Keys from separate partitions MUST NOT be processed together by the service.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-2.3-2.1">
+            <p id="section-2.3-2.1.1">Each request contains one or more partitions. Each partition is a collection of keys that SHALL
+be processed together by the service. Keys from separate partitions MUST NOT be processed together by the service.<a href="#section-2.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.2-2.2">
-            <p id="section-2.2-2.2.1">Each partition contains one or more key groups.
+          <li class="normal" id="section-2.3-2.2">
+            <p id="section-2.3-2.2.1">Each partition contains one or more key groups.
 Each key group contains a list of <code>tags</code> set by the client.
-Each key group contains a list of keys to be looked up in the service's internal datastore.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
+Each key group contains a list of keys to be looked up in the service's internal datastore.<a href="#section-2.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.2-2.3">
-            <p id="section-2.2-2.3.1">Each partition has a unique identifier.
+          <li class="normal" id="section-2.3-2.3">
+            <p id="section-2.3-2.3.1">Each partition has a unique identifier.
 This allows the client to match the request partition with the corresponding
-<code>partitionOutput</code> (see <a href="#compression-group" class="auto internal xref">Section 2.3.3.1</a>) in the response.<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
+<code>partitionOutput</code> (see <a href="#compression-group" class="auto internal xref">Section 2.4.3.1</a>) in the response.<a href="#section-2.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.2-2.4">
-            <p id="section-2.2-2.4.1">Each partition has a compression group field.
+          <li class="normal" id="section-2.3-2.4">
+            <p id="section-2.3-2.4.1">Each partition has a compression group field.
 Results of partitions belonging to the same compression group can be compressed together
 in the response.
 The responses for different compression groups will be compressed separately in the response
-(see <a href="#compression-group" class="auto internal xref">Section 2.3.3.1</a>). Compressing the different groups separately avoids leaking the
-similarity of responses for different groups.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
+(see <a href="#compression-group" class="auto internal xref">Section 2.4.3.1</a>). Compressing the different groups separately avoids leaking the
+similarity of responses for different groups.<a href="#section-2.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div id="request-encryption">
-<section id="section-2.2.1">
+<section id="section-2.3.1">
           <h4 id="name-encryption-2">
-<a href="#section-2.2.1" class="section-number selfRef">2.2.1. </a><a href="#name-encryption-2" class="section-name selfRef">Encryption</a>
+<a href="#section-2.3.1" class="section-number selfRef">2.3.1. </a><a href="#name-encryption-2" class="section-name selfRef">Encryption</a>
           </h4>
-<p id="section-2.2.1-1">The request is encrypted with <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> with the configuration specified at <a href="#encryption" class="auto internal xref">Section 2.1.1</a>.<a href="#section-2.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.2.1-2">The request uses a similar encapsulated message format to that used by <span>[<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>.<a href="#section-2.2.1-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.2.1-3">
+<p id="section-2.3.1-1">The request is encrypted with <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> with the configuration specified at <a href="#encryption" class="auto internal xref">Section 2.2.1</a>.<a href="#section-2.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.3.1-2">The request uses a similar encapsulated message format to that used by <span>[<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>.<a href="#section-2.3.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.3.1-3">
 <pre>
 Encapsulated Request {
   Key Identifier (8),
@@ -1470,39 +1488,39 @@ Encapsulated Request {
   Encapsulated KEM Shared Secret (8 * Nenc),
   HPKE-Protected Request (..),
 }
-</pre><a href="#section-2.2.1-3" class="pilcrow">¶</a>
+</pre><a href="#section-2.3.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-2.2.1-4">The service uses a repurposed <span>[<a href="#OHTTP" class="cite xref">OHTTP</a>]</span> encapsulation mechanism (see <span><a href="https://rfc-editor.org/rfc/rfc9458#section-4.6" class="relref">Section 4.6</a> of [<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>)
-for which it defines a new <code>message/ad-auction-trusted-signals-request</code> media type.<a href="#section-2.2.1-4" class="pilcrow">¶</a></p>
-<p id="section-2.2.1-5">Request encapsulation is similar to <span><a href="https://rfc-editor.org/rfc/rfc9458#section-4.3" class="relref">Section 4.3</a> of [<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>, only with the
-<code>message/ad-auction-trusted-signals-request</code> media type:<a href="#section-2.2.1-5" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2.1-6">
-<li id="section-2.2.1-6.1">
-              <p id="section-2.2.1-6.1.1">Construct a message header (<code>hdr</code>) by concatenating the values of the
+<p id="section-2.3.1-4">The service uses a repurposed <span>[<a href="#OHTTP" class="cite xref">OHTTP</a>]</span> encapsulation mechanism (see <span><a href="https://rfc-editor.org/rfc/rfc9458#section-4.6" class="relref">Section 4.6</a> of [<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>)
+for which it defines a new <code>message/ad-auction-trusted-signals-request</code> media type.<a href="#section-2.3.1-4" class="pilcrow">¶</a></p>
+<p id="section-2.3.1-5">Request encapsulation is similar to <span><a href="https://rfc-editor.org/rfc/rfc9458#section-4.3" class="relref">Section 4.3</a> of [<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>, only with the
+<code>message/ad-auction-trusted-signals-request</code> media type:<a href="#section-2.3.1-5" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.1-6">
+<li id="section-2.3.1-6.1">
+              <p id="section-2.3.1-6.1.1">Construct a message header (<code>hdr</code>) by concatenating the values of the
 <code>Key Identifier</code>, <code>HPKE KEM ID</code>, <code>HPKE KDF ID</code>, and <code>HPKE AEAD ID</code> in network
-byte order.<a href="#section-2.2.1-6.1.1" class="pilcrow">¶</a></p>
+byte order.<a href="#section-2.3.1-6.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.1-6.2">
-              <p id="section-2.2.1-6.2.1">Build a sequence of bytes (<code>info</code>) by concatenating the ASCII-encoded string
-"message/ad-auction-trusted-signals-request", a zero byte, and <code>hdr</code>.<a href="#section-2.2.1-6.2.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.1-6.2">
+              <p id="section-2.3.1-6.2.1">Build a sequence of bytes (<code>info</code>) by concatenating the ASCII-encoded string
+"message/ad-auction-trusted-signals-request", a zero byte, and <code>hdr</code>.<a href="#section-2.3.1-6.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.1-6.3">
-              <p id="section-2.2.1-6.3.1">Create a sending HPKE context by invoking <code>SetupBaseS()</code>
+            <li id="section-2.3.1-6.3">
+              <p id="section-2.3.1-6.3.1">Create a sending HPKE context by invoking <code>SetupBaseS()</code>
 (<a href="https://rfc-editor.org/rfc/rfc9180#section-5.1.1">Section 5.1.1</a> of <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span>)
 with the public key of the receiver <code>pkR</code> and <code>info</code>. This yields the context
-<code>sctxt</code> and an encapsulation key <code>enc</code>.<a href="#section-2.2.1-6.3.1" class="pilcrow">¶</a></p>
+<code>sctxt</code> and an encapsulation key <code>enc</code>.<a href="#section-2.3.1-6.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.1-6.4">
-              <p id="section-2.2.1-6.4.1">Encrypt <code>request</code> by invoking the <code>Seal()</code> method on <code>sctxt</code>
+            <li id="section-2.3.1-6.4">
+              <p id="section-2.3.1-6.4.1">Encrypt <code>request</code> by invoking the <code>Seal()</code> method on <code>sctxt</code>
 (<a href="https://rfc-editor.org/rfc/rfc9180#section-5.2">Section 5.2</a> of <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span>)
-with empty associated data <code>aad</code>, yielding ciphertext <code>ct</code>.<a href="#section-2.2.1-6.4.1" class="pilcrow">¶</a></p>
+with empty associated data <code>aad</code>, yielding ciphertext <code>ct</code>.<a href="#section-2.3.1-6.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.1-6.5">
-              <p id="section-2.2.1-6.5.1">Concatenate the values of <code>hdr</code>, <code>enc</code>, and <code>ct</code>.<a href="#section-2.2.1-6.5.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.1-6.5">
+              <p id="section-2.3.1-6.5.1">Concatenate the values of <code>hdr</code>, <code>enc</code>, and <code>ct</code>.<a href="#section-2.3.1-6.5.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-2.2.1-7">In pseudocode, this procedure is as follows:<a href="#section-2.2.1-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.2.1-8">
+<p id="section-2.3.1-7">In pseudocode, this procedure is as follows:<a href="#section-2.3.1-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.3.1-8">
 <pre>
 hdr = concat(encode(1, key_id),
              encode(2, kem_id),
@@ -1514,42 +1532,42 @@ info = concat(encode_str("message/ad-auction-trusted-signals-request"),
 enc, sctxt = SetupBaseS(pkR, info)
 ct = sctxt.Seal("", request)
 enc_request = concat(hdr, enc, ct)
-</pre><a href="#section-2.2.1-8" class="pilcrow">¶</a>
+</pre><a href="#section-2.3.1-8" class="pilcrow">¶</a>
 </div>
-<p id="section-2.2.1-9">The client needs to save <code>sctxt</code> for decryption of the response (see <a href="#response-encryption" class="auto internal xref">Section 2.3.1</a>).<a href="#section-2.2.1-9" class="pilcrow">¶</a></p>
-<p id="section-2.2.1-10">A Key Value Service endpoint decrypts this encapsulated message in a
+<p id="section-2.3.1-9">The client needs to save <code>sctxt</code> for decryption of the response (see <a href="#response-encryption" class="auto internal xref">Section 2.4.1</a>).<a href="#section-2.3.1-9" class="pilcrow">¶</a></p>
+<p id="section-2.3.1-10">A Key Value Service endpoint decrypts this encapsulated message in a
 similar manner to [OHTTP]
 <a href="https://www.rfc-editor.org/rfc/rfc9458#name-encapsulation-of-requests">Section 4.3</a>,
-or more explicitly as follows:<a href="#section-2.2.1-10" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2.1-11">
-<li id="section-2.2.1-11.1">
-              <p id="section-2.2.1-11.1.1">Parse <code>enc_request</code> into <code>key_id</code>, <code>kem_id</code>, <code>kdf_id</code>, <code>aead_id</code>,
-<code>enc</code>, and <code>ct</code>.<a href="#section-2.2.1-11.1.1" class="pilcrow">¶</a></p>
+or more explicitly as follows:<a href="#section-2.3.1-10" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.1-11">
+<li id="section-2.3.1-11.1">
+              <p id="section-2.3.1-11.1.1">Parse <code>enc_request</code> into <code>key_id</code>, <code>kem_id</code>, <code>kdf_id</code>, <code>aead_id</code>,
+<code>enc</code>, and <code>ct</code>.<a href="#section-2.3.1-11.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.1-11.2">
-              <p id="section-2.2.1-11.2.1">Find the matching HPKE private key, <code>skR</code>, corresponding to <code>key_id</code>. If
-there is no matching key, return an error.<a href="#section-2.2.1-11.2.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.1-11.2">
+              <p id="section-2.3.1-11.2.1">Find the matching HPKE private key, <code>skR</code>, corresponding to <code>key_id</code>. If
+there is no matching key, return an error.<a href="#section-2.3.1-11.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.1-11.3">
-              <p id="section-2.2.1-11.3.1">Build a sequence of bytes (<code>info</code>) by concatenating the ASCII-encoded string
+            <li id="section-2.3.1-11.3">
+              <p id="section-2.3.1-11.3.1">Build a sequence of bytes (<code>info</code>) by concatenating the ASCII-encoded string
 "message/ad-auction-trusted-signals-request"; a zero byte;
 <code>key_id</code> as an 8-bit integer; plus
-<code>kem_id</code>, <code>kdf_id</code>, and <code>aead_id</code> as three 16-bit integers.<a href="#section-2.2.1-11.3.1" class="pilcrow">¶</a></p>
+<code>kem_id</code>, <code>kdf_id</code>, and <code>aead_id</code> as three 16-bit integers.<a href="#section-2.3.1-11.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.1-11.4">
-              <p id="section-2.2.1-11.4.1">Create a receiving HPKE context, <code>rctxt</code>, by invoking <code>SetupBaseR()</code>
+            <li id="section-2.3.1-11.4">
+              <p id="section-2.3.1-11.4.1">Create a receiving HPKE context, <code>rctxt</code>, by invoking <code>SetupBaseR()</code>
 (<a href="https://rfc-editor.org/rfc/rfc9180#section-5.1.1">Section 5.1.1</a> of <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span>)
-with <code>skR</code>, <code>enc</code>, and <code>info</code>.<a href="#section-2.2.1-11.4.1" class="pilcrow">¶</a></p>
+with <code>skR</code>, <code>enc</code>, and <code>info</code>.<a href="#section-2.3.1-11.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.1-11.5">
-              <p id="section-2.2.1-11.5.1">Decrypt <code>ct</code> by invoking the <code>Open()</code> method on <code>rctxt</code>
+            <li id="section-2.3.1-11.5">
+              <p id="section-2.3.1-11.5.1">Decrypt <code>ct</code> by invoking the <code>Open()</code> method on <code>rctxt</code>
 (<a href="https://rfc-editor.org/rfc/rfc9180#section-5.2">Section 5.2</a> of <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span>),
 with an empty associated data <code>aad</code>, yielding <code>request</code> and returning an
-error on failure.<a href="#section-2.2.1-11.5.1" class="pilcrow">¶</a></p>
+error on failure.<a href="#section-2.3.1-11.5.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-2.2.1-12">In pseudocode, this procedure is as follows:<a href="#section-2.2.1-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.2.1-13">
+<p id="section-2.3.1-12">In pseudocode, this procedure is as follows:<a href="#section-2.3.1-12" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.3.1-13">
 <pre>
 key_id, kem_id, kdf_id, aead_id, enc, ct = parse(enc_request)
 if version != 0 then return error
@@ -1561,28 +1579,28 @@ info = concat(encode_str("message/ad-auction-trusted-signals-request"),
               encode(2, aead_id))
 rctxt = SetupBaseR(enc, skR, info)
 request, error = rctxt.Open("", ct)
-</pre><a href="#section-2.2.1-13" class="pilcrow">¶</a>
+</pre><a href="#section-2.3.1-13" class="pilcrow">¶</a>
 </div>
-<p id="section-2.2.1-14">Key Value Services retain the HPKE context, <code>rctxt</code>, so that it can
-encapsulate a response.<a href="#section-2.2.1-14" class="pilcrow">¶</a></p>
+<p id="section-2.3.1-14">Key Value Services retain the HPKE context, <code>rctxt</code>, so that it can
+encapsulate a response.<a href="#section-2.3.1-14" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="request-framing">
-<section id="section-2.2.2">
+<section id="section-2.3.2">
           <h4 id="name-framing-and-padding">
-<a href="#section-2.2.2" class="section-number selfRef">2.2.2. </a><a href="#name-framing-and-padding" class="section-name selfRef">Framing and Padding</a>
+<a href="#section-2.3.2" class="section-number selfRef">2.3.2. </a><a href="#name-framing-and-padding" class="section-name selfRef">Framing and Padding</a>
           </h4>
-<p id="section-2.2.2-1">The plaintext request message uses the framing described in <a href="#framing" class="auto internal xref">Section 2.1.2</a>.<a href="#section-2.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.2.2-2">Messages MAY be zero padded.<a href="#section-2.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-2.3.2-1">The plaintext request message uses the framing described in <a href="#framing" class="auto internal xref">Section 2.2.2</a>.<a href="#section-2.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.3.2-2">Messages MAY be zero padded.<a href="#section-2.3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="request-schema">
-<section id="section-2.2.3">
+<section id="section-2.3.3">
           <h4 id="name-request-schema">
-<a href="#section-2.2.3" class="section-number selfRef">2.2.3. </a><a href="#name-request-schema" class="section-name selfRef">Request Schema</a>
+<a href="#section-2.3.3" class="section-number selfRef">2.3.3. </a><a href="#name-request-schema" class="section-name selfRef">Request Schema</a>
           </h4>
-<p id="section-2.2.3-1">The request is a <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> encoded message with the following <span>[<a href="#CDDL" class="cite xref">CDDL</a>]</span> schema:<a href="#section-2.2.3-1" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-2.2.3-2">
+<p id="section-2.3.3-1">The request is a <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> encoded message with the following <span>[<a href="#CDDL" class="cite xref">CDDL</a>]</span> schema:<a href="#section-2.3.3-1" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-2.3.3-2">
 <pre>
 compressionType = "none" / "gzip" / "brotli"
 
@@ -1624,14 +1642,14 @@ requestArgument = {
     ? data: [* tstr],
     ; List of keys to get values for.
 }
-</pre><a href="#section-2.2.3-2" class="pilcrow">¶</a>
+</pre><a href="#section-2.3.3-2" class="pilcrow">¶</a>
 </div>
 <div id="tags">
-<section id="section-2.2.3.1">
+<section id="section-2.3.3.1">
             <h5 id="name-available-tags">
-<a href="#section-2.2.3.1" class="section-number selfRef">2.2.3.1. </a><a href="#name-available-tags" class="section-name selfRef">Available Tags</a>
+<a href="#section-2.3.3.1" class="section-number selfRef">2.3.3.1. </a><a href="#name-available-tags" class="section-name selfRef">Available Tags</a>
             </h5>
-<p id="section-2.2.3.1-1">Each key group is expected to have exactly one tag from the following list:<a href="#section-2.2.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.3.3.1-1">Each key group is expected to have exactly one tag from the following list:<a href="#section-2.3.3.1-1" class="pilcrow">¶</a></p>
 <table class="center" id="table-3">
               <caption><a href="#table-3" class="selfRef">Table 3</a></caption>
 <thead>
@@ -1664,13 +1682,13 @@ requestArgument = {
 </section>
 </div>
 <div id="request-generate">
-<section id="section-2.2.4">
+<section id="section-2.3.4">
           <h4 id="name-generating-a-request">
-<a href="#section-2.2.4" class="section-number selfRef">2.2.4. </a><a href="#name-generating-a-request" class="section-name selfRef">Generating a Request</a>
+<a href="#section-2.3.4" class="section-number selfRef">2.3.4. </a><a href="#name-generating-a-request" class="section-name selfRef">Generating a Request</a>
           </h4>
-<p id="section-2.2.4-1">This section describes how the client MAY form and serialize request
-messages in order to fetch values from the Trusted Key Value server.<a href="#section-2.2.4-1" class="pilcrow">¶</a></p>
-<p id="section-2.2.4-2">This algorithm takes as input:
+<p id="section-2.3.4-1">This section describes how the client MAY form and serialize request
+messages in order to fetch values from the Trusted Key Value server.<a href="#section-2.3.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.3.4-2">This algorithm takes as input:
 * an <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> <code>public key</code>.
 * a <code>key id</code> integer associated with <code>public key</code>.
 * a <code>metadata</code> map for global configuration, where both keys and
@@ -1684,174 +1702,174 @@ with the following parameters:
    * an <code>id</code> integer identifier of this partition.
    * a <code>namespace</code> map whose keys are strings and values are list of
      strings.
-   * a <code>metadata</code> map whose keys and values are strings.<a href="#section-2.2.4-2" class="pilcrow">¶</a></p>
-<p id="section-2.2.4-3">The output is an <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> ciphertext encrypted <code>request</code> and a context
-<code>request context</code>.<a href="#section-2.2.4-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2.4-4">
-<li id="section-2.2.4-4.1">
-              <p id="section-2.2.4-4.1.1">Let <code>request map</code> be an empty map.<a href="#section-2.2.4-4.1.1" class="pilcrow">¶</a></p>
+   * a <code>metadata</code> map whose keys and values are strings.<a href="#section-2.3.4-2" class="pilcrow">¶</a></p>
+<p id="section-2.3.4-3">The output is an <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> ciphertext encrypted <code>request</code> and a context
+<code>request context</code>.<a href="#section-2.3.4-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.4-4">
+<li id="section-2.3.4-4.1">
+              <p id="section-2.3.4-4.1.1">Let <code>request map</code> be an empty map.<a href="#section-2.3.4-4.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.4-4.2">
-              <p id="section-2.2.4-4.2.1">Let <code>partitions</code> be an empty array.<a href="#section-2.2.4-4.2.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.4-4.2">
+              <p id="section-2.3.4-4.2.1">Let <code>partitions</code> be an empty array.<a href="#section-2.3.4-4.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.4-4.3">
-              <p id="section-2.2.4-4.3.1">For each <code>group</code> in <code>compression groups</code>:<a href="#section-2.2.4-4.3.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.4-4.3">
+              <p id="section-2.3.4-4.3.1">For each <code>group</code> in <code>compression groups</code>:<a href="#section-2.3.4-4.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.4-4.4">
-              <p id="section-2.2.4-4.4.1">For each <code>partition</code> in <code>group</code>'s <code>partitions</code>:
+            <li id="section-2.3.4-4.4">
+              <p id="section-2.3.4-4.4.1">For each <code>partition</code> in <code>group</code>'s <code>partitions</code>:
     1. Let <code>p</code> be an empty map.
     1. Set <code>p["compressionGroupId"]</code> to <code>group</code>'s <code>compressionGroupId</code>.
     1. Set <code>p["id"]</code> to <code>partition</code>'s <code>id</code>.
     1. Set <code>p["metadata"]</code> to <code>partition</code>'s <code>metadata</code>.
     1. Let <code>arguments</code> be an empty array.
-    1. For each <code>tag</code> → <code>value</code> in <code>partition</code>'s <code>namespace</code>:<a href="#section-2.2.4-4.4.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2.4-4.4.2">
-<li id="section-2.2.4-4.4.2.1">
-                  <p id="section-2.2.4-4.4.2.1.1">If <code>tag</code> is one of <a href="#tags" class="auto internal xref">Section 2.2.3.1</a>:<a href="#section-2.2.4-4.4.2.1.1" class="pilcrow">¶</a></p>
+    1. For each <code>tag</code> → <code>value</code> in <code>partition</code>'s <code>namespace</code>:<a href="#section-2.3.4-4.4.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.4-4.4.2">
+<li id="section-2.3.4-4.4.2.1">
+                  <p id="section-2.3.4-4.4.2.1.1">If <code>tag</code> is one of <a href="#tags" class="auto internal xref">Section 2.3.3.1</a>:<a href="#section-2.3.4-4.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.4-4.4.2.2">
-                  <p id="section-2.2.4-4.4.2.2.1">Let <code>argument</code> be an empty map.<a href="#section-2.2.4-4.4.2.2.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.4-4.4.2.2">
+                  <p id="section-2.3.4-4.4.2.2.1">Let <code>argument</code> be an empty map.<a href="#section-2.3.4-4.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.4-4.4.2.3">
-                  <p id="section-2.2.4-4.4.2.3.1">Set <code>argument["tags"]</code> to [<code>tag</code>].<a href="#section-2.2.4-4.4.2.3.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.4-4.4.2.3">
+                  <p id="section-2.3.4-4.4.2.3.1">Set <code>argument["tags"]</code> to [<code>tag</code>].<a href="#section-2.3.4-4.4.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.4-4.4.2.4">
-                  <p id="section-2.2.4-4.4.2.4.1">Set <code>argument["data"]</code> to <code>value</code>.<a href="#section-2.2.4-4.4.2.4.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.4-4.4.2.4">
+                  <p id="section-2.3.4-4.4.2.4.1">Set <code>argument["data"]</code> to <code>value</code>.<a href="#section-2.3.4-4.4.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.4-4.4.2.5">
-                  <p id="section-2.2.4-4.4.2.5.1">Insert <code>argument</code> into <code>arguments</code>.
+                <li id="section-2.3.4-4.4.2.5">
+                  <p id="section-2.3.4-4.4.2.5.1">Insert <code>argument</code> into <code>arguments</code>.
     1. Set <code>p["arguments"]</code> to <code>arguments</code>.
-    1. Insert <code>p</code> into <code>partitions</code>.<a href="#section-2.2.4-4.4.2.5.1" class="pilcrow">¶</a></p>
+    1. Insert <code>p</code> into <code>partitions</code>.<a href="#section-2.3.4-4.4.2.5.1" class="pilcrow">¶</a></p>
 </li>
               </ol>
 </li>
-            <li id="section-2.2.4-4.5">
-              <p id="section-2.2.4-4.5.1">Set <code>request map["metadata"]</code> to <code>metadata</code>.<a href="#section-2.2.4-4.5.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.4-4.5">
+              <p id="section-2.3.4-4.5.1">Set <code>request map["metadata"]</code> to <code>metadata</code>.<a href="#section-2.3.4-4.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.4-4.6">
-              <p id="section-2.2.4-4.6.1">Set <code>request map["partitions"]</code> to <code>partitions</code>.<a href="#section-2.2.4-4.6.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.4-4.6">
+              <p id="section-2.3.4-4.6.1">Set <code>request map["partitions"]</code> to <code>partitions</code>.<a href="#section-2.3.4-4.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.4-4.7">
-              <p id="section-2.2.4-4.7.1">Set <code>request map["acceptCompression"]</code> to <code>["none", "gzip"]</code>.<a href="#section-2.2.4-4.7.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.4-4.7">
+              <p id="section-2.3.4-4.7.1">Set <code>request map["acceptCompression"]</code> to <code>["none", "gzip"]</code>.<a href="#section-2.3.4-4.7.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.4-4.8">
-              <p id="section-2.2.4-4.8.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> encode <code>request map</code> to <code>payload</code>.<a href="#section-2.2.4-4.8.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.4-4.8">
+              <p id="section-2.3.4-4.8.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> encode <code>request map</code> to <code>payload</code>.<a href="#section-2.3.4-4.8.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.4-4.9">
-              <p id="section-2.2.4-4.9.1">Create a <code>framed payload</code>, as described in <a href="#framing" class="auto internal xref">Section 2.1.2</a>:<a href="#section-2.2.4-4.9.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2.4-4.9.2">
-<li id="section-2.2.4-4.9.2.1">
-                  <p id="section-2.2.4-4.9.2.1.1">Create a <a href="#framing" class="auto internal xref">Section 2.1.2</a> header <code>framing header</code>.<a href="#section-2.2.4-4.9.2.1.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.4-4.9">
+              <p id="section-2.3.4-4.9.1">Create a <code>framed payload</code>, as described in <a href="#framing" class="auto internal xref">Section 2.2.2</a>:<a href="#section-2.3.4-4.9.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.4-4.9.2">
+<li id="section-2.3.4-4.9.2.1">
+                  <p id="section-2.3.4-4.9.2.1.1">Create a <a href="#framing" class="auto internal xref">Section 2.2.2</a> header <code>framing header</code>.<a href="#section-2.3.4-4.9.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.4-4.9.2.2">
-                  <p id="section-2.2.4-4.9.2.2.1">Set <code>framing header</code>'s <code>Compression</code> to 1.<a href="#section-2.2.4-4.9.2.2.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.4-4.9.2.2">
+                  <p id="section-2.3.4-4.9.2.2.1">Set <code>framing header</code>'s <code>Compression</code> to 1.<a href="#section-2.3.4-4.9.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.4-4.9.2.3">
-                  <p id="section-2.2.4-4.9.2.3.1">Set <code>framing header</code>'s <code>Size</code> to the size of <code>payload</code>.<a href="#section-2.2.4-4.9.2.3.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.4-4.9.2.3">
+                  <p id="section-2.3.4-4.9.2.3.1">Set <code>framing header</code>'s <code>Size</code> to the size of <code>payload</code>.<a href="#section-2.3.4-4.9.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.4-4.9.2.4">
-                  <p id="section-2.2.4-4.9.2.4.1">Set <code>framed payload</code> to the concatenation of <code>framing header</code> and <code>payload</code>.<a href="#section-2.2.4-4.9.2.4.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.4-4.9.2.4">
+                  <p id="section-2.3.4-4.9.2.4.1">Set <code>framed payload</code> to the concatenation of <code>framing header</code> and <code>payload</code>.<a href="#section-2.3.4-4.9.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.4-4.9.2.5">
-                  <p id="section-2.2.4-4.9.2.5.1">Padding MAY be added to <code>framed payload</code>.<a href="#section-2.2.4-4.9.2.5.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.4-4.9.2.5">
+                  <p id="section-2.3.4-4.9.2.5.1">Padding MAY be added to <code>framed payload</code>.<a href="#section-2.3.4-4.9.2.5.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.4-4.9.2.6">
-                  <p id="section-2.2.4-4.9.2.6.1">Return an empty <code>request</code> on failure of any of the previous steps.<a href="#section-2.2.4-4.9.2.6.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.4-4.9.2.6">
+                  <p id="section-2.3.4-4.9.2.6.1">Return an empty <code>request</code> on failure of any of the previous steps.<a href="#section-2.3.4-4.9.2.6.1" class="pilcrow">¶</a></p>
 </li>
               </ol>
 </li>
-            <li id="section-2.2.4-4.10">
-              <p id="section-2.2.4-4.10.1"><span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> encrypt <code>framed payload</code> using <code>public key</code> and <code>key id</code> as in <a href="#request-encryption" class="auto internal xref">Section 2.2.1</a> to get the <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> encrypted ciphertext <code>request</code> and <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> encryption context <code>request context</code>.<a href="#section-2.2.4-4.10.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.4-4.10">
+              <p id="section-2.3.4-4.10.1"><span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> encrypt <code>framed payload</code> using <code>public key</code> and <code>key id</code> as in <a href="#request-encryption" class="auto internal xref">Section 2.3.1</a> to get the <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> encrypted ciphertext <code>request</code> and <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span> encryption context <code>request context</code>.<a href="#section-2.3.4-4.10.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.4-4.11">
-              <p id="section-2.2.4-4.11.1">Return <code>request</code> and <code>request context</code>.<a href="#section-2.2.4-4.11.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.4-4.11">
+              <p id="section-2.3.4-4.11.1">Return <code>request</code> and <code>request context</code>.<a href="#section-2.3.4-4.11.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
 </div>
 <div id="request-parsing">
-<section id="section-2.2.5">
+<section id="section-2.3.5">
           <h4 id="name-parsing-a-request">
-<a href="#section-2.2.5" class="section-number selfRef">2.2.5. </a><a href="#name-parsing-a-request" class="section-name selfRef">Parsing a Request</a>
+<a href="#section-2.3.5" class="section-number selfRef">2.3.5. </a><a href="#name-parsing-a-request" class="section-name selfRef">Parsing a Request</a>
           </h4>
-<p id="section-2.2.5-1">This section describes how the Key Value Service MUST deserialize request messages from the client.<a href="#section-2.2.5-1" class="pilcrow">¶</a></p>
-<p id="section-2.2.5-2">The algorithm takes as input a serialized request message from the client and a list of HPKE private
-keys (along with their corresponding key IDs).<a href="#section-2.2.5-2" class="pilcrow">¶</a></p>
-<p id="section-2.2.5-3">The output is either an error sent back to the client, an empty message sent back to the client, or
-a request message the Key Value Service can consume along with an HPKE context.<a href="#section-2.2.5-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2.5-4">
-<li id="section-2.2.5-4.1">
-              <p id="section-2.2.5-4.1.1">Let <code>encrypted request</code> be the request received from the client.<a href="#section-2.2.5-4.1.1" class="pilcrow">¶</a></p>
+<p id="section-2.3.5-1">This section describes how the Key Value Service MUST deserialize request messages from the client.<a href="#section-2.3.5-1" class="pilcrow">¶</a></p>
+<p id="section-2.3.5-2">The algorithm takes as input a serialized request message from the client and a list of HPKE private
+keys (along with their corresponding key IDs).<a href="#section-2.3.5-2" class="pilcrow">¶</a></p>
+<p id="section-2.3.5-3">The output is either an error sent back to the client, an empty message sent back to the client, or
+a request message the Key Value Service can consume along with an HPKE context.<a href="#section-2.3.5-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5-4">
+<li id="section-2.3.5-4.1">
+              <p id="section-2.3.5-4.1.1">Let <code>encrypted request</code> be the request received from the client.<a href="#section-2.3.5-4.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.5-4.2">
-              <p id="section-2.2.5-4.2.1">Let <code>error_msg</code> be an empty string.<a href="#section-2.2.5-4.2.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.5-4.2">
+              <p id="section-2.3.5-4.2.1">Let <code>error_msg</code> be an empty string.<a href="#section-2.3.5-4.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.5-4.3">
-              <p id="section-2.2.5-4.3.1">Decrypt <code>encrypted request</code> by using the input private key corresponding to
-<code>key_id</code> as described in <a href="#request-encryption" class="auto internal xref">Section 2.2.1</a>, to get the decrypted message and <code>rctxt</code>.<a href="#section-2.2.5-4.3.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2.5-4.3.2">
-<li id="section-2.2.5-4.3.2.1">
-                  <p id="section-2.2.5-4.3.2.1.1">If decryption fails, return failure.<a href="#section-2.2.5-4.3.2.1.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.5-4.3">
+              <p id="section-2.3.5-4.3.1">Decrypt <code>encrypted request</code> by using the input private key corresponding to
+<code>key_id</code> as described in <a href="#request-encryption" class="auto internal xref">Section 2.3.1</a>, to get the decrypted message and <code>rctxt</code>.<a href="#section-2.3.5-4.3.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5-4.3.2">
+<li id="section-2.3.5-4.3.2.1">
+                  <p id="section-2.3.5-4.3.2.1.1">If decryption fails, return failure.<a href="#section-2.3.5-4.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.5-4.3.2.2">
-                  <p id="section-2.2.5-4.3.2.2.1">Else, save the decrypted output as <code>framed request</code> and save <code>rctxt</code>.<a href="#section-2.2.5-4.3.2.2.1" class="pilcrow">¶</a></p>
-</li>
-              </ol>
-</li>
-            <li id="section-2.2.5-4.4">
-              <p id="section-2.2.5-4.4.1">Remove and extract the first 5 bytes from <code>framed request</code> as the <code>framing header</code> (described in
-<a href="#framing" class="auto internal xref">Section 2.1.2</a>), removing them from <code>framed request</code>.<a href="#section-2.2.5-4.4.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2.5-4.4.2">
-<li id="section-2.2.5-4.4.2.1">
-                  <p id="section-2.2.5-4.4.2.1.1">If the <code>framing header</code>'s <code>Compression</code> field is not <code>0x00</code> (no compression), return failure.<a href="#section-2.2.5-4.4.2.1.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.5-4.3.2.2">
+                  <p id="section-2.3.5-4.3.2.2.1">Else, save the decrypted output as <code>framed request</code> and save <code>rctxt</code>.<a href="#section-2.3.5-4.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
               </ol>
 </li>
-            <li id="section-2.2.5-4.5">
-              <p id="section-2.2.5-4.5.1">Let <code>length</code> be equal to the <code>framing header</code>'s <code>Size</code> field.<a href="#section-2.2.5-4.5.1" class="pilcrow">¶</a></p>
-</li>
-            <li id="section-2.2.5-4.6">
-              <p id="section-2.2.5-4.6.1">If <code>length</code> is greater than the length of the remaining bytes in <code>framed request</code>, return
-failure.<a href="#section-2.2.5-4.6.1" class="pilcrow">¶</a></p>
-</li>
-            <li id="section-2.2.5-4.7">
-              <p id="section-2.2.5-4.7.1">Take the first <code>length</code> remaining bytes in <code>framed response</code> as <code>decodable request</code>, discarding
-the rest.<a href="#section-2.2.5-4.7.1" class="pilcrow">¶</a></p>
-</li>
-            <li id="section-2.2.5-4.8">
-              <p id="section-2.2.5-4.8.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> decode <code>decodable request</code> into the message represented in <a href="#request-schema" class="auto internal xref">Section 2.2.3</a>. Let this be
-<code>processed request</code>.<a href="#section-2.2.5-4.8.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2.5-4.8.2">
-<li id="section-2.2.5-4.8.2.1">
-                  <p id="section-2.2.5-4.8.2.1.1">If decoding fails, return failure.<a href="#section-2.2.5-4.8.2.1.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.5-4.4">
+              <p id="section-2.3.5-4.4.1">Remove and extract the first 5 bytes from <code>framed request</code> as the <code>framing header</code> (described in
+<a href="#framing" class="auto internal xref">Section 2.2.2</a>), removing them from <code>framed request</code>.<a href="#section-2.3.5-4.4.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5-4.4.2">
+<li id="section-2.3.5-4.4.2.1">
+                  <p id="section-2.3.5-4.4.2.1.1">If the <code>framing header</code>'s <code>Compression</code> field is not <code>0x00</code> (no compression), return failure.<a href="#section-2.3.5-4.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
               </ol>
 </li>
-            <li id="section-2.2.5-4.9">
-              <p id="section-2.2.5-4.9.1">If no <code>partitions</code> are present, return failure.<a href="#section-2.2.5-4.9.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.5-4.5">
+              <p id="section-2.3.5-4.5.1">Let <code>length</code> be equal to the <code>framing header</code>'s <code>Size</code> field.<a href="#section-2.3.5-4.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.5-4.10">
-              <p id="section-2.2.5-4.10.1">Set <code>compressionGroupMap</code> to an empty map.<a href="#section-2.2.5-4.10.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.5-4.6">
+              <p id="section-2.3.5-4.6.1">If <code>length</code> is greater than the length of the remaining bytes in <code>framed request</code>, return
+failure.<a href="#section-2.3.5-4.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.2.5-4.11">
-              <p id="section-2.2.5-4.11.1">For each <code>partition</code> in <code>partitions</code>:<a href="#section-2.2.5-4.11.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2.5-4.11.2">
-<li id="section-2.2.5-4.11.2.1">
-                  <p id="section-2.2.5-4.11.2.1.1">Let <code>partitionIds</code> be an empty list.<a href="#section-2.2.5-4.11.2.1.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.5-4.7">
+              <p id="section-2.3.5-4.7.1">Take the first <code>length</code> remaining bytes in <code>framed response</code> as <code>decodable request</code>, discarding
+the rest.<a href="#section-2.3.5-4.7.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.2.5-4.11.2.2">
-                  <p id="section-2.2.5-4.11.2.2.1">Set <code>partitionIds</code> to <code>compressionGroupMap[compression group id]</code> if the map entry exists.<a href="#section-2.2.5-4.11.2.2.1" class="pilcrow">¶</a></p>
-</li>
-                <li id="section-2.2.5-4.11.2.3">
-                  <p id="section-2.2.5-4.11.2.3.1">Append <code>partition["id"]</code> to <code>partitionIds</code>.<a href="#section-2.2.5-4.11.2.3.1" class="pilcrow">¶</a></p>
-</li>
-                <li id="section-2.2.5-4.11.2.4">
-                  <p id="section-2.2.5-4.11.2.4.1">Set <code>compressionGroupMap[compression group id]</code> to <code>partitionIds</code>.<a href="#section-2.2.5-4.11.2.4.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.5-4.8">
+              <p id="section-2.3.5-4.8.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> decode <code>decodable request</code> into the message represented in <a href="#request-schema" class="auto internal xref">Section 2.3.3</a>. Let this be
+<code>processed request</code>.<a href="#section-2.3.5-4.8.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5-4.8.2">
+<li id="section-2.3.5-4.8.2.1">
+                  <p id="section-2.3.5-4.8.2.1.1">If decoding fails, return failure.<a href="#section-2.3.5-4.8.2.1.1" class="pilcrow">¶</a></p>
 </li>
               </ol>
 </li>
-            <li id="section-2.2.5-4.12">
-              <p id="section-2.2.5-4.12.1">Return <code>processed request</code>, <code>compressionGroupMap</code>, and <code>rctxt</code>.<a href="#section-2.2.5-4.12.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.5-4.9">
+              <p id="section-2.3.5-4.9.1">If no <code>partitions</code> are present, return failure.<a href="#section-2.3.5-4.9.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.5-4.10">
+              <p id="section-2.3.5-4.10.1">Set <code>compressionGroupMap</code> to an empty map.<a href="#section-2.3.5-4.10.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.5-4.11">
+              <p id="section-2.3.5-4.11.1">For each <code>partition</code> in <code>partitions</code>:<a href="#section-2.3.5-4.11.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5-4.11.2">
+<li id="section-2.3.5-4.11.2.1">
+                  <p id="section-2.3.5-4.11.2.1.1">Let <code>partitionIds</code> be an empty list.<a href="#section-2.3.5-4.11.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.3.5-4.11.2.2">
+                  <p id="section-2.3.5-4.11.2.2.1">Set <code>partitionIds</code> to <code>compressionGroupMap[compression group id]</code> if the map entry exists.<a href="#section-2.3.5-4.11.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.3.5-4.11.2.3">
+                  <p id="section-2.3.5-4.11.2.3.1">Append <code>partition["id"]</code> to <code>partitionIds</code>.<a href="#section-2.3.5-4.11.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.3.5-4.11.2.4">
+                  <p id="section-2.3.5-4.11.2.4.1">Set <code>compressionGroupMap[compression group id]</code> to <code>partitionIds</code>.<a href="#section-2.3.5-4.11.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              </ol>
+</li>
+            <li id="section-2.3.5-4.12">
+              <p id="section-2.3.5-4.12.1">Return <code>processed request</code>, <code>compressionGroupMap</code>, and <code>rctxt</code>.<a href="#section-2.3.5-4.12.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -1859,69 +1877,69 @@ the rest.<a href="#section-2.2.5-4.7.1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="response">
-<section id="section-2.3">
+<section id="section-2.4">
         <h3 id="name-response-data">
-<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-response-data" class="section-name selfRef">Response Data</a>
+<a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-response-data" class="section-name selfRef">Response Data</a>
         </h3>
-<p id="section-2.3-1">The response is an HPKE encrypted message sent as a Response to a Request, containing a framed top-level
-CBOR encoded payload that itself can contain multiple, possibly compressed, CBOR encoded messages.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.4-1">The response is an HPKE encrypted message sent as a Response to a Request, containing a framed top-level
+CBOR encoded payload that itself can contain multiple, possibly compressed, CBOR encoded messages.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
 <div id="response-encryption">
-<section id="section-2.3.1">
+<section id="section-2.4.1">
           <h4 id="name-encryption-3">
-<a href="#section-2.3.1" class="section-number selfRef">2.3.1. </a><a href="#name-encryption-3" class="section-name selfRef">Encryption</a>
+<a href="#section-2.4.1" class="section-number selfRef">2.4.1. </a><a href="#name-encryption-3" class="section-name selfRef">Encryption</a>
           </h4>
-<p id="section-2.3.1-1">The response uses a similar encapsulated response format to that used by
-<span>[<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>.<a href="#section-2.3.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.3.1-2">
+<p id="section-2.4.1-1">The response uses a similar encapsulated response format to that used by
+<span>[<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>.<a href="#section-2.4.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.4.1-2">
 <pre>
 Encapsulated Response {
   Nonce (8 * max(Nn, Nk)),
   AEAD-Protected Response (..),
 }
-</pre><a href="#section-2.3.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-2.4.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-2.3.1-3">The response uses the a similar encapsulated response format to that used by <span>[<a href="#OHTTP" class="cite xref">OHTTP</a>]</span> (see
+<p id="section-2.4.1-3">The response uses the a similar encapsulated response format to that used by <span>[<a href="#OHTTP" class="cite xref">OHTTP</a>]</span> (see
 <span><a href="https://rfc-editor.org/rfc/rfc9458#section-4.4" class="relref">Section 4.4</a> of [<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>), but with the custom <code>message/ad-auction-trusted-signals-response</code>
-media type instead of <code>message/bhttp response</code>:<a href="#section-2.3.1-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.1-4">
-<li id="section-2.3.1-4.1">
-              <p id="section-2.3.1-4.1.1">Export a secret (<code>secret</code>) from <code>context</code>, using the string
+media type instead of <code>message/bhttp response</code>:<a href="#section-2.4.1-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.1-4">
+<li id="section-2.4.1-4.1">
+              <p id="section-2.4.1-4.1.1">Export a secret (<code>secret</code>) from <code>context</code>, using the string
 "message/ad-auction-trusted-signals-response" as the <code>exporter_context</code> parameter to
 <code>context.Export</code>; see <a href="https://www.rfc-editor.org/rfc/rfc9180.html#name-secret-export">Section 5.3</a>
 of <span>[<a href="#HPKE" class="cite xref">HPKE</a>]</span>. The length of this secret is <code>max(Nn, Nk)</code>, where <code>Nn</code> and <code>Nk</code> are
-the length of the AEAD key and nonce that are associated with <code>context</code>.<a href="#section-2.3.1-4.1.1" class="pilcrow">¶</a></p>
+the length of the AEAD key and nonce that are associated with <code>context</code>.<a href="#section-2.4.1-4.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.1-4.2">
-              <p id="section-2.3.1-4.2.1">Generate a random value of length <code>max(Nn, Nk)</code> bytes, called <code>response_nonce</code>.<a href="#section-2.3.1-4.2.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.1-4.2">
+              <p id="section-2.4.1-4.2.1">Generate a random value of length <code>max(Nn, Nk)</code> bytes, called <code>response_nonce</code>.<a href="#section-2.4.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.1-4.3">
-              <p id="section-2.3.1-4.3.1">Extract a pseudorandom key (<code>prk</code>) using the <code>Extract</code> function provided by
+            <li id="section-2.4.1-4.3">
+              <p id="section-2.4.1-4.3.1">Extract a pseudorandom key (<code>prk</code>) using the <code>Extract</code> function provided by
 the KDF algorithm associated with context. The <code>ikm</code> input to this function
 is <code>secret</code>; the <code>salt</code> input is the concatenation of <code>enc</code> (from
-  <code>enc_request</code>) and <code>response_nonce</code>.<a href="#section-2.3.1-4.3.1" class="pilcrow">¶</a></p>
+  <code>enc_request</code>) and <code>response_nonce</code>.<a href="#section-2.4.1-4.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.1-4.4">
-              <p id="section-2.3.1-4.4.1">Use the <code>Expand</code> function provided by the same KDF to create an AEAD key,
+            <li id="section-2.4.1-4.4">
+              <p id="section-2.4.1-4.4.1">Use the <code>Expand</code> function provided by the same KDF to create an AEAD key,
 <code>key</code>, of length <code>Nk</code> -- the length of the keys used by the AEAD associated
-with <code>context</code>. Generating <code>aead_key</code> uses a label of "key".<a href="#section-2.3.1-4.4.1" class="pilcrow">¶</a></p>
+with <code>context</code>. Generating <code>aead_key</code> uses a label of "key".<a href="#section-2.4.1-4.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.1-4.5">
-              <p id="section-2.3.1-4.5.1">Use the same <code>Expand</code> function to create a nonce, <code>nonce</code>, of length <code>Nn</code>
+            <li id="section-2.4.1-4.5">
+              <p id="section-2.4.1-4.5.1">Use the same <code>Expand</code> function to create a nonce, <code>nonce</code>, of length <code>Nn</code>
 -- the length of the nonce used by the AEAD. Generating <code>aead_nonce</code> uses a
-  label of "nonce".<a href="#section-2.3.1-4.5.1" class="pilcrow">¶</a></p>
+  label of "nonce".<a href="#section-2.4.1-4.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.1-4.6">
-              <p id="section-2.3.1-4.6.1">Encrypt <code>response</code>, passing the AEAD function <code>Seal</code> the values of <code>aead_key</code>,
-<code>aead_nonce</code>, an empty <code>aad</code>, and a <code>pt</code> input of <code>response</code>. This yields <code>ct</code>.<a href="#section-2.3.1-4.6.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.1-4.6">
+              <p id="section-2.4.1-4.6.1">Encrypt <code>response</code>, passing the AEAD function <code>Seal</code> the values of <code>aead_key</code>,
+<code>aead_nonce</code>, an empty <code>aad</code>, and a <code>pt</code> input of <code>response</code>. This yields <code>ct</code>.<a href="#section-2.4.1-4.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.1-4.7">
-              <p id="section-2.3.1-4.7.1">Concatenate <code>response_nonce</code> and <code>ct</code>, yielding an Encapsulated Response,
+            <li id="section-2.4.1-4.7">
+              <p id="section-2.4.1-4.7.1">Concatenate <code>response_nonce</code> and <code>ct</code>, yielding an Encapsulated Response,
 <code>enc_response</code>. Note that <code>response_nonce</code> is of fixed length, so there is no
-  ambiguity in parsing either <code>response_nonce</code> or <code>ct</code>.<a href="#section-2.3.1-4.7.1" class="pilcrow">¶</a></p>
+  ambiguity in parsing either <code>response_nonce</code> or <code>ct</code>.<a href="#section-2.4.1-4.7.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-2.3.1-5">In pseudocode, this procedure is as follows:<a href="#section-2.3.1-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.3.1-6">
+<p id="section-2.4.1-5">In pseudocode, this procedure is as follows:<a href="#section-2.4.1-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.4.1-6">
 <pre>
 secret = context.Export("message/ad-auction-trusted-signals-response", max(Nn, Nk))
 response_nonce = random(max(Nn, Nk))
@@ -1931,44 +1949,44 @@ aead_key = Expand(prk, "key", Nk)
 aead_nonce = Expand(prk, "nonce", Nn)
 ct = Seal(aead_key, aead_nonce, "", response)
 enc_response = concat(response_nonce, ct)
-</pre><a href="#section-2.3.1-6" class="pilcrow">¶</a>
+</pre><a href="#section-2.4.1-6" class="pilcrow">¶</a>
 </div>
-<p id="section-2.3.1-7">Clients decrypt an Encapsulated Response by reversing this process. That is,
+<p id="section-2.4.1-7">Clients decrypt an Encapsulated Response by reversing this process. That is,
 Clients first parse <code>enc_response</code> into <code>response_nonce</code> and <code>ct</code>. Then, they
 follow the same process to derive values for <code>aead_key</code> and <code>aead_nonce</code>, using
-their sending HPKE context, <code>sctxt</code>, as the HPKE context, <code>context</code>.<a href="#section-2.3.1-7" class="pilcrow">¶</a></p>
-<p id="section-2.3.1-8">The Client uses these values to decrypt <code>ct</code> using the AEAD function <code>Open</code>.
-Decrypting might produce an error, as follows:<a href="#section-2.3.1-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.3.1-9">
+their sending HPKE context, <code>sctxt</code>, as the HPKE context, <code>context</code>.<a href="#section-2.4.1-7" class="pilcrow">¶</a></p>
+<p id="section-2.4.1-8">The Client uses these values to decrypt <code>ct</code> using the AEAD function <code>Open</code>.
+Decrypting might produce an error, as follows:<a href="#section-2.4.1-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.4.1-9">
 <pre>
 response, error = Open(aead_key, aead_nonce, "", ct)
-</pre><a href="#section-2.3.1-9" class="pilcrow">¶</a>
+</pre><a href="#section-2.4.1-9" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="response-framing">
-<section id="section-2.3.2">
+<section id="section-2.4.2">
           <h4 id="name-framing-and-padding-2">
-<a href="#section-2.3.2" class="section-number selfRef">2.3.2. </a><a href="#name-framing-and-padding-2" class="section-name selfRef">Framing and Padding</a>
+<a href="#section-2.4.2" class="section-number selfRef">2.4.2. </a><a href="#name-framing-and-padding-2" class="section-name selfRef">Framing and Padding</a>
           </h4>
-<p id="section-2.3.2-1">The plaintext response message uses the framing described in <a href="#framing" class="auto internal xref">Section 2.1.2</a>.<a href="#section-2.3.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.3.2-2">Padding is applied with sizes as multiples of 2^n KBs ranging from 0 to 2MB. So the valid response
+<p id="section-2.4.2-1">The plaintext response message uses the framing described in <a href="#framing" class="auto internal xref">Section 2.2.2</a>.<a href="#section-2.4.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.4.2-2">Padding is applied with sizes as multiples of 2^n KBs ranging from 0 to 2MB. So the valid response
 sizes will be <code>[0, 128B, 256B, 512B, 1KB, 2KB, 4KB, 8KB, 16KB, 32KB, 64KB, 128KB, 256KB, 512KB, 1MB,
-2MB]</code>.<a href="#section-2.3.2-2" class="pilcrow">¶</a></p>
-<p id="section-2.3.2-3">If the response message is larger than 2MB, an error is returned.<a href="#section-2.3.2-3" class="pilcrow">¶</a></p>
+2MB]</code>.<a href="#section-2.4.2-2" class="pilcrow">¶</a></p>
+<p id="section-2.4.2-3">If the response message is larger than 2MB, an error is returned.<a href="#section-2.4.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="response-schema">
-<section id="section-2.3.3">
+<section id="section-2.4.3">
           <h4 id="name-response-schema">
-<a href="#section-2.3.3" class="section-number selfRef">2.3.3. </a><a href="#name-response-schema" class="section-name selfRef">Response Schema</a>
+<a href="#section-2.4.3" class="section-number selfRef">2.4.3. </a><a href="#name-response-schema" class="section-name selfRef">Response Schema</a>
           </h4>
-<p id="section-2.3.3-1">The response MAY be compressed. The compression is applied independently to each compression group. That
+<p id="section-2.4.3-1">The response MAY be compressed. The compression is applied independently to each compression group. That
 means, the response object mainly contains a list of compressed blobs, each for one compression
 group. Each blob is for outputs of one or more partitions, sharing the same <code>compressionGroup</code> value
-as specified in the request.<a href="#section-2.3.3-1" class="pilcrow">¶</a></p>
-<p id="section-2.3.3-2">The response is a <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> encoded message with the following <span>[<a href="#CDDL" class="cite xref">CDDL</a>]</span> schema:<a href="#section-2.3.3-2" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-2.3.3-3">
+as specified in the request.<a href="#section-2.4.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.4.3-2">The response is a <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> encoded message with the following <span>[<a href="#CDDL" class="cite xref">CDDL</a>]</span> schema:<a href="#section-2.4.3-2" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-2.4.3-3">
 <pre>
 response = {
   ? compressionGroups : [* compressionGroup]
@@ -1984,17 +2002,17 @@ compressionGroup = {
   ; Compressed CBOR binary string using the algorithm specified in the request
   ; For details see compressed response content schema below.
 }
-</pre><a href="#section-2.3.3-3" class="pilcrow">¶</a>
+</pre><a href="#section-2.4.3-3" class="pilcrow">¶</a>
 </div>
 <div id="compression-group">
-<section id="section-2.3.3.1">
+<section id="section-2.4.3.1">
             <h5 id="name-compressiongroup">
-<a href="#section-2.3.3.1" class="section-number selfRef">2.3.3.1. </a><a href="#name-compressiongroup" class="section-name selfRef">CompressionGroup</a>
+<a href="#section-2.4.3.1" class="section-number selfRef">2.4.3.1. </a><a href="#name-compressiongroup" class="section-name selfRef">CompressionGroup</a>
             </h5>
-<p id="section-2.3.3.1-1">The content of each <code>compressionGroup</code> is a serialized <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> list of partition outputs. This object
+<p id="section-2.4.3.1-1">The content of each <code>compressionGroup</code> is a serialized <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> list of partition outputs. This object
 contains actual key value results for partitions in the corresponding compression group. The
-uncompressed, deserialized <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> content has the following <span>[<a href="#CDDL" class="cite xref">CDDL</a>]</span> schema:<a href="#section-2.3.3.1-1" class="pilcrow">¶</a></p>
-<div class="lang-cddl sourcecode" id="section-2.3.3.1-2">
+uncompressed, deserialized <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> content has the following <span>[<a href="#CDDL" class="cite xref">CDDL</a>]</span> schema:<a href="#section-2.4.3.1-1" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-2.4.3.1-2">
 <pre>
 compressionGroup = [* partitionOutput]
 ; Array of PartitionOutput objects
@@ -2015,34 +2033,34 @@ keyGroupOutput = {
   ; One value to be returned in response for one key
   ; If a keyValues object exists, it must at least contain one key-value pair. If no key-value pair can be returned, the key group should not be in the response
 }
-</pre><a href="#section-2.3.3.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-2.4.3.1-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 </section>
 </div>
 <div id="structured-keys-response-specification">
-<section id="section-2.3.4">
+<section id="section-2.4.4">
           <h4 id="name-structured-keys-response-sp">
-<a href="#section-2.3.4" class="section-number selfRef">2.3.4. </a><a href="#name-structured-keys-response-sp" class="section-name selfRef">Structured keys response specification</a>
+<a href="#section-2.4.4" class="section-number selfRef">2.4.4. </a><a href="#name-structured-keys-response-sp" class="section-name selfRef">Structured keys response specification</a>
           </h4>
-<p id="section-2.3.4-1">Structured keys are keys that the client is aware of and the client
+<p id="section-2.4.4-1">Structured keys are keys that the client is aware of and the client
 can use the response to do
 additional processing. The value of these keys must abide by the
 following schema for the client to
-successfully parse them.<a href="#section-2.3.4-1" class="pilcrow">¶</a></p>
-<p id="section-2.3.4-2">Note that they must be serialized to string when stored as the value.<a href="#section-2.3.4-2" class="pilcrow">¶</a></p>
+successfully parse them.<a href="#section-2.4.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.4.4-2">Note that they must be serialized to string when stored as the value.<a href="#section-2.4.4-2" class="pilcrow">¶</a></p>
 <div id="interest-group-response">
-<section id="section-2.3.4.1">
+<section id="section-2.4.4.1">
             <h5 id="name-interestgroupresponse">
-<a href="#section-2.3.4.1" class="section-number selfRef">2.3.4.1. </a><a href="#name-interestgroupresponse" class="section-name selfRef">InterestGroupResponse</a>
+<a href="#section-2.4.4.1" class="section-number selfRef">2.4.4.1. </a><a href="#name-interestgroupresponse" class="section-name selfRef">InterestGroupResponse</a>
             </h5>
-<p id="section-2.3.4.1-1">The schema below is defined following the spec by
+<p id="section-2.4.4.1-1">The schema below is defined following the spec by
 https://json-schema.org. For values for keys
 from the <code>interestGroupNames</code> namespace, they must conform to the
 following schema, prior to being
-serialized to string.<a href="#section-2.3.4.1-1" class="pilcrow">¶</a></p>
-<div class="lang-json sourcecode" id="section-2.3.4.1-2">
+serialized to string.<a href="#section-2.4.4.1-1" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-2.4.4.1-2">
 <pre>
 {
     "title": "tkv.response.v2.InterestGroupResponse",
@@ -2065,291 +2083,291 @@ serialized to string.<a href="#section-2.3.4.1-1" class="pilcrow">¶</a></p>
         }
     }
 }
-</pre><a href="#section-2.3.4.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-2.4.4.1-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 </section>
 </div>
 <div id="response-generate">
-<section id="section-2.3.5">
+<section id="section-2.4.5">
           <h4 id="name-generating-a-response">
-<a href="#section-2.3.5" class="section-number selfRef">2.3.5. </a><a href="#name-generating-a-response" class="section-name selfRef">Generating a Response</a>
+<a href="#section-2.4.5" class="section-number selfRef">2.4.5. </a><a href="#name-generating-a-response" class="section-name selfRef">Generating a Response</a>
           </h4>
-<p id="section-2.3.5-1">The Key Value Service runs user-defined functions (UDF) as part of request handling
+<p id="section-2.4.5-1">The Key Value Service runs user-defined functions (UDF) as part of request handling
 and response generation. User-Defined Functions (UDFs) are custom functions implemented by adtech that encapsulate adtech-specific business logic for processing partitions within the Key Value Service. These functions are executed within a sandboxed environment without network or disk access, but have read access to data loaded into the Key Value Service.
-Each UDF receives a single <code>partition</code> object from the client request as input. The output of a UDF is a <code>partitionOutput</code> object that contains the results of processing the partition.<a href="#section-2.3.5-1" class="pilcrow">¶</a></p>
-<p id="section-2.3.5-2">The below algorithm describes how the Key Value Service MAY generate a response to a request.<a href="#section-2.3.5-2" class="pilcrow">¶</a></p>
-<p id="section-2.3.5-3">The input is a list of <a href="https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c">deterministically encoded CBOR</a> <code>partitionOutputs</code> in <a href="#response-schema" class="auto internal xref">Section 2.3.3</a> as well as
-the <code>compressionGroupMap</code> and the HPKE receiver, <code>rctxt</code>, context saved in <a href="#request-parsing" class="auto internal xref">Section 2.2.5</a>.
-Assume that this response is to a request that includes <code>gzip</code> in <code>acceptCompression</code>.<a href="#section-2.3.5-3" class="pilcrow">¶</a></p>
-<p id="section-2.3.5-4">The output is a <code>response</code> to be sent to a Client.<a href="#section-2.3.5-4" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.5-5">
-<li id="section-2.3.5-5.1">
-              <p id="section-2.3.5-5.1.1">Create an empty <code>payload</code> object, corresponding to <a href="#response-schema" class="auto internal xref">Section 2.3.3</a>.<a href="#section-2.3.5-5.1.1" class="pilcrow">¶</a></p>
+Each UDF receives a single <code>partition</code> object from the client request as input. The output of a UDF is a <code>partitionOutput</code> object that contains the results of processing the partition.<a href="#section-2.4.5-1" class="pilcrow">¶</a></p>
+<p id="section-2.4.5-2">The below algorithm describes how the Key Value Service MAY generate a response to a request.<a href="#section-2.4.5-2" class="pilcrow">¶</a></p>
+<p id="section-2.4.5-3">The input is a list of <a href="https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c">deterministically encoded CBOR</a> <code>partitionOutputs</code> in <a href="#response-schema" class="auto internal xref">Section 2.4.3</a> as well as
+the <code>compressionGroupMap</code> and the HPKE receiver, <code>rctxt</code>, context saved in <a href="#request-parsing" class="auto internal xref">Section 2.3.5</a>.
+Assume that this response is to a request that includes <code>gzip</code> in <code>acceptCompression</code>.<a href="#section-2.4.5-3" class="pilcrow">¶</a></p>
+<p id="section-2.4.5-4">The output is a <code>response</code> to be sent to a Client.<a href="#section-2.4.5-4" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.5-5">
+<li id="section-2.4.5-5.1">
+              <p id="section-2.4.5-5.1.1">Create an empty <code>payload</code> object, corresponding to <a href="#response-schema" class="auto internal xref">Section 2.4.3</a>.<a href="#section-2.4.5-5.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.5-5.2">
-              <p id="section-2.3.5-5.2.1">Set <code>compression groups</code> to an empty list.<a href="#section-2.3.5-5.2.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.5-5.2">
+              <p id="section-2.4.5-5.2.1">Set <code>compression groups</code> to an empty list.<a href="#section-2.4.5-5.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.5-5.3">
-              <p id="section-2.3.5-5.3.1">Set <code>partitionOutputMap</code> to an empty map.<a href="#section-2.3.5-5.3.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.5-5.3">
+              <p id="section-2.4.5-5.3.1">Set <code>partitionOutputMap</code> to an empty map.<a href="#section-2.4.5-5.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.5-5.4">
-              <p id="section-2.3.5-5.4.1">For each <code>partitionOutput</code> in the list of <code>partitionOutputs</code>:<a href="#section-2.3.5-5.4.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.5-5.4.2">
-<li id="section-2.3.5-5.4.2.1">
-                  <p id="section-2.3.5-5.4.2.1.1">Set <code>partitionOutputMap[partitionOutput["id"]]</code> to <code>partitionOutput</code>.<a href="#section-2.3.5-5.4.2.1.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.5-5.4">
+              <p id="section-2.4.5-5.4.1">For each <code>partitionOutput</code> in the list of <code>partitionOutputs</code>:<a href="#section-2.4.5-5.4.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.4.2">
+<li id="section-2.4.5-5.4.2.1">
+                  <p id="section-2.4.5-5.4.2.1.1">Set <code>partitionOutputMap[partitionOutput["id"]]</code> to <code>partitionOutput</code>.<a href="#section-2.4.5-5.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
               </ol>
 </li>
-            <li id="section-2.3.5-5.5">
-              <p id="section-2.3.5-5.5.1">For each (<code>compression group id</code>, <code>partition ids</code>) in <code>compressionGroupMap</code>:<a href="#section-2.3.5-5.5.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.5-5.5.2">
-<li id="section-2.3.5-5.5.2.1">
-                  <p id="section-2.3.5-5.5.2.1.1">Create an empty <code>compression group</code> object, corresponding to <a href="#compression-group" class="auto internal xref">Section 2.3.3.1</a>.<a href="#section-2.3.5-5.5.2.1.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.5-5.5">
+              <p id="section-2.4.5-5.5.1">For each (<code>compression group id</code>, <code>partition ids</code>) in <code>compressionGroupMap</code>:<a href="#section-2.4.5-5.5.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.5.2">
+<li id="section-2.4.5-5.5.2.1">
+                  <p id="section-2.4.5-5.5.2.1.1">Create an empty <code>compression group</code> object, corresponding to <a href="#compression-group" class="auto internal xref">Section 2.4.3.1</a>.<a href="#section-2.4.5-5.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-5.5.2.2">
-                  <p id="section-2.3.5-5.5.2.2.1">Set <code>cbor partitions array</code> to an empty CBOR array.<a href="#section-2.3.5-5.5.2.2.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.5.2.2">
+                  <p id="section-2.4.5-5.5.2.2.1">Set <code>cbor partitions array</code> to an empty CBOR array.<a href="#section-2.4.5-5.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-5.5.2.3">
-                  <p id="section-2.3.5-5.5.2.3.1">For each <code>partition id</code> in <code>partition ids</code>:<a href="#section-2.3.5-5.5.2.3.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.5-5.5.2.3.2">
-<li id="section-2.3.5-5.5.2.3.2.1">
-                      <p id="section-2.3.5-5.5.2.3.2.1.1">Set <code>partition output</code> to <code>partitionOutputMap[partition id]</code>.<a href="#section-2.3.5-5.5.2.3.2.1.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.5-5.5.2.3.2.1.2">
-<li id="section-2.3.5-5.5.2.3.2.1.2.1">
-                          <p id="section-2.3.5-5.5.2.3.2.1.2.1.1">On failure to find the <code>partition id</code>, continue.<a href="#section-2.3.5-5.5.2.3.2.1.2.1.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.5.2.3">
+                  <p id="section-2.4.5-5.5.2.3.1">For each <code>partition id</code> in <code>partition ids</code>:<a href="#section-2.4.5-5.5.2.3.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.5.2.3.2">
+<li id="section-2.4.5-5.5.2.3.2.1">
+                      <p id="section-2.4.5-5.5.2.3.2.1.1">Set <code>partition output</code> to <code>partitionOutputMap[partition id]</code>.<a href="#section-2.4.5-5.5.2.3.2.1.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.5.2.3.2.1.2">
+<li id="section-2.4.5-5.5.2.3.2.1.2.1">
+                          <p id="section-2.4.5-5.5.2.3.2.1.2.1.1">On failure to find the <code>partition id</code>, continue.<a href="#section-2.4.5-5.5.2.3.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
                       </ol>
 </li>
-                    <li id="section-2.3.5-5.5.2.3.2.2">
-                      <p id="section-2.3.5-5.5.2.3.2.2.1">Append <code>partition output</code> to <code>cbor partitions array</code>.<a href="#section-2.3.5-5.5.2.3.2.2.1" class="pilcrow">¶</a></p>
+                    <li id="section-2.4.5-5.5.2.3.2.2">
+                      <p id="section-2.4.5-5.5.2.3.2.2.1">Append <code>partition output</code> to <code>cbor partitions array</code>.<a href="#section-2.4.5-5.5.2.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
                   </ol>
 </li>
-                <li id="section-2.3.5-5.5.2.4">
-                  <p id="section-2.3.5-5.5.2.4.1">Set <code>cbor serialized payload</code> to the CBOR serialized <code>cbor partitions array</code>.<a href="#section-2.3.5-5.5.2.4.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.5-5.5.2.4.2">
-<li id="section-2.3.5-5.5.2.4.2.1">
-                      <p id="section-2.3.5-5.5.2.4.2.1.1">On serialization failure, continue.<a href="#section-2.3.5-5.5.2.4.2.1.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.5.2.4">
+                  <p id="section-2.4.5-5.5.2.4.1">Set <code>cbor serialized payload</code> to the CBOR serialized <code>cbor partitions array</code>.<a href="#section-2.4.5-5.5.2.4.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.5.2.4.2">
+<li id="section-2.4.5-5.5.2.4.2.1">
+                      <p id="section-2.4.5-5.5.2.4.2.1.1">On serialization failure, continue.<a href="#section-2.4.5-5.5.2.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
                   </ol>
 </li>
-                <li id="section-2.3.5-5.5.2.5">
-                  <p id="section-2.3.5-5.5.2.5.1">Set <code>compression group content</code> to the <span>[<a href="#GZIP" class="cite xref">GZIP</a>]</span> compressed <code>cbor serialized payload</code>.<a href="#section-2.3.5-5.5.2.5.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.5-5.5.2.5.2">
-<li id="section-2.3.5-5.5.2.5.2.1">
-                      <p id="section-2.3.5-5.5.2.5.2.1.1">On failure, continue.<a href="#section-2.3.5-5.5.2.5.2.1.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.5.2.5">
+                  <p id="section-2.4.5-5.5.2.5.1">Set <code>compression group content</code> to the <span>[<a href="#GZIP" class="cite xref">GZIP</a>]</span> compressed <code>cbor serialized payload</code>.<a href="#section-2.4.5-5.5.2.5.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.5.2.5.2">
+<li id="section-2.4.5-5.5.2.5.2.1">
+                      <p id="section-2.4.5-5.5.2.5.2.1.1">On failure, continue.<a href="#section-2.4.5-5.5.2.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
                   </ol>
 </li>
-                <li id="section-2.3.5-5.5.2.6">
-                  <p id="section-2.3.5-5.5.2.6.1">Set <code>compression group["compressionGroupId"]</code> to <code>compression group id</code><a href="#section-2.3.5-5.5.2.6.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.5.2.6">
+                  <p id="section-2.4.5-5.5.2.6.1">Set <code>compression group["compressionGroupId"]</code> to <code>compression group id</code><a href="#section-2.4.5-5.5.2.6.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-5.5.2.7">
-                  <p id="section-2.3.5-5.5.2.7.1">Set <code>compression group["content"]</code> to <code>compression group content</code>.<a href="#section-2.3.5-5.5.2.7.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.5.2.7">
+                  <p id="section-2.4.5-5.5.2.7.1">Set <code>compression group["content"]</code> to <code>compression group content</code>.<a href="#section-2.4.5-5.5.2.7.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-5.5.2.8">
-                  <p id="section-2.3.5-5.5.2.8.1">Add <code>compression group</code> to <code>compression groups</code>.<a href="#section-2.3.5-5.5.2.8.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.5.2.8">
+                  <p id="section-2.4.5-5.5.2.8.1">Add <code>compression group</code> to <code>compression groups</code>.<a href="#section-2.4.5-5.5.2.8.1" class="pilcrow">¶</a></p>
 </li>
               </ol>
 </li>
-            <li id="section-2.3.5-5.6">
-              <p id="section-2.3.5-5.6.1">Set <code>payload["compressionGroups"]</code> to <code>compression groups</code>.<a href="#section-2.3.5-5.6.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.5-5.6">
+              <p id="section-2.4.5-5.6.1">Set <code>payload["compressionGroups"]</code> to <code>compression groups</code>.<a href="#section-2.4.5-5.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.5-5.7">
-              <p id="section-2.3.5-5.7.1">Create a framed payload, as described in <a href="#framing" class="auto internal xref">Section 2.1.2</a>:<a href="#section-2.3.5-5.7.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.5-5.7.2">
-<li id="section-2.3.5-5.7.2.1">
-                  <p id="section-2.3.5-5.7.2.1.1">Create a <code>framing header</code>.<a href="#section-2.3.5-5.7.2.1.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.5-5.7">
+              <p id="section-2.4.5-5.7.1">Create a framed payload, as described in <a href="#framing" class="auto internal xref">Section 2.2.2</a>:<a href="#section-2.4.5-5.7.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.7.2">
+<li id="section-2.4.5-5.7.2.1">
+                  <p id="section-2.4.5-5.7.2.1.1">Create a <code>framing header</code>.<a href="#section-2.4.5-5.7.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-5.7.2.2">
-                  <p id="section-2.3.5-5.7.2.2.1">Set the <code>framing header</code> <code>Compression</code> to one of 2.<a href="#section-2.3.5-5.7.2.2.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.7.2.2">
+                  <p id="section-2.4.5-5.7.2.2.1">Set the <code>framing header</code> <code>Compression</code> to one of 2.<a href="#section-2.4.5-5.7.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-5.7.2.3">
-                  <p id="section-2.3.5-5.7.2.3.1">Set the <code>framing header</code> <code>Size</code> to the size of <code>compressed payload</code>.<a href="#section-2.3.5-5.7.2.3.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.7.2.3">
+                  <p id="section-2.4.5-5.7.2.3.1">Set the <code>framing header</code> <code>Size</code> to the size of <code>compressed payload</code>.<a href="#section-2.4.5-5.7.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-5.7.2.4">
-                  <p id="section-2.3.5-5.7.2.4.1">Let <code>framed payload</code> equal the result of prepending the framing header to
-<code>payload</code>.<a href="#section-2.3.5-5.7.2.4.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.7.2.4">
+                  <p id="section-2.4.5-5.7.2.4.1">Let <code>framed payload</code> equal the result of prepending the framing header to
+<code>payload</code>.<a href="#section-2.4.5-5.7.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-5.7.2.5">
-                  <p id="section-2.3.5-5.7.2.5.1">Padding MAY be added to <code>framed payload</code>.<a href="#section-2.3.5-5.7.2.5.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.7.2.5">
+                  <p id="section-2.4.5-5.7.2.5.1">Padding MAY be added to <code>framed payload</code>.<a href="#section-2.4.5-5.7.2.5.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-5.7.2.6">
-                  <p id="section-2.3.5-5.7.2.6.1">Return an empty <code>response</code> on failure of any of the previous steps.<a href="#section-2.3.5-5.7.2.6.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.5-5.7.2.6">
+                  <p id="section-2.4.5-5.7.2.6.1">Return an empty <code>response</code> on failure of any of the previous steps.<a href="#section-2.4.5-5.7.2.6.1" class="pilcrow">¶</a></p>
 </li>
               </ol>
 </li>
-            <li id="section-2.3.5-5.8">
-              <p id="section-2.3.5-5.8.1">Let <code>response</code> equal the result of the encryption and encapsulation of <code>framed payload</code> with
-<code>rctxt</code>, as described in <a href="#response-encryption" class="auto internal xref">Section 2.3.1</a>. Return an empty <code>response</code> on failure.<a href="#section-2.3.5-5.8.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.5-5.8">
+              <p id="section-2.4.5-5.8.1">Let <code>response</code> equal the result of the encryption and encapsulation of <code>framed payload</code> with
+<code>rctxt</code>, as described in <a href="#response-encryption" class="auto internal xref">Section 2.4.1</a>. Return an empty <code>response</code> on failure.<a href="#section-2.4.5-5.8.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.5-5.9">
-              <p id="section-2.3.5-5.9.1">Return <code>response</code>.<a href="#section-2.3.5-5.9.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.5-5.9">
+              <p id="section-2.4.5-5.9.1">Return <code>response</code>.<a href="#section-2.4.5-5.9.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
 </div>
 <div id="parsing-a-response-response-parsing">
-<section id="section-2.3.6">
+<section id="section-2.4.6">
           <h4 id="name-parsing-a-response-response">
-<a href="#section-2.3.6" class="section-number selfRef">2.3.6. </a><a href="#name-parsing-a-response-response" class="section-name selfRef">Parsing a Response (#response-parsing)</a>
+<a href="#section-2.4.6" class="section-number selfRef">2.4.6. </a><a href="#name-parsing-a-response-response" class="section-name selfRef">Parsing a Response (#response-parsing)</a>
           </h4>
-<p id="section-2.3.6-1">This section describes how a conforming Client MUST parse and validate
-a response from a Trusted Key Value service.<a href="#section-2.3.6-1" class="pilcrow">¶</a></p>
-<p id="section-2.3.6-2">It takes as input the <code>request context</code>, returned from
-<a href="#request-generate" class="auto internal xref">Section 2.2.4</a>, and an <code>encrypted response</code>, an array of bytes
-from the Key Value Service generated by <a href="#response-generate" class="auto internal xref">Section 2.3.5</a>.<a href="#section-2.3.6-2" class="pilcrow">¶</a></p>
-<p id="section-2.3.6-3">The output is a <code>results</code> which is a list of <code>result</code> with the following parameters:
+<p id="section-2.4.6-1">This section describes how a conforming Client MUST parse and validate
+a response from a Trusted Key Value service.<a href="#section-2.4.6-1" class="pilcrow">¶</a></p>
+<p id="section-2.4.6-2">It takes as input the <code>request context</code>, returned from
+<a href="#request-generate" class="auto internal xref">Section 2.3.4</a>, and an <code>encrypted response</code>, an array of bytes
+from the Key Value Service generated by <a href="#response-generate" class="auto internal xref">Section 2.4.5</a>.<a href="#section-2.4.6-2" class="pilcrow">¶</a></p>
+<p id="section-2.4.6-3">The output is a <code>results</code> which is a list of <code>result</code> with the following parameters:
 * <code>index</code>, a tuple of an integer and an integer, records the compression group id and
   partition id.
 * <code>interestGroupNames</code>, null or a map, whose keys and values are strings.
 * <code>keys</code>, null or a map, whose keys and values are strings.
 * <code>renderUrls</code>, null or a map, whose keys and values are strings.
-* <code>adComponentRenderUrls</code>, null or a map, whose keys and values are strings.<a href="#section-2.3.6-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4">
-<li id="section-2.3.6-4.1">
-              <p id="section-2.3.6-4.1.1">Use <code>request context</code> as the context to decrypt <code>encrypted response</code> and obtain <code>framed response</code>, returning failure if decryption fails.<a href="#section-2.3.6-4.1.1" class="pilcrow">¶</a></p>
+* <code>adComponentRenderUrls</code>, null or a map, whose keys and values are strings.<a href="#section-2.4.6-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.6-4">
+<li id="section-2.4.6-4.1">
+              <p id="section-2.4.6-4.1.1">Use <code>request context</code> as the context to decrypt <code>encrypted response</code> and obtain <code>framed response</code>, returning failure if decryption fails.<a href="#section-2.4.6-4.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.6-4.2">
-              <p id="section-2.3.6-4.2.1">Remove and extract the first 5 bytes from <code>framed response</code> as the framing header (described in <a href="#framing" class="auto internal xref">Section 2.1.2</a>), removing them from <code>framed response</code>.<a href="#section-2.3.6-4.2.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.2">
+              <p id="section-2.4.6-4.2.1">Remove and extract the first 5 bytes from <code>framed response</code> as the framing header (described in <a href="#framing" class="auto internal xref">Section 2.2.2</a>), removing them from <code>framed response</code>.<a href="#section-2.4.6-4.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.6-4.3">
-              <p id="section-2.3.6-4.3.1">If <code>framing header</code>'s <code>Compression</code> field is not 0 or 2, return failure.<a href="#section-2.3.6-4.3.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.3">
+              <p id="section-2.4.6-4.3.1">If <code>framing header</code>'s <code>Compression</code> field is not 0 or 2, return failure.<a href="#section-2.4.6-4.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.6-4.4">
-              <p id="section-2.3.6-4.4.1">Let <code>length</code> be equal to the <code>framing header</code>'s <code>Size</code> field.<a href="#section-2.3.6-4.4.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.4">
+              <p id="section-2.4.6-4.4.1">Let <code>length</code> be equal to the <code>framing header</code>'s <code>Size</code> field.<a href="#section-2.4.6-4.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.6-4.5">
-              <p id="section-2.3.6-4.5.1">If <code>length</code> is greater than the length of the remaining bytes in <code>framed response</code>, return failure.<a href="#section-2.3.6-4.5.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.5">
+              <p id="section-2.4.6-4.5.1">If <code>length</code> is greater than the length of the remaining bytes in <code>framed response</code>, return failure.<a href="#section-2.4.6-4.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.6-4.6">
-              <p id="section-2.3.6-4.6.1">Take the first <code>length</code> remaining bytes in <code>framed response</code> as <code>serialized response</code>, discarding the rest.<a href="#section-2.3.6-4.6.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.6">
+              <p id="section-2.4.6-4.6.1">Take the first <code>length</code> remaining bytes in <code>framed response</code> as <code>serialized response</code>, discarding the rest.<a href="#section-2.4.6-4.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.6-4.7">
-              <p id="section-2.3.6-4.7.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> decode the <code>serialized response</code> into <code>response</code>, returning failure if decoding fails.<a href="#section-2.3.6-4.7.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.7">
+              <p id="section-2.4.6-4.7.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> decode the <code>serialized response</code> into <code>response</code>, returning failure if decoding fails.<a href="#section-2.4.6-4.7.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.6-4.8">
-              <p id="section-2.3.6-4.8.1">If <code>response</code> is not a map, return failure.<a href="#section-2.3.6-4.8.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.8">
+              <p id="section-2.4.6-4.8.1">If <code>response</code> is not a map, return failure.<a href="#section-2.4.6-4.8.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.6-4.9">
-              <p id="section-2.3.6-4.9.1">If <code>response["compressionGroups"]</code> does not exist, or is not an array, return failure.<a href="#section-2.3.6-4.9.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.9">
+              <p id="section-2.4.6-4.9.1">If <code>response["compressionGroups"]</code> does not exist, or is not an array, return failure.<a href="#section-2.4.6-4.9.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.6-4.10">
-              <p id="section-2.3.6-4.10.1">Let <code>results</code> be an empty array.<a href="#section-2.3.6-4.10.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.10">
+              <p id="section-2.4.6-4.10.1">Let <code>results</code> be an empty array.<a href="#section-2.4.6-4.10.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-2.3.6-4.11">
-              <p id="section-2.3.6-4.11.1">For each <code>group</code> in <code>response["compressionGroups"]</code>:<a href="#section-2.3.6-4.11.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2">
-<li id="section-2.3.6-4.11.2.1">
-                  <p id="section-2.3.6-4.11.2.1.1">If <code>group</code> is not a map, return failure.<a href="#section-2.3.6-4.11.2.1.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.11">
+              <p id="section-2.4.6-4.11.1">For each <code>group</code> in <code>response["compressionGroups"]</code>:<a href="#section-2.4.6-4.11.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.6-4.11.2">
+<li id="section-2.4.6-4.11.2.1">
+                  <p id="section-2.4.6-4.11.2.1.1">If <code>group</code> is not a map, return failure.<a href="#section-2.4.6-4.11.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.6-4.11.2.2">
-                  <p id="section-2.3.6-4.11.2.2.1">If <code>group["content"]</code> does not exist, return failure.<a href="#section-2.3.6-4.11.2.2.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.6-4.11.2.2">
+                  <p id="section-2.4.6-4.11.2.2.1">If <code>group["content"]</code> does not exist, return failure.<a href="#section-2.4.6-4.11.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.6-4.11.2.3">
-                  <p id="section-2.3.6-4.11.2.3.1">Set <code>serialized content</code> to the result of decompressing <code>group["content"]</code> according to the compression algorithm specified in the <code>framing header</code>'s <code>Compression</code> field, returning failure if decompression fails.<a href="#section-2.3.6-4.11.2.3.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.6-4.11.2.3">
+                  <p id="section-2.4.6-4.11.2.3.1">Set <code>serialized content</code> to the result of decompressing <code>group["content"]</code> according to the compression algorithm specified in the <code>framing header</code>'s <code>Compression</code> field, returning failure if decompression fails.<a href="#section-2.4.6-4.11.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.6-4.11.2.4">
-                  <p id="section-2.3.6-4.11.2.4.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> decode the <code>serialized content</code> into <code>content</code>, returning failure if decoding fails.<a href="#section-2.3.6-4.11.2.4.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.6-4.11.2.4">
+                  <p id="section-2.4.6-4.11.2.4.1"><span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> decode the <code>serialized content</code> into <code>content</code>, returning failure if decoding fails.<a href="#section-2.4.6-4.11.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.6-4.11.2.5">
-                  <p id="section-2.3.6-4.11.2.5.1">If <code>content</code> is not an array, return failure.<a href="#section-2.3.6-4.11.2.5.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.6-4.11.2.5">
+                  <p id="section-2.4.6-4.11.2.5.1">If <code>content</code> is not an array, return failure.<a href="#section-2.4.6-4.11.2.5.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.6-4.11.2.6">
-                  <p id="section-2.3.6-4.11.2.6.1">For each <code>partition</code> in <code>content</code>:<a href="#section-2.3.6-4.11.2.6.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2">
-<li id="section-2.3.6-4.11.2.6.2.1">
-                      <p id="section-2.3.6-4.11.2.6.2.1.1">If <code>partition</code> is not a map, return failure.<a href="#section-2.3.6-4.11.2.6.2.1.1" class="pilcrow">¶</a></p>
+                <li id="section-2.4.6-4.11.2.6">
+                  <p id="section-2.4.6-4.11.2.6.1">For each <code>partition</code> in <code>content</code>:<a href="#section-2.4.6-4.11.2.6.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.6-4.11.2.6.2">
+<li id="section-2.4.6-4.11.2.6.2.1">
+                      <p id="section-2.4.6-4.11.2.6.2.1.1">If <code>partition</code> is not a map, return failure.<a href="#section-2.4.6-4.11.2.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                    <li id="section-2.3.6-4.11.2.6.2.2">
-                      <p id="section-2.3.6-4.11.2.6.2.2.1">If <code>partition["keyGroupOutputs"]</code> does not exist, or is not an array, return failure.<a href="#section-2.3.6-4.11.2.6.2.2.1" class="pilcrow">¶</a></p>
+                    <li id="section-2.4.6-4.11.2.6.2.2">
+                      <p id="section-2.4.6-4.11.2.6.2.2.1">If <code>partition["keyGroupOutputs"]</code> does not exist, or is not an array, return failure.<a href="#section-2.4.6-4.11.2.6.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                    <li id="section-2.3.6-4.11.2.6.2.3">
-                      <p id="section-2.3.6-4.11.2.6.2.3.1">Initialize an empty <code>result</code>.<a href="#section-2.3.6-4.11.2.6.2.3.1" class="pilcrow">¶</a></p>
+                    <li id="section-2.4.6-4.11.2.6.2.3">
+                      <p id="section-2.4.6-4.11.2.6.2.3.1">Initialize an empty <code>result</code>.<a href="#section-2.4.6-4.11.2.6.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                    <li id="section-2.3.6-4.11.2.6.2.4">
-                      <p id="section-2.3.6-4.11.2.6.2.4.1">For each <code>output</code> in <code>partition["keyGroupOutputs"]</code>:<a href="#section-2.3.6-4.11.2.6.2.4.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2">
-<li id="section-2.3.6-4.11.2.6.2.4.2.1">
-                          <p id="section-2.3.6-4.11.2.6.2.4.2.1.1">If <code>output</code> is not a map, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.1.1" class="pilcrow">¶</a></p>
+                    <li id="section-2.4.6-4.11.2.6.2.4">
+                      <p id="section-2.4.6-4.11.2.6.2.4.1">For each <code>output</code> in <code>partition["keyGroupOutputs"]</code>:<a href="#section-2.4.6-4.11.2.6.2.4.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.6-4.11.2.6.2.4.2">
+<li id="section-2.4.6-4.11.2.6.2.4.2.1">
+                          <p id="section-2.4.6-4.11.2.6.2.4.2.1.1">If <code>output</code> is not a map, return failure.<a href="#section-2.4.6-4.11.2.6.2.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                        <li id="section-2.3.6-4.11.2.6.2.4.2.2">
-                          <p id="section-2.3.6-4.11.2.6.2.4.2.2.1">If <code>output["tags"]</code> does not exist, or is not an array, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.2.1" class="pilcrow">¶</a></p>
+                        <li id="section-2.4.6-4.11.2.6.2.4.2.2">
+                          <p id="section-2.4.6-4.11.2.6.2.4.2.2.1">If <code>output["tags"]</code> does not exist, or is not an array, return failure.<a href="#section-2.4.6-4.11.2.6.2.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                        <li id="section-2.3.6-4.11.2.6.2.4.2.3">
-                          <p id="section-2.3.6-4.11.2.6.2.4.2.3.1">If <code>output["keyValues"]</code> does not exist or is not a map, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.3.1" class="pilcrow">¶</a></p>
+                        <li id="section-2.4.6-4.11.2.6.2.4.2.3">
+                          <p id="section-2.4.6-4.11.2.6.2.4.2.3.1">If <code>output["keyValues"]</code> does not exist or is not a map, return failure.<a href="#section-2.4.6-4.11.2.6.2.4.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                        <li id="section-2.3.6-4.11.2.6.2.4.2.4">
-                          <p id="section-2.3.6-4.11.2.6.2.4.2.4.1">Let <code>key value</code> be an empty map.<a href="#section-2.3.6-4.11.2.6.2.4.2.4.1" class="pilcrow">¶</a></p>
+                        <li id="section-2.4.6-4.11.2.6.2.4.2.4">
+                          <p id="section-2.4.6-4.11.2.6.2.4.2.4.1">Let <code>key value</code> be an empty map.<a href="#section-2.4.6-4.11.2.6.2.4.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                        <li id="section-2.3.6-4.11.2.6.2.4.2.5">
-                          <p id="section-2.3.6-4.11.2.6.2.4.2.5.1">For each <code>key</code> → <code>value</code> in <code>output["keyValues"]</code>:<a href="#section-2.3.6-4.11.2.6.2.4.2.5.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2.5.2">
-<li id="section-2.3.6-4.11.2.6.2.4.2.5.2.1">
-                              <p id="section-2.3.6-4.11.2.6.2.4.2.5.2.1.1">If <code>key</code> is not a string, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.5.2.1.1" class="pilcrow">¶</a></p>
+                        <li id="section-2.4.6-4.11.2.6.2.4.2.5">
+                          <p id="section-2.4.6-4.11.2.6.2.4.2.5.1">For each <code>key</code> → <code>value</code> in <code>output["keyValues"]</code>:<a href="#section-2.4.6-4.11.2.6.2.4.2.5.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.6-4.11.2.6.2.4.2.5.2">
+<li id="section-2.4.6-4.11.2.6.2.4.2.5.2.1">
+                              <p id="section-2.4.6-4.11.2.6.2.4.2.5.2.1.1">If <code>key</code> is not a string, return failure.<a href="#section-2.4.6-4.11.2.6.2.4.2.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                            <li id="section-2.3.6-4.11.2.6.2.4.2.5.2.2">
-                              <p id="section-2.3.6-4.11.2.6.2.4.2.5.2.2.1">If <code>value</code> is not a map, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.5.2.2.1" class="pilcrow">¶</a></p>
+                            <li id="section-2.4.6-4.11.2.6.2.4.2.5.2.2">
+                              <p id="section-2.4.6-4.11.2.6.2.4.2.5.2.2.1">If <code>value</code> is not a map, return failure.<a href="#section-2.4.6-4.11.2.6.2.4.2.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                            <li id="section-2.3.6-4.11.2.6.2.4.2.5.2.3">
-                              <p id="section-2.3.6-4.11.2.6.2.4.2.5.2.3.1">If <code>value["value"]</code> does not exist, or is not a string, return failure.<a href="#section-2.3.6-4.11.2.6.2.4.2.5.2.3.1" class="pilcrow">¶</a></p>
+                            <li id="section-2.4.6-4.11.2.6.2.4.2.5.2.3">
+                              <p id="section-2.4.6-4.11.2.6.2.4.2.5.2.3.1">If <code>value["value"]</code> does not exist, or is not a string, return failure.<a href="#section-2.4.6-4.11.2.6.2.4.2.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                            <li id="section-2.3.6-4.11.2.6.2.4.2.5.2.4">
-                              <p id="section-2.3.6-4.11.2.6.2.4.2.5.2.4.1">Set <code>key value</code>[<code>key</code>] to <code>value["value"]</code>.<a href="#section-2.3.6-4.11.2.6.2.4.2.5.2.4.1" class="pilcrow">¶</a></p>
-</li>
-                          </ol>
-</li>
-                        <li id="section-2.3.6-4.11.2.6.2.4.2.6">
-                          <p id="section-2.3.6-4.11.2.6.2.4.2.6.1">If <code>output["tags"]</code> equals to "interestGroupNames":<a href="#section-2.3.6-4.11.2.6.2.4.2.6.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2.6.2">
-<li id="section-2.3.6-4.11.2.6.2.4.2.6.2.1">
-                              <p id="section-2.3.6-4.11.2.6.2.4.2.6.2.1.1">Set <code>result</code>'s <code>interestGroupNames</code> to <code>key value</code>.<a href="#section-2.3.6-4.11.2.6.2.4.2.6.2.1.1" class="pilcrow">¶</a></p>
+                            <li id="section-2.4.6-4.11.2.6.2.4.2.5.2.4">
+                              <p id="section-2.4.6-4.11.2.6.2.4.2.5.2.4.1">Set <code>key value</code>[<code>key</code>] to <code>value["value"]</code>.<a href="#section-2.4.6-4.11.2.6.2.4.2.5.2.4.1" class="pilcrow">¶</a></p>
 </li>
                           </ol>
 </li>
-                        <li id="section-2.3.6-4.11.2.6.2.4.2.7">
-                          <p id="section-2.3.6-4.11.2.6.2.4.2.7.1">Otherwise, if <code>output["tags"]</code> equals to "keys":<a href="#section-2.3.6-4.11.2.6.2.4.2.7.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2.7.2">
-<li id="section-2.3.6-4.11.2.6.2.4.2.7.2.1">
-                              <p id="section-2.3.6-4.11.2.6.2.4.2.7.2.1.1">Set <code>result</code>'s <code>keys</code> to <code>key value</code>.<a href="#section-2.3.6-4.11.2.6.2.4.2.7.2.1.1" class="pilcrow">¶</a></p>
+                        <li id="section-2.4.6-4.11.2.6.2.4.2.6">
+                          <p id="section-2.4.6-4.11.2.6.2.4.2.6.1">If <code>output["tags"]</code> equals to "interestGroupNames":<a href="#section-2.4.6-4.11.2.6.2.4.2.6.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.6-4.11.2.6.2.4.2.6.2">
+<li id="section-2.4.6-4.11.2.6.2.4.2.6.2.1">
+                              <p id="section-2.4.6-4.11.2.6.2.4.2.6.2.1.1">Set <code>result</code>'s <code>interestGroupNames</code> to <code>key value</code>.<a href="#section-2.4.6-4.11.2.6.2.4.2.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
                           </ol>
 </li>
-                        <li id="section-2.3.6-4.11.2.6.2.4.2.8">
-                          <p id="section-2.3.6-4.11.2.6.2.4.2.8.1">Otherwise, if <code>output["tags"]</code> equals to "renderUrls":<a href="#section-2.3.6-4.11.2.6.2.4.2.8.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2.8.2">
-<li id="section-2.3.6-4.11.2.6.2.4.2.8.2.1">
-                              <p id="section-2.3.6-4.11.2.6.2.4.2.8.2.1.1">Set <code>result</code>'s <code>renderUrls</code> to <code>key value</code>.<a href="#section-2.3.6-4.11.2.6.2.4.2.8.2.1.1" class="pilcrow">¶</a></p>
+                        <li id="section-2.4.6-4.11.2.6.2.4.2.7">
+                          <p id="section-2.4.6-4.11.2.6.2.4.2.7.1">Otherwise, if <code>output["tags"]</code> equals to "keys":<a href="#section-2.4.6-4.11.2.6.2.4.2.7.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.6-4.11.2.6.2.4.2.7.2">
+<li id="section-2.4.6-4.11.2.6.2.4.2.7.2.1">
+                              <p id="section-2.4.6-4.11.2.6.2.4.2.7.2.1.1">Set <code>result</code>'s <code>keys</code> to <code>key value</code>.<a href="#section-2.4.6-4.11.2.6.2.4.2.7.2.1.1" class="pilcrow">¶</a></p>
 </li>
                           </ol>
 </li>
-                        <li id="section-2.3.6-4.11.2.6.2.4.2.9">
-                          <p id="section-2.3.6-4.11.2.6.2.4.2.9.1">Otherwise, if <code>output["tags"]</code> equals to "adComponentRenderUrls":<a href="#section-2.3.6-4.11.2.6.2.4.2.9.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.6-4.11.2.6.2.4.2.9.2">
-<li id="section-2.3.6-4.11.2.6.2.4.2.9.2.1">
-                              <p id="section-2.3.6-4.11.2.6.2.4.2.9.2.1.1">Set <code>result</code>'s <code>adComponentRenderUrls</code> to <code>key value</code>.<a href="#section-2.3.6-4.11.2.6.2.4.2.9.2.1.1" class="pilcrow">¶</a></p>
+                        <li id="section-2.4.6-4.11.2.6.2.4.2.8">
+                          <p id="section-2.4.6-4.11.2.6.2.4.2.8.1">Otherwise, if <code>output["tags"]</code> equals to "renderUrls":<a href="#section-2.4.6-4.11.2.6.2.4.2.8.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.6-4.11.2.6.2.4.2.8.2">
+<li id="section-2.4.6-4.11.2.6.2.4.2.8.2.1">
+                              <p id="section-2.4.6-4.11.2.6.2.4.2.8.2.1.1">Set <code>result</code>'s <code>renderUrls</code> to <code>key value</code>.<a href="#section-2.4.6-4.11.2.6.2.4.2.8.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                          </ol>
+</li>
+                        <li id="section-2.4.6-4.11.2.6.2.4.2.9">
+                          <p id="section-2.4.6-4.11.2.6.2.4.2.9.1">Otherwise, if <code>output["tags"]</code> equals to "adComponentRenderUrls":<a href="#section-2.4.6-4.11.2.6.2.4.2.9.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.4.6-4.11.2.6.2.4.2.9.2">
+<li id="section-2.4.6-4.11.2.6.2.4.2.9.2.1">
+                              <p id="section-2.4.6-4.11.2.6.2.4.2.9.2.1.1">Set <code>result</code>'s <code>adComponentRenderUrls</code> to <code>key value</code>.<a href="#section-2.4.6-4.11.2.6.2.4.2.9.2.1.1" class="pilcrow">¶</a></p>
 </li>
                           </ol>
 </li>
                       </ol>
 </li>
-                    <li id="section-2.3.6-4.11.2.6.2.5">
-                      <p id="section-2.3.6-4.11.2.6.2.5.1">If <code>partition["dataVersion"]</code> exists, Set <code>result</code>'s <code>dataVersion</code> to <code>partition["dataVersion"]</code>.<a href="#section-2.3.6-4.11.2.6.2.5.1" class="pilcrow">¶</a></p>
+                    <li id="section-2.4.6-4.11.2.6.2.5">
+                      <p id="section-2.4.6-4.11.2.6.2.5.1">If <code>partition["dataVersion"]</code> exists, Set <code>result</code>'s <code>dataVersion</code> to <code>partition["dataVersion"]</code>.<a href="#section-2.4.6-4.11.2.6.2.5.1" class="pilcrow">¶</a></p>
 </li>
-                    <li id="section-2.3.6-4.11.2.6.2.6">
-                      <p id="section-2.3.6-4.11.2.6.2.6.1">Set <code>result</code> <code>index</code> to tuple of <code>group["compressionGroupId"]</code> and <code>partition["id"]</code>.<a href="#section-2.3.6-4.11.2.6.2.6.1" class="pilcrow">¶</a></p>
+                    <li id="section-2.4.6-4.11.2.6.2.6">
+                      <p id="section-2.4.6-4.11.2.6.2.6.1">Set <code>result</code> <code>index</code> to tuple of <code>group["compressionGroupId"]</code> and <code>partition["id"]</code>.<a href="#section-2.4.6-4.11.2.6.2.6.1" class="pilcrow">¶</a></p>
 </li>
-                    <li id="section-2.3.6-4.11.2.6.2.7">
-                      <p id="section-2.3.6-4.11.2.6.2.7.1">Append <code>result</code> to <code>results</code>.<a href="#section-2.3.6-4.11.2.6.2.7.1" class="pilcrow">¶</a></p>
+                    <li id="section-2.4.6-4.11.2.6.2.7">
+                      <p id="section-2.4.6-4.11.2.6.2.7.1">Append <code>result</code> to <code>results</code>.<a href="#section-2.4.6-4.11.2.6.2.7.1" class="pilcrow">¶</a></p>
 </li>
                   </ol>
 </li>
               </ol>
 </li>
-            <li id="section-2.3.6-4.12">
-              <p id="section-2.3.6-4.12.1">Return <code>results</code>.<a href="#section-2.3.6-4.12.1" class="pilcrow">¶</a></p>
+            <li id="section-2.4.6-4.12">
+              <p id="section-2.4.6-4.12.1">Return <code>results</code>.<a href="#section-2.4.6-4.12.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -2446,7 +2464,7 @@ Private keys should be stored securely to prevent compromise.<a href="#section-3
         <h3 id="name-example-request">
 <a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-example-request" class="section-name selfRef">Example Request</a>
         </h3>
-<p id="appendix-A.1-1">An example of the <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> representation for <a href="#request-schema" class="auto internal xref">Section 2.2.3</a> using the extended diagnostic notation
+<p id="appendix-A.1-1">An example of the <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> representation for <a href="#request-schema" class="auto internal xref">Section 2.3.3</a> using the extended diagnostic notation
 from [CDDL] <a href="https://datatracker.ietf.org/doc/html/rfc8610#appendix-G">Appendix G</a>:<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
 <div class="breakable lang-cbor-diag sourcecode" id="appendix-A.1-2">
 <pre>
@@ -2521,7 +2539,7 @@ from [CDDL] <a href="https://datatracker.ietf.org/doc/html/rfc8610#appendix-G">A
         <h3 id="name-example-compression-group">
 <a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-example-compression-group" class="section-name selfRef">Example Compression Group</a>
         </h3>
-<p id="appendix-A.2-1">An example of the <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> representation for <a href="#compression-group" class="auto internal xref">Section 2.3.3.1</a> using the extended diagnostic notation
+<p id="appendix-A.2-1">An example of the <span>[<a href="#CBOR" class="cite xref">CBOR</a>]</span> representation for <a href="#compression-group" class="auto internal xref">Section 2.4.3.1</a> using the extended diagnostic notation
 from [CDDL] <a href="https://datatracker.ietf.org/doc/html/rfc8610#appendix-G">Appendix G</a>:<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
 <div class="lang-cbor-diag sourcecode" id="appendix-A.2-2">
 <pre>
@@ -2564,7 +2582,7 @@ from [CDDL] <a href="https://datatracker.ietf.org/doc/html/rfc8610#appendix-G">A
         <h3 id="name-example">
 <a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-example" class="section-name selfRef">Example</a>
         </h3>
-<p id="appendix-A.3-1">An example of <a href="#interest-group-response" class="auto internal xref">Section 2.3.4.1</a>.<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-A.3-1">An example of <a href="#interest-group-response" class="auto internal xref">Section 2.4.4.1</a>.<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
 <div class="lang-json sourcecode" id="appendix-A.3-2">
 <pre>
 {

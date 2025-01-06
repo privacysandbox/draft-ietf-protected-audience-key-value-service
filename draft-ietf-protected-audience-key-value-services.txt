@@ -5,8 +5,8 @@
 TBD                                                                P. Hu
 Internet-Draft                                                     T. Xu
 Intended status: Standards Track                                 L. Zhan
-Expires: 9 June 2025                                              Google
-                                                         6 December 2024
+Expires: 10 July 2025                                             Google
+                                                          6 January 2025
 
 
                  Protected Audience Key Value Services
@@ -34,11 +34,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 June 2025.
+   This Internet-Draft will expire on 10 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -57,22 +57,23 @@ Table of Contents
      1.2.  Terminology
    2.  Message Format Specifications
      2.1.  Overview
-       2.1.1.  Encryption
-       2.1.2.  Message Framing
-       2.1.3.  Format+compression byte
-     2.2.  Request Data
+     2.2.  HTTP Headers
        2.2.1.  Encryption
-       2.2.2.  Framing and Padding
-       2.2.3.  Request Schema
-       2.2.4.  Generating a Request
-       2.2.5.  Parsing a Request
-     2.3.  Response Data
+       2.2.2.  Message Framing
+       2.2.3.  Format+compression byte
+     2.3.  Request Data
        2.3.1.  Encryption
        2.3.2.  Framing and Padding
-       2.3.3.  Response Schema
-       2.3.4.  Structured keys response specification
-       2.3.5.  Generating a Response
-       2.3.6.  Parsing a Response (#response-parsing)
+       2.3.3.  Request Schema
+       2.3.4.  Generating a Request
+       2.3.5.  Parsing a Request
+     2.4.  Response Data
+       2.4.1.  Encryption
+       2.4.2.  Framing and Padding
+       2.4.3.  Response Schema
+       2.4.4.  Structured keys response specification
+       2.4.5.  Generating a Response
+       2.4.6.  Parsing a Response (#response-parsing)
    3.  Security Considerations
    4.  IANA Considerations
    5.  Normative References
@@ -117,8 +118,8 @@ Table of Contents
    capitals, as shown here.
 
    The key word "client" is to be interpreted as an implementation of
-   this document that creates Requests (Section 2.2) and consumes
-   Responses (Section 2.3).  The key phrase "Key Value Service" is to be
+   this document that creates Requests (Section 2.3) and consumes
+   Responses (Section 2.4).  The key phrase "Key Value Service" is to be
    interpreted as an implementation of this document that consumes
    Requests and creates Responses.
 
@@ -138,7 +139,15 @@ Table of Contents
 
    *  The core request and response data is encoded using [CBOR].
 
-2.1.1.  Encryption
+2.2.  HTTP Headers
+
+   Requests MUST contain a cleartext HTTP Content-Type header with value
+   message/ad-auction-trusted-signals-request.
+
+   Responses MUST contain a cleartext HTTP Content-Type header with
+   value message/ad-auction-trusted-signals-response.
+
+2.2.1.  Encryption
 
    The Key Value Service uses [HPKE] with the following configuration
    for encryption:
@@ -152,7 +161,7 @@ Table of Contents
    *  HPKE AEAD ID (Authenticated Encryption with Associated Data): AES-
       256-GCM, see Section 7.3 of [HPKE]
 
-2.1.2.  Message Framing
+2.2.2.  Message Framing
 
    Before encryption and after decryption, the requests and responses
    have the following framing:
@@ -171,7 +180,7 @@ Table of Contents
    The request/response is framed with this 5 byte header.
 
    The first byte is the format+compression byte.  The lower 2 bits
-   specify the format and compression (Section 2.1.3).  The higher 6
+   specify the format and compression (Section 2.2.3).  The higher 6
    bits are currently unused.
 
    The following 4 bytes are the length of the request message in
@@ -180,7 +189,7 @@ Table of Contents
    Padding is applied differently for request and response and will be
    discussed in the respective sections.
 
-2.1.3.  Format+compression byte
+2.2.3.  Format+compression byte
 
              +=============+================================+
              | Compression | Description                    |
@@ -200,9 +209,9 @@ Table of Contents
    0x00.
 
    For responses, the byte value depends on the acceptCompression field
-   (see Section 2.2.3) in the request and the server behavior.
+   (see Section 2.3.3) in the request and the server behavior.
 
-2.2.  Request Data
+2.3.  Request Data
 
    Requests are not compressed and have a tree-like hierarchy:
 
@@ -218,20 +227,20 @@ Table of Contents
 
    *  Each partition has a unique identifier.  This allows the client to
       match the request partition with the corresponding partitionOutput
-      (see Section 2.3.3.1) in the response.
+      (see Section 2.4.3.1) in the response.
 
    *  Each partition has a compression group field.  Results of
       partitions belonging to the same compression group can be
       compressed together in the response.  The responses for different
       compression groups will be compressed separately in the response
-      (see Section 2.3.3.1).  Compressing the different groups
+      (see Section 2.4.3.1).  Compressing the different groups
       separately avoids leaking the similarity of responses for
       different groups.
 
-2.2.1.  Encryption
+2.3.1.  Encryption
 
    The request is encrypted with [HPKE] with the configuration specified
-   at Section 2.1.1.
+   at Section 2.2.1.
 
    The request uses a similar encapsulated message format to that used
    by [OHTTP].
@@ -285,7 +294,7 @@ Table of Contents
  enc_request = concat(hdr, enc, ct)
 
    The client needs to save sctxt for decryption of the response (see
-   Section 2.3.1).
+   Section 2.4.1).
 
    A Key Value Service endpoint decrypts this encapsulated message in a
    similar manner to [OHTTP] Section 4.3 (https://www.rfc-
@@ -328,14 +337,14 @@ Table of Contents
    Key Value Services retain the HPKE context, rctxt, so that it can
    encapsulate a response.
 
-2.2.2.  Framing and Padding
+2.3.2.  Framing and Padding
 
    The plaintext request message uses the framing described in
-   Section 2.1.2.
+   Section 2.2.2.
 
    Messages MAY be zero padded.
 
-2.2.3.  Request Schema
+2.3.3.  Request Schema
 
    The request is a [CBOR] encoded message with the following [CDDL]
    schema:
@@ -381,7 +390,7 @@ Table of Contents
        ; List of keys to get values for.
    }
 
-2.2.3.1.  Available Tags
+2.3.3.1.  Available Tags
 
    Each key group is expected to have exactly one tag from the following
    list:
@@ -408,7 +417,7 @@ Table of Contents
 
                                   Table 3
 
-2.2.4.  Generating a Request
+2.3.4.  Generating a Request
 
    This section describes how the client MAY form and serialize request
    messages in order to fetch values from the Trusted Key Value server.
@@ -439,7 +448,7 @@ Table of Contents
         p["metadata"] to partition's metadata.  1.  Let arguments be an
         empty array.  1.  For each tag → value in partition's namespace:
 
-        1.  If tag is one of Section 2.2.3.1:
+        1.  If tag is one of Section 2.3.3.1:
 
         2.  Let argument be an empty map.
 
@@ -458,9 +467,9 @@ Table of Contents
 
    8.   [CBOR] encode request map to payload.
 
-   9.   Create a framed payload, as described in Section 2.1.2:
+   9.   Create a framed payload, as described in Section 2.2.2:
 
-        1.  Create a Section 2.1.2 header framing header.
+        1.  Create a Section 2.2.2 header framing header.
 
         2.  Set framing header's Compression to 1.
 
@@ -475,12 +484,12 @@ Table of Contents
             steps.
 
    10.  [HPKE] encrypt framed payload using public key and key id as in
-        Section 2.2.1 to get the [HPKE] encrypted ciphertext request and
+        Section 2.3.1 to get the [HPKE] encrypted ciphertext request and
         [HPKE] encryption context request context.
 
    11.  Return request and request context.
 
-2.2.5.  Parsing a Request
+2.3.5.  Parsing a Request
 
    This section describes how the Key Value Service MUST deserialize
    request messages from the client.
@@ -498,7 +507,7 @@ Table of Contents
    2.   Let error_msg be an empty string.
 
    3.   Decrypt encrypted request by using the input private key
-        corresponding to key_id as described in Section 2.2.1, to get
+        corresponding to key_id as described in Section 2.3.1, to get
         the decrypted message and rctxt.
 
         1.  If decryption fails, return failure.
@@ -507,7 +516,7 @@ Table of Contents
             rctxt.
 
    4.   Remove and extract the first 5 bytes from framed request as the
-        framing header (described in Section 2.1.2), removing them from
+        framing header (described in Section 2.2.2), removing them from
         framed request.
 
         1.  If the framing header's Compression field is not 0x00 (no
@@ -522,7 +531,7 @@ Table of Contents
         decodable request, discarding the rest.
 
    8.   [CBOR] decode decodable request into the message represented in
-        Section 2.2.3.  Let this be processed request.
+        Section 2.3.3.  Let this be processed request.
 
         1.  If decoding fails, return failure.
 
@@ -544,14 +553,14 @@ Table of Contents
 
    12.  Return processed request, compressionGroupMap, and rctxt.
 
-2.3.  Response Data
+2.4.  Response Data
 
    The response is an HPKE encrypted message sent as a Response to a
    Request, containing a framed top-level CBOR encoded payload that
    itself can contain multiple, possibly compressed, CBOR encoded
    messages.
 
-2.3.1.  Encryption
+2.4.1.  Encryption
 
    The response uses a similar encapsulated response format to that used
    by [OHTTP].
@@ -622,10 +631,10 @@ enc_response = concat(response_nonce, ct)
 
    response, error = Open(aead_key, aead_nonce, "", ct)
 
-2.3.2.  Framing and Padding
+2.4.2.  Framing and Padding
 
    The plaintext response message uses the framing described in
-   Section 2.1.2.
+   Section 2.2.2.
 
    Padding is applied with sizes as multiples of 2^n KBs ranging from 0
    to 2MB.  So the valid response sizes will be [0, 128B, 256B, 512B,
@@ -633,7 +642,7 @@ enc_response = concat(response_nonce, ct)
 
    If the response message is larger than 2MB, an error is returned.
 
-2.3.3.  Response Schema
+2.4.3.  Response Schema
 
    The response MAY be compressed.  The compression is applied
    independently to each compression group.  That means, the response
@@ -660,7 +669,7 @@ enc_response = concat(response_nonce, ct)
      ; For details see compressed response content schema below.
    }
 
-2.3.3.1.  CompressionGroup
+2.4.3.1.  CompressionGroup
 
    The content of each compressionGroup is a serialized [CBOR] list of
    partition outputs.  This object contains actual key value results for
@@ -687,7 +696,7 @@ enc_response = concat(response_nonce, ct)
      ; If a keyValues object exists, it must at least contain one key-value pair. If no key-value pair can be returned, the key group should not be in the response
    }
 
-2.3.4.  Structured keys response specification
+2.4.4.  Structured keys response specification
 
    Structured keys are keys that the client is aware of and the client
    can use the response to do additional processing.  The value of these
@@ -696,7 +705,7 @@ enc_response = concat(response_nonce, ct)
 
    Note that they must be serialized to string when stored as the value.
 
-2.3.4.1.  InterestGroupResponse
+2.4.4.1.  InterestGroupResponse
 
    The schema below is defined following the spec by https://json-
    schema.org.  For values for keys from the interestGroupNames
@@ -725,7 +734,7 @@ enc_response = concat(response_nonce, ct)
        }
    }
 
-2.3.5.  Generating a Response
+2.4.5.  Generating a Response
 
    The Key Value Service runs user-defined functions (UDF) as part of
    request handling and response generation.  User-Defined Functions
@@ -743,14 +752,14 @@ enc_response = concat(response_nonce, ct)
 
    The input is a list of deterministically encoded CBOR
    (https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-
-   encoded-c) partitionOutputs in Section 2.3.3 as well as the
+   encoded-c) partitionOutputs in Section 2.4.3 as well as the
    compressionGroupMap and the HPKE receiver, rctxt, context saved in
-   Section 2.2.5.  Assume that this response is to a request that
+   Section 2.3.5.  Assume that this response is to a request that
    includes gzip in acceptCompression.
 
    The output is a response to be sent to a Client.
 
-   1.  Create an empty payload object, corresponding to Section 2.3.3.
+   1.  Create an empty payload object, corresponding to Section 2.4.3.
 
    2.  Set compression groups to an empty list.
 
@@ -765,7 +774,7 @@ enc_response = concat(response_nonce, ct)
        compressionGroupMap:
 
        1.  Create an empty compression group object, corresponding to
-           Section 2.3.3.1.
+           Section 2.4.3.1.
 
        2.  Set cbor partitions array to an empty CBOR array.
 
@@ -797,7 +806,7 @@ enc_response = concat(response_nonce, ct)
 
    6.  Set payload["compressionGroups"] to compression groups.
 
-   7.  Create a framed payload, as described in Section 2.1.2:
+   7.  Create a framed payload, as described in Section 2.2.2:
 
        1.  Create a framing header.
 
@@ -815,19 +824,19 @@ enc_response = concat(response_nonce, ct)
            steps.
 
    8.  Let response equal the result of the encryption and encapsulation
-       of framed payload with rctxt, as described in Section 2.3.1.
+       of framed payload with rctxt, as described in Section 2.4.1.
        Return an empty response on failure.
 
    9.  Return response.
 
-2.3.6.  Parsing a Response (#response-parsing)
+2.4.6.  Parsing a Response (#response-parsing)
 
    This section describes how a conforming Client MUST parse and
    validate a response from a Trusted Key Value service.
 
-   It takes as input the request context, returned from Section 2.2.4,
+   It takes as input the request context, returned from Section 2.3.4,
    and an encrypted response, an array of bytes from the Key Value
-   Service generated by Section 2.3.5.
+   Service generated by Section 2.4.5.
 
    The output is a results which is a list of result with the following
    parameters: * index, a tuple of an integer and an integer, records
@@ -842,7 +851,7 @@ enc_response = concat(response_nonce, ct)
         fails.
 
    2.   Remove and extract the first 5 bytes from framed response as the
-        framing header (described in Section 2.1.2), removing them from
+        framing header (described in Section 2.2.2), removing them from
         framed response.
 
    3.   If framing header's Compression field is not 0 or 2, return
@@ -1028,7 +1037,7 @@ Appendix A.  Appendix
 
 A.1.  Example Request
 
-   An example of the [CBOR] representation for Section 2.2.3 using the
+   An example of the [CBOR] representation for Section 2.3.3 using the
    extended diagnostic notation from [CDDL] Appendix G
    (https://datatracker.ietf.org/doc/html/rfc8610#appendix-G):
 
@@ -1097,7 +1106,7 @@ A.1.  Example Request
 
 A.2.  Example Compression Group
 
-   An example of the [CBOR] representation for Section 2.3.3.1 using the
+   An example of the [CBOR] representation for Section 2.4.3.1 using the
    extended diagnostic notation from [CDDL] Appendix G
    (https://datatracker.ietf.org/doc/html/rfc8610#appendix-G):
 
@@ -1134,7 +1143,7 @@ A.2.  Example Compression Group
 
 A.3.  Example
 
-   An example of Section 2.3.4.1.
+   An example of Section 2.4.4.1.
 
    {
        "priorityVector": {
