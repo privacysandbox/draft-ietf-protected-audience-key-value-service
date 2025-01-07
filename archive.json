@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-05T01:21:17.279086+00:00",
+  "timestamp": "2025-01-07T01:16:18.430442+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2498,24 +2498,26 @@
       "id": "PR_kwDOMnZLYc6D7ZHa",
       "title": "Include clear text http headers in spec",
       "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/3",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "lusayaa",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-12-03T17:57:50Z",
-      "updatedAt": "2025-01-02T16:11:23Z",
+      "updatedAt": "2025-01-06T15:21:15Z",
       "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "baseRefName": "main",
       "baseRefOid": "7a532ff0c73c42fb8b098fb56cf5bf758f919454",
       "headRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
       "headRefName": "lusayaa-patch-1",
       "headRefOid": "107d80781abb7c26d0fd1ea9662a22ee31c69716",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-01-06T15:21:13Z",
+      "mergedAt": "2025-01-06T15:21:13Z",
+      "mergedBy": "lusayaa",
+      "mergeCommit": {
+        "oid": "28a2e13c143c4168351e6e393348eb01e22f30cb"
+      },
       "comments": [],
       "reviews": [
         {
