@@ -546,7 +546,8 @@ keyGroupOutput = {
     * tstr => tstr
   }
   ; One value to be returned in response for one key
-  ; If a keyValues object exists, it must at least contain one key-value pair. If no key-value pair can be returned, the key group should not be in the response
+  ; If a keyValues object exists, it must at least contain one key-value pair.
+  ; If no key-value pair can be returned, the keyGroupOutput object should not be in the response
 }
 ~~~~~
 
