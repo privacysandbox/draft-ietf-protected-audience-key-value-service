@@ -317,14 +317,14 @@ requestArgument = {
 
 #### Available Tags {#tags}
 
-Each key group is expected to have exactly one tag from the following list:
+Each key group is expected to have exactly one tag from the following list (with the exact capitalization):
 
 | Tag | Description |
 |---|---|
 | interestGroupNames | Names of interest groups in the encompassing partition. |
 | keys | "keys" represent the keys to be looked up from the service's internal datastore. |
-| renderUrls | "renderUrls" represent URLs for advertisements to be looked up from the service's internal datastore. |
-| adComponentRenderUrls | "adComponentRenderUrls" represent component URLs for advertisements to be looked up from the service's internal datastore. |
+| renderURLs | "renderURLs" represent URLs for advertisements to be looked up from the service's internal datastore. |
+| adComponentRenderURLs | "adComponentRenderURLs" represent component URLs for advertisements to be looked up from the service's internal datastore. |
 
 ### Generating a Request {#request-generate}
 
@@ -653,8 +653,8 @@ The output is a `results` which is a list of `result` with the following paramet
   partition id.
 * `interestGroupNames`, null or a map, whose keys and values are strings.
 * `keys`, null or a map, whose keys and values are strings.
-* `renderUrls`, null or a map, whose keys and values are strings.
-* `adComponentRenderUrls`, null or a map, whose keys and values are strings.
+* `renderURLs`, null or a map, whose keys and values are strings.
+* `adComponentRenderURLs`, null or a map, whose keys and values are strings.
 
 1. Use `request context` as the context to decrypt `encrypted response` and obtain `framed response`, returning failure if decryption fails.
 1. Remove and extract the first 5 bytes from `framed response` as the framing header (described in {{framing}}), removing them from `framed response`.
@@ -690,10 +690,10 @@ The output is a `results` which is a list of `result` with the following paramet
             	1. Set `result`'s `interestGroupNames` to `key value`.
             1. Otherwise, if `output["tags"]` equals to "keys":
                 1. Set `result`'s `keys` to `key value`.
-            1. Otherwise, if `output["tags"]` equals to "renderUrls":
-                1. Set `result`'s `renderUrls` to `key value`.
-            1. Otherwise, if `output["tags"]` equals to "adComponentRenderUrls":
-                1. Set `result`'s `adComponentRenderUrls` to `key value`.
+            1. Otherwise, if `output["tags"]` equals to "renderURLs":
+                1. Set `result`'s `renderURLs` to `key value`.
+            1. Otherwise, if `output["tags"]` equals to "adComponentRenderURLs":
+                1. Set `result`'s `adComponentRenderURLs` to `key value`.
         1. If `partition["dataVersion"]` exists, Set `result`'s `dataVersion` to `partition["dataVersion"]`.
         1. Set `result` `index` to tuple of `group["compressionGroupId"]` and `partition["id"]`.
         1. Append `result` to `results`.
