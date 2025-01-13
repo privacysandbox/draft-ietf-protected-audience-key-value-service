@@ -719,6 +719,10 @@ An implementation should ensure that public keys used for encryption
 are obtained from a trusted source to prevent impersonation and unauthorized access.
 Private keys should be stored securely to prevent compromise.
 
+# Privacy Considerations
+
+For privacy considerations, see [Key Value Service Trust Model](https://github.com/privacysandbox/protected-auction-services-docs/blob/main/key_value_service_trust_model.md).
+
 # IANA Considerations
 
 TODO
