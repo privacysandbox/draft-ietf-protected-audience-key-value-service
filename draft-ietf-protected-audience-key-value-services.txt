@@ -394,7 +394,7 @@ Table of Contents
 2.3.3.1.  Available Tags
 
    Each key group is expected to have exactly one tag from the following
-   list:
+   list (with the exact capitalization):
 
       +=======================+=====================================+
       | Tag                   | Description                         |
@@ -406,11 +406,11 @@ Table of Contents
       |                       | looked up from the service's        |
       |                       | internal datastore.                 |
       +-----------------------+-------------------------------------+
-      | renderUrls            | "renderUrls" represent URLs for     |
+      | renderURLs            | "renderURLs" represent URLs for     |
       |                       | advertisements to be looked up from |
       |                       | the service's internal datastore.   |
       +-----------------------+-------------------------------------+
-      | adComponentRenderUrls | "adComponentRenderUrls" represent   |
+      | adComponentRenderURLs | "adComponentRenderURLs" represent   |
       |                       | component URLs for advertisements   |
       |                       | to be looked up from the service's  |
       |                       | internal datastore.                 |
@@ -844,8 +844,8 @@ enc_response = concat(response_nonce, ct)
    parameters: * index, a tuple of an integer and an integer, records
    the compression group id and partition id. * interestGroupNames, null
    or a map, whose keys and values are strings. * keys, null or a map,
-   whose keys and values are strings. * renderUrls, null or a map, whose
-   keys and values are strings. * adComponentRenderUrls, null or a map,
+   whose keys and values are strings. * renderURLs, null or a map, whose
+   keys and values are strings. * adComponentRenderURLs, null or a map,
    whose keys and values are strings.
 
    1.   Use request context as the context to decrypt encrypted response
@@ -933,14 +933,14 @@ enc_response = concat(response_nonce, ct)
 
                     1.  Set result's keys to key value.
 
-                8.  Otherwise, if output["tags"] equals to "renderUrls":
+                8.  Otherwise, if output["tags"] equals to "renderURLs":
 
-                    1.  Set result's renderUrls to key value.
+                    1.  Set result's renderURLs to key value.
 
                 9.  Otherwise, if output["tags"] equals to
-                    "adComponentRenderUrls":
+                    "adComponentRenderURLs":
 
-                    1.  Set result's adComponentRenderUrls to key value.
+                    1.  Set result's adComponentRenderURLs to key value.
 
             5.  If partition["dataVersion"] exists, Set result's
                 dataVersion to partition["dataVersion"].
