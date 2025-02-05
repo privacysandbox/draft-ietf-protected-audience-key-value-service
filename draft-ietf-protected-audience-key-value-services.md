@@ -535,6 +535,8 @@ compressionGroup = [* partitionOutput]
 partitionOutput = {
   id: uint
   ; Unique id of the partition from the request
+  ? dataVersion: [uint]
+  ; An optional field to indicate the state of the data that generated this response
   ? keyGroupOutputs: [* keyGroupOutput]
 }
 
