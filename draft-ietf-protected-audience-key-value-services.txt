@@ -5,8 +5,8 @@
 TBD                                                                P. Hu
 Internet-Draft                                                     T. Xu
 Intended status: Standards Track                                 L. Zhan
-Expires: 17 July 2025                                             Google
-                                                         13 January 2025
+Expires: 9 August 2025                                            Google
+                                                         5 February 2025
 
 
                  Protected Audience Key Value Services
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 July 2025.
+   This Internet-Draft will expire on 9 August 2025.
 
 Copyright Notice
 
@@ -683,6 +683,8 @@ enc_response = concat(response_nonce, ct)
    partitionOutput = {
      id: uint
      ; Unique id of the partition from the request
+     ? dataVersion: uint
+     ; An optional field to indicate the state of the data that generated this response
      ? keyGroupOutputs: [* keyGroupOutput]
    }
 
