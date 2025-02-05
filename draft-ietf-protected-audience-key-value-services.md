@@ -641,7 +641,7 @@ The output is a `response` to be sent to a Client.
    `rctxt`, as described in {{response-encryption}}. Return an empty `response` on failure.
 9.  Return `response`.
 
-### Parsing a Response (#response-parsing)
+### Parsing a Response {#response-parsing}
 
 This section describes how a conforming Client MUST parse and validate
 a response from a Trusted Key Value service.
@@ -701,7 +701,7 @@ The output is a `results` which is a list of `result` with the following paramet
         1. Append `result` to `results`.
 1. Return `results`.
 
-# Security Considerations
+# Security Considerations {#security-considerations}
 
 The Key Values Service is run by adtechs as service operators and relies on [HPKE] to encrypt communication between the client
 and the Key Value Service endpoint.
@@ -727,7 +727,104 @@ For privacy considerations, see [Key Value Service Trust Model](https://github.c
 
 # IANA Considerations
 
-TODO
+IANA is requested to register the following media types
+defined in this document:
+*   `message/ad-auction-trusted-signals-request`
+*   `message/ad-auction-trusted-signals-response`
+
+## Registration of `message/ad-auction-trusted-signals-request` media type
+
+Type name: message
+
+Subtype name: ad-auction-trusted-signals-request
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: See {{security-considerations}}
+
+Interoperability considerations: This media type is specifically designed
+for communication between clients and Key Value Services as part of the
+Protected Audience API.  Implementations not adhering to this specification
+may not be interoperable.
+
+Published specification: draft-ietf-protected-audience-key-value-services
+
+Applications that use this media type:  Applications implementing the Protected Audience API, specifically those interacting with Key Value Services.
+
+Fragment identifier considerations:  N/A
+
+Additional information:
+
+    Deprecated alias names for this type: N/A
+
+    Magic number(s): N/A
+
+    File extensions: N/A
+
+    Macintosh file type code: N/A
+
+Person & email address to contact for further information: See the Authors' Addresses section of this document.
+
+Intended use: COMMON
+
+Restrictions on usage: N/A
+
+Author: See the Authors' Addresses section of this document.
+
+Change controller: IETF
+
+Provisional registration? Yes.
+
+## Registration of `message/ad-auction-trusted-signals-response` media type
+
+Type name: message
+
+Subtype name: ad-auction-trusted-signals-response
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: See {{security-considerations}}
+
+Interoperability considerations: This media type is specifically designed
+for communication between clients and Key Value Services as part of the
+Protected Audience API.  Implementations not adhering to this specification
+may not be interoperable.
+
+Published specification: draft-ietf-protected-audience-key-value-services
+
+Applications that use this media type:  Applications implementing the Protected Audience API, specifically those interacting with Key Value Services.
+
+Fragment identifier considerations:  N/A
+
+Additional information:
+
+    Deprecated alias names for this type: N/A
+
+    Magic number(s): N/A
+
+    File extensions: N/A
+
+    Macintosh file type code: N/A
+
+Person & email address to contact for further information: See the Authors' Addresses section of this document.
+
+Intended use: COMMON
+
+Restrictions on usage: N/A
+
+Author: See the Authors' Addresses section of this document.
+
+Change controller: IETF
+
+Provisional registration? Yes.
 
 --- back
 
