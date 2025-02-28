@@ -161,7 +161,7 @@ Requests are not compressed and have a tree-like hierarchy:
 -   Each partition has an identifier that is unique among its compression group.
     This allows the client to match the request partition with the corresponding
     `partitionOutput` (see {{compression-group}}) in the response.
--   Each partition has a compression group field.
+-   Each partition has a compression group id field.
     Results of partitions belonging to the same compression group can be compressed together
     in the response.
     The responses for different compression groups will be compressed separately in the response
