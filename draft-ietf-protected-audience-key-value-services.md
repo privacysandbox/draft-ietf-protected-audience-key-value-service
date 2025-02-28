@@ -158,7 +158,7 @@ Requests are not compressed and have a tree-like hierarchy:
 -   Each partition contains one or more key groups.
     Each key group contains a list of `tags` set by the client.
     Each key group contains a list of keys to be looked up in the service's internal datastore.
--   Each partition has a unique identifier.
+-   Each partition has an identifier that is unique among its compression group.
     This allows the client to match the request partition with the corresponding
     `partitionOutput` (see {{compression-group}}) in the response.
 -   Each partition has a compression group field.
@@ -291,11 +291,11 @@ requestMetadata = {
 
 partition = {
     id: uint,
-    ; id of the partition in this request. Used by responses to refer to request partitions in a compression group.
+    ; Id of the partition in this request. Used by responses to refer to request partitions in a compression group.
     ; The partition id need not be unique across the entire request. However, it MUST be unique in its compression group.
     ; Thus, a partition's id and compressionGroupId together need to be unique across an entire request.
     compressionGroupId: uint,
-    ; Unique id of a compression group in this request. Only partitions belonging to the same compression group will be compressed together in the response
+    ; Id of a compression group in this request. Only partitions belonging to the same compression group will be compressed together in the response
     ? metadata: partitionMetadata,
     ; Partition-level metadata.
     arguments: [* requestArgument],
@@ -536,7 +536,7 @@ compressionGroup = [* partitionOutput]
 
 partitionOutput = {
   id: uint
-  ; Unique id of the partition from the request
+  ; Id of the partition from the request. Must be unique in the compression group.
   ? dataVersion: uint
   ; An optional field to indicate the state of the data that generated this response
   ? keyGroupOutputs: [* keyGroupOutput]
