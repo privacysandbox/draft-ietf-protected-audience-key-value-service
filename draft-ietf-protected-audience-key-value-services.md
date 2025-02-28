@@ -291,7 +291,9 @@ requestMetadata = {
 
 partition = {
     id: uint,
-    ; Unique id of the partition in this request. Used by responses to refer to request partitions.
+    ; id of the partition in this request. Used by responses to refer to request partitions in a compression group.
+    ; The partition id need not be unique across the entire request. However, it MUST be unique in its compression group.
+    ; Thus, a partition's id and compressionGroupId together need to be unique across an entire request.
     compressionGroupId: uint,
     ; Unique id of a compression group in this request. Only partitions belonging to the same compression group will be compressed together in the response
     ? metadata: partitionMetadata,
