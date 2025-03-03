@@ -5,8 +5,8 @@
 TBD                                                                P. Hu
 Internet-Draft                                                     T. Xu
 Intended status: Standards Track                                 L. Zhan
-Expires: 10 August 2025                                           Google
-                                                         6 February 2025
+Expires: 4 September 2025                                         Google
+                                                            3 March 2025
 
 
                  Protected Audience Key Value Services
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 August 2025.
+   This Internet-Draft will expire on 4 September 2025.
 
 Copyright Notice
 
@@ -230,11 +230,12 @@ Table of Contents
       contains a list of keys to be looked up in the service's internal
       datastore.
 
-   *  Each partition has a unique identifier.  This allows the client to
-      match the request partition with the corresponding partitionOutput
-      (see Section 2.4.3.1) in the response.
+   *  Each partition has an identifier that is unique among its
+      compression group.  This allows the client to match the request
+      partition with the corresponding partitionOutput (see
+      Section 2.4.3.1) in the response.
 
-   *  Each partition has a compression group field.  Results of
+   *  Each partition has a compression group id field.  Results of
       partitions belonging to the same compression group can be
       compressed together in the response.  The responses for different
       compression groups will be compressed separately in the response
@@ -372,9 +373,11 @@ Table of Contents
 
    partition = {
        id: uint,
-       ; Unique id of the partition in this request. Used by responses to refer to request partitions.
+       ; Id of the partition in this request. Used by responses to refer to request partitions in a compression group.
+       ; The partition id need not be unique across the entire request. However, it MUST be unique in its compression group.
+       ; Thus, a partition's id and compressionGroupId together need to be unique across an entire request.
        compressionGroupId: uint,
-       ; Unique id of a compression group in this request. Only partitions belonging to the same compression group will be compressed together in the response
+       ; Id of a compression group in this request. Only partitions belonging to the same compression group will be compressed together in the response
        ? metadata: partitionMetadata,
        ; Partition-level metadata.
        arguments: [* requestArgument],
@@ -686,7 +689,7 @@ enc_response = concat(response_nonce, ct)
 
    partitionOutput = {
      id: uint
-     ; Unique id of the partition from the request
+     ; Id of the partition from the request. Must be unique in the compression group.
      ? dataVersion: uint
      ; An optional field to indicate the state of the data that generated this response
      ? keyGroupOutputs: [* keyGroupOutput]
