@@ -282,6 +282,9 @@ request = {
     ; Metadata that applies for the request as a whole.
     partitions: [1* partition],
     ; A list of partitions. Each must be processed independently. Accessible by user-defined functions.
+    ? perPartitionMetadata: requestPerPartitionMetadata,
+    ; Partition-level metadata that may contain contextual data, i.e.
+    ; `sellerTKVSignals` or `buyerTKVSignals`
 }
 
 requestMetadata = {
@@ -314,6 +317,24 @@ requestArgument = {
     ; List of tags describing this group's attributes. These MAY be picked from the list of available tags in {{tags}}.
     ? data: [* tstr],
     ; List of keys to get values for.
+}
+
+perPartitionMetadata = {
+  ? "contextualData" => [* contextualDataEntry]
+  ; Contextual data, i.e. `sellerTKVSignals` or `buyerTKVSignals`
+  ; Each `contextualDataEntry` specifies a value and a list of 
+  ; [compression group id, partition id] the value applies to.
+  ; Duplicate partition-level metadata specification
+  ; for a single partition will result in an error.
+  ; This includes duplicates with `partitionMetadata`.
+}
+
+contextualDataEntry = {
+  "value": tstr,
+  ; Value of the contextual data
+  ? "ids": [* [uint, uint]]
+  ; List of [compression group id, partition id] to apply the value to.
+  ; If `ids` is not present, apply the value to all partitions.
 }
 ~~~~~
 
