@@ -1880,32 +1880,155 @@ the rest.<a href="#section-2.3.5-4.7.1" class="pilcrow">¶</a></p>
               </ol>
 </li>
             <li id="section-2.3.5-4.9">
-              <p id="section-2.3.5-4.9.1">If no <code>partitions</code> are present, return failure.<a href="#section-2.3.5-4.9.1" class="pilcrow">¶</a></p>
+              <p id="section-2.3.5-4.9.1">If no <code>partitions</code> are present in <code>processed request</code>, return failure.<a href="#section-2.3.5-4.9.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-2.3.5-4.10">
-              <p id="section-2.3.5-4.10.1">Set <code>compressionGroupMap</code> to an empty map.<a href="#section-2.3.5-4.10.1" class="pilcrow">¶</a></p>
+              <p id="section-2.3.5-4.10.1">Let <code>partitionInputMap</code> be an empty map.<a href="#section-2.3.5-4.10.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-2.3.5-4.11">
-              <p id="section-2.3.5-4.11.1">For each <code>partition</code> in <code>partitions</code>:<a href="#section-2.3.5-4.11.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.3.5-4.11.2">
-<li id="section-2.3.5-4.11.2.1">
-                  <p id="section-2.3.5-4.11.2.1.1">Let <code>partitionIds</code> be an empty list.<a href="#section-2.3.5-4.11.2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-2.3.5-4.11.1">Let <code>unique_ids</code> be an empty set.<a href="#section-2.3.5-4.11.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-4.11.2.2">
-                  <p id="section-2.3.5-4.11.2.2.1">Set <code>partitionIds</code> to <code>compressionGroupMap[compression group id]</code> if the map entry exists.<a href="#section-2.3.5-4.11.2.2.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.5-4.12">
+              <p id="section-2.3.5-4.12.1">For each <code>partition</code> in <code>processed_request["partitions"]</code>:<a href="#section-2.3.5-4.12.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5-4.12.2">
+<li id="section-2.3.5-4.12.2.1">
+                  <p id="section-2.3.5-4.12.2.1.1">Let <code>current_id_tuple</code> be the tuple <code>{partition["compression_group_id"], partition["id"]}</code>.<a href="#section-2.3.5-4.12.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-4.11.2.3">
-                  <p id="section-2.3.5-4.11.2.3.1">Append <code>partition["id"]</code> to <code>partitionIds</code>.<a href="#section-2.3.5-4.11.2.3.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.5-4.12.2.2">
+                  <p id="section-2.3.5-4.12.2.2.1">If <code>partitionInputMap[current_id_tuple]</code> exists, return failure.<a href="#section-2.3.5-4.12.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li id="section-2.3.5-4.11.2.4">
-                  <p id="section-2.3.5-4.11.2.4.1">Set <code>compressionGroupMap[compression group id]</code> to <code>partitionIds</code>.<a href="#section-2.3.5-4.11.2.4.1" class="pilcrow">¶</a></p>
+                <li id="section-2.3.5-4.12.2.3">
+                  <p id="section-2.3.5-4.12.2.3.1">Else, set <code>partitionInputMap[current_id_tuple]</code> to <code>partition</code>.<a href="#section-2.3.5-4.12.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ol>
 </li>
-            <li id="section-2.3.5-4.12">
-              <p id="section-2.3.5-4.12.1">Return <code>processed request</code>, <code>compressionGroupMap</code>, and <code>rctxt</code>.<a href="#section-2.3.5-4.12.1" class="pilcrow">¶</a></p>
+            <li id="section-2.3.5-4.13">
+              <p id="section-2.3.5-4.13.1">If <code>checkPartitionLevelMetadata(processed request)</code> in <a href="#check-partition-metadata" class="auto internal xref">Section 2.3.5.1</a> returns <code>false</code>, return failure.<a href="#section-2.3.5-4.13.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-2.3.5-4.14">
+              <p id="section-2.3.5-4.14.1">Return <code>processed request</code>, <code>partitionInputMap</code>, and <code>rctxt</code>.<a href="#section-2.3.5-4.14.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
+<div id="check-partition-metadata">
+<section id="section-2.3.5.1">
+            <h5 id="name-checking-partition-level-me">
+<a href="#section-2.3.5.1" class="section-number selfRef">2.3.5.1. </a><a href="#name-checking-partition-level-me" class="section-name selfRef">Checking partition-level metadata in the request</a>
+            </h5>
+<p id="section-2.3.5.1-1">This section describes how the Key Value Service MUST check for duplicate partition-level metadata in the request.<a href="#section-2.3.5.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.3.5.1-2">The algorithm takes as input a <code>processed request</code> from <a href="#request-parsing" class="auto internal xref">Section 2.3.5</a>.<a href="#section-2.3.5.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.3.5.1-3">The output is either <code>true</code> or <code>false</code>.<a href="#section-2.3.5.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.3.5.1-4">The <em>checkPartitionLevelMetadata(processed request)</em> steps are:<a href="#section-2.3.5.1-4" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5.1-5">
+<li id="section-2.3.5.1-5.1">
+                <p id="section-2.3.5.1-5.1.1">Let <code>perPartitionMetadataMap</code> be an empty map.
+The keys of this map are tuples of partition IDs and compression group IDs, and the values are metadata structs.<a href="#section-2.3.5.1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li id="section-2.3.5.1-5.2">
+                <p id="section-2.3.5.1-5.2.1">Let <code>globalPerPartitionMetadata</code> be an empty map.<a href="#section-2.3.5.1-5.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li id="section-2.3.5.1-5.3">
+                <p id="section-2.3.5.1-5.3.1">For each field <code>(metadata name, contextual data entry list)</code> in `processed request["perPartitionMetadata"]:<a href="#section-2.3.5.1-5.3.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5.1-5.3.2">
+<li id="section-2.3.5.1-5.3.2.1">
+                    <p id="section-2.3.5.1-5.3.2.1.1">If <code>contextual data entry list</code> is not a list or is unset, return <code>false</code>.<a href="#section-2.3.5.1-5.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-2.3.5.1-5.3.2.2">
+                    <p id="section-2.3.5.1-5.3.2.2.1">For each <code>contextual data entry</code> in <code>contextual data entry list</code>:<a href="#section-2.3.5.1-5.3.2.2.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5.1-5.3.2.2.2">
+<li id="section-2.3.5.1-5.3.2.2.2.1">
+                        <p id="section-2.3.5.1-5.3.2.2.2.1.1">If <code>contextual data entry</code> is not a map, return <code>false</code>.<a href="#section-2.3.5.1-5.3.2.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                      <li id="section-2.3.5.1-5.3.2.2.2.2">
+                        <p id="section-2.3.5.1-5.3.2.2.2.2.1">If <code>contextual data entry["value"]</code> does not exist or is not a string, return <code>false</code>.<a href="#section-2.3.5.1-5.3.2.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                      <li id="section-2.3.5.1-5.3.2.2.2.3">
+                        <p id="section-2.3.5.1-5.3.2.2.2.3.1">Else, set <code>metadata_value</code> to <code>contextual data entry["value"]</code>.<a href="#section-2.3.5.1-5.3.2.2.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                      <li id="section-2.3.5.1-5.3.2.2.2.4">
+                        <p id="section-2.3.5.1-5.3.2.2.2.4.1">If <code>contextual data entry["ids"]</code> does not exist:<a href="#section-2.3.5.1-5.3.2.2.2.4.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5.1-5.3.2.2.2.4.2">
+<li id="section-2.3.5.1-5.3.2.2.2.4.2.1">
+                            <p id="section-2.3.5.1-5.3.2.2.2.4.2.1.1">If <code>globalPerPartitionMetadata["metadata name"]</code> exists, return <code>false</code>.<a href="#section-2.3.5.1-5.3.2.2.2.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                          <li id="section-2.3.5.1-5.3.2.2.2.4.2.2">
+                            <p id="section-2.3.5.1-5.3.2.2.2.4.2.2.1">Else, set <code>globalPerPartitionMetadata["metadata name"]</code> to <code>metadata_value</code>.<a href="#section-2.3.5.1-5.3.2.2.2.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                        </ol>
+</li>
+                      <li id="section-2.3.5.1-5.3.2.2.2.5">
+                        <p id="section-2.3.5.1-5.3.2.2.2.5.1">Else:<a href="#section-2.3.5.1-5.3.2.2.2.5.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5.1-5.3.2.2.2.5.2">
+<li id="section-2.3.5.1-5.3.2.2.2.5.2.1">
+                            <p id="section-2.3.5.1-5.3.2.2.2.5.2.1.1">If <code>contextual data entry["ids"]</code> is not a list, return <code>false</code>.<a href="#section-2.3.5.1-5.3.2.2.2.5.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                          <li id="section-2.3.5.1-5.3.2.2.2.5.2.2">
+                            <p id="section-2.3.5.1-5.3.2.2.2.5.2.2.1">For each <code>id tuple</code> in <code>contextual data entry["ids"]</code>:<a href="#section-2.3.5.1-5.3.2.2.2.5.2.2.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5.1-5.3.2.2.2.5.2.2.2">
+<li id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.1">
+                                <p id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.1.1">If <code>id tuple</code> is not a list or does not contain exactly two number values, return <code>false</code>.<a href="#section-2.3.5.1-5.3.2.2.2.5.2.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                              <li id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.2">
+                                <p id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.2.1">Else, let <code>compression group id</code> be the first element of <code>id tuple</code> and <code>partition id</code> be the second element.<a href="#section-2.3.5.1-5.3.2.2.2.5.2.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                              <li id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.3">
+                                <p id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.3.1">Set <code>current id</code> to <code>{compression group id, partition id}</code>.<a href="#section-2.3.5.1-5.3.2.2.2.5.2.2.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                              <li id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.4">
+                                <p id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.4.1">Let <code>metadataMap</code> be an empty map.<a href="#section-2.3.5.1-5.3.2.2.2.5.2.2.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                              <li id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.5">
+                                <p id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.5.1">If <code>perPartitionMetadataMap[current id]</code> exists, set <code>metadataMap</code> to it.<a href="#section-2.3.5.1-5.3.2.2.2.5.2.2.2.5.1" class="pilcrow">¶</a></p>
+</li>
+                              <li id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.6">
+                                <p id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.6.1">If <code>metadataMap[metadata name]</code> exists, return <code>false</code>.<a href="#section-2.3.5.1-5.3.2.2.2.5.2.2.2.6.1" class="pilcrow">¶</a></p>
+</li>
+                              <li id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.7">
+                                <p id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.7.1">Set <code>metadataMap[metadata name]</code> to <code>metadata value</code>.<a href="#section-2.3.5.1-5.3.2.2.2.5.2.2.2.7.1" class="pilcrow">¶</a></p>
+</li>
+                              <li id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.8">
+                                <p id="section-2.3.5.1-5.3.2.2.2.5.2.2.2.8.1">Set <code>perPartitionMetadataMap[current id]</code> to <code>metadataMap</code>.<a href="#section-2.3.5.1-5.3.2.2.2.5.2.2.2.8.1" class="pilcrow">¶</a></p>
+</li>
+                            </ol>
+</li>
+                        </ol>
+</li>
+                    </ol>
+</li>
+                </ol>
+</li>
+              <li id="section-2.3.5.1-5.4">
+                <p id="section-2.3.5.1-5.4.1">For each <code>partition</code> in <code>processed request["partitions"]</code>:<a href="#section-2.3.5.1-5.4.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5.1-5.4.2">
+<li id="section-2.3.5.1-5.4.2.1">
+                    <p id="section-2.3.5.1-5.4.2.1.1">Compare <code>globalPerPartitionMetadata</code> keys with <code>partition["metadata"]</code> keys.<a href="#section-2.3.5.1-5.4.2.1.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5.1-5.4.2.1.2">
+<li id="section-2.3.5.1-5.4.2.1.2.1">
+                        <p id="section-2.3.5.1-5.4.2.1.2.1.1">If there are duplicate keys, return <code>false</code>.<a href="#section-2.3.5.1-5.4.2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                    </ol>
+</li>
+                  <li id="section-2.3.5.1-5.4.2.2">
+                    <p id="section-2.3.5.1-5.4.2.2.1">Let <code>id</code> be <code>{partition["compressionGroupId"],partition["id"]}</code><a href="#section-2.3.5.1-5.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-2.3.5.1-5.4.2.3">
+                    <p id="section-2.3.5.1-5.4.2.3.1">If <code>perPartitionMetadataMap[id]</code> exists:<a href="#section-2.3.5.1-5.4.2.3.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.3.5.1-5.4.2.3.2">
+<li id="section-2.3.5.1-5.4.2.3.2.1">
+                        <p id="section-2.3.5.1-5.4.2.3.2.1.1">Compare <code>perPartitionMetadata[id]</code> keys with <code>partition["metadata"]</code> keys.<a href="#section-2.3.5.1-5.4.2.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                      <li id="section-2.3.5.1-5.4.2.3.2.2">
+                        <p id="section-2.3.5.1-5.4.2.3.2.2.1">If there are duplicate keys, return <code>false</code>.<a href="#section-2.3.5.1-5.4.2.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                    </ol>
+</li>
+                </ol>
+</li>
+              <li id="section-2.3.5.1-5.5">
+                <p id="section-2.3.5.1-5.5.1">Return <code>true</code>.<a href="#section-2.3.5.1-5.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ol>
+</section>
+</div>
 </section>
 </div>
 </section>
@@ -2137,10 +2260,11 @@ serialized to string.<a href="#section-2.4.4.1-1" class="pilcrow">¶</a></p>
           </h4>
 <p id="section-2.4.5-1">The Key Value Service runs user-defined functions (UDF) as part of request handling
 and response generation. User-Defined Functions (UDFs) are custom functions implemented by adtech that encapsulate adtech-specific business logic for processing partitions within the Key Value Service. These functions are executed within a sandboxed environment without network or disk access, but have read access to data loaded into the Key Value Service.
-Each UDF receives a single <code>partition</code> object from the client request as input. The output of a UDF is a <code>partitionOutput</code> object that contains the results of processing the partition.<a href="#section-2.4.5-1" class="pilcrow">¶</a></p>
+Each UDF receives a single <code>partition</code> object from the client request as input.
+The output of a UDF is a <code>partitionOutput</code> object that contains the results of processing the partition.<a href="#section-2.4.5-1" class="pilcrow">¶</a></p>
 <p id="section-2.4.5-2">The below algorithm describes how the Key Value Service MAY generate a response to a request.<a href="#section-2.4.5-2" class="pilcrow">¶</a></p>
-<p id="section-2.4.5-3">The input is a list of <a href="https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c">deterministically encoded CBOR</a> <code>partitionOutputs</code> in <a href="#response-schema" class="auto internal xref">Section 2.4.3</a> as well as
-the <code>compressionGroupMap</code> and the HPKE receiver, <code>rctxt</code>, context saved in <a href="#request-parsing" class="auto internal xref">Section 2.3.5</a>.
+<p id="section-2.4.5-3">The input is a map of partition outputs <code>partitionOutputMap</code>. The keys are a tuple of <code>{compression group id, partition id}</code>. The values are <a href="https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c">deterministically encoded CBOR</a> <code>partitionOutputs</code> in <a href="#response-schema" class="auto internal xref">Section 2.4.3</a>. This is the output equivalent to the <code>partitionInputMap</code> saved in <a href="#request-parsing" class="auto internal xref">Section 2.3.5</a>.
+Additional inputs include the HPKE receiver, <code>rctxt</code>, context saved in <a href="#request-parsing" class="auto internal xref">Section 2.3.5</a>.
 Assume that this response is to a request that includes <code>gzip</code> in <code>acceptCompression</code>.<a href="#section-2.4.5-3" class="pilcrow">¶</a></p>
 <p id="section-2.4.5-4">The output is a <code>response</code> to be sent to a Client.<a href="#section-2.4.5-4" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-2.4.5-5">
@@ -2151,18 +2275,27 @@ Assume that this response is to a request that includes <code>gzip</code> in <co
               <p id="section-2.4.5-5.2.1">Set <code>compression groups</code> to an empty list.<a href="#section-2.4.5-5.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-2.4.5-5.3">
-              <p id="section-2.4.5-5.3.1">Set <code>partitionOutputMap</code> to an empty map.<a href="#section-2.4.5-5.3.1" class="pilcrow">¶</a></p>
+              <p id="section-2.4.5-5.3.1">Set <code>compressionGroupMap</code> to an empty map.<a href="#section-2.4.5-5.3.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-2.4.5-5.4">
-              <p id="section-2.4.5-5.4.1">For each <code>partitionOutput</code> in the list of <code>partitionOutputs</code>:<a href="#section-2.4.5-5.4.1" class="pilcrow">¶</a></p>
+              <p id="section-2.4.5-5.4.1">For each <code>({compression group id, partition id}, partition output)</code> in the list of <code>partitionOutputMap</code>:<a href="#section-2.4.5-5.4.1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.4.2">
 <li id="section-2.4.5-5.4.2.1">
-                  <p id="section-2.4.5-5.4.2.1.1">Set <code>partitionOutputMap[partitionOutput["id"]]</code> to <code>partitionOutput</code>.<a href="#section-2.4.5-5.4.2.1.1" class="pilcrow">¶</a></p>
+                  <p id="section-2.4.5-5.4.2.1.1">Create an empty list <code>partition outputs</code>.<a href="#section-2.4.5-5.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.4.5-5.4.2.2">
+                  <p id="section-2.4.5-5.4.2.2.1">If <code>compressionGroupMap[compression group id]</code> exists, set <code>partition outputs</code> to it.<a href="#section-2.4.5-5.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.4.5-5.4.2.3">
+                  <p id="section-2.4.5-5.4.2.3.1">Add <code>partition output</code> to <code>partition outputs</code>.<a href="#section-2.4.5-5.4.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                <li id="section-2.4.5-5.4.2.4">
+                  <p id="section-2.4.5-5.4.2.4.1">Set <code>compressionGroupMap[compression group id]</code> to <code>partition outputs</code>.<a href="#section-2.4.5-5.4.2.4.1" class="pilcrow">¶</a></p>
 </li>
               </ol>
 </li>
             <li id="section-2.4.5-5.5">
-              <p id="section-2.4.5-5.5.1">For each (<code>compression group id</code>, <code>partition ids</code>) in <code>compressionGroupMap</code>:<a href="#section-2.4.5-5.5.1" class="pilcrow">¶</a></p>
+              <p id="section-2.4.5-5.5.1">For each (<code>compression group id</code>, <code>partition outputs</code>) in <code>compressionGroupMap</code>:<a href="#section-2.4.5-5.5.1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.5.2">
 <li id="section-2.4.5-5.5.2.1">
                   <p id="section-2.4.5-5.5.2.1.1">Create an empty <code>compression group</code> object, corresponding to <a href="#compression-group" class="auto internal xref">Section 2.4.3.1</a>.<a href="#section-2.4.5-5.5.2.1.1" class="pilcrow">¶</a></p>
@@ -2171,18 +2304,10 @@ Assume that this response is to a request that includes <code>gzip</code> in <co
                   <p id="section-2.4.5-5.5.2.2.1">Set <code>cbor partitions array</code> to an empty CBOR array.<a href="#section-2.4.5-5.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 <li id="section-2.4.5-5.5.2.3">
-                  <p id="section-2.4.5-5.5.2.3.1">For each <code>partition id</code> in <code>partition ids</code>:<a href="#section-2.4.5-5.5.2.3.1" class="pilcrow">¶</a></p>
+                  <p id="section-2.4.5-5.5.2.3.1">For each <code>partition output</code> in <code>partition outputs</code>:<a href="#section-2.4.5-5.5.2.3.1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.5.2.3.2">
 <li id="section-2.4.5-5.5.2.3.2.1">
-                      <p id="section-2.4.5-5.5.2.3.2.1.1">Set <code>partition output</code> to <code>partitionOutputMap[partition id]</code>.<a href="#section-2.4.5-5.5.2.3.2.1.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.4.5-5.5.2.3.2.1.2">
-<li id="section-2.4.5-5.5.2.3.2.1.2.1">
-                          <p id="section-2.4.5-5.5.2.3.2.1.2.1.1">On failure to find the <code>partition id</code>, continue.<a href="#section-2.4.5-5.5.2.3.2.1.2.1.1" class="pilcrow">¶</a></p>
-</li>
-                      </ol>
-</li>
-                    <li id="section-2.4.5-5.5.2.3.2.2">
-                      <p id="section-2.4.5-5.5.2.3.2.2.1">Append <code>partition output</code> to <code>cbor partitions array</code>.<a href="#section-2.4.5-5.5.2.3.2.2.1" class="pilcrow">¶</a></p>
+                      <p id="section-2.4.5-5.5.2.3.2.1.1">Append <code>partition output</code> to <code>cbor partitions array</code>.<a href="#section-2.4.5-5.5.2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
                   </ol>
 </li>
