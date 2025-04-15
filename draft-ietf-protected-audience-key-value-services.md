@@ -367,7 +367,7 @@ values are strings.
   1. `id`, which is an identifier indicates a partition in the
      compression group.
 * a `compression groups`, which is a list of `group`s, each
-with the following parameters:
+  with the following parameters:
  * a `compression group id` integer identifier of this compression
    group.
  * a `partitions`, which is a list of `partition`s belonging to this compression
