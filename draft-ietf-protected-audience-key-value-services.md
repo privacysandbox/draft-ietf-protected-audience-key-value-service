@@ -431,14 +431,57 @@ a request message the Key Value Service can consume along with an HPKE context.
 6. [CBOR] decode `decodable request` into the message represented in {{request-schema}}. Let this be
    `processed request`.
     1. If decoding fails, return failure.
-7. If no `partitions` are present, return failure.
-8. Set `compressionGroupMap` to an empty map.
-9. For each `partition` in `partitions`:
-   1. Let `partitionIds` be an empty list.
-   2. Set `partitionIds` to `compressionGroupMap[compression group id]` if the map entry exists.
-   3. Append `partition["id"]` to `partitionIds`.
-   4. Set `compressionGroupMap[compression group id]` to `partitionIds`.
-10. Return `processed request`, `compressionGroupMap`, and `rctxt`.
+7. If no `partitions` are present in `processed request`, return failure.
+8. Let `partitionInputMap` be an empty map.
+9. Let `unique_ids` be an empty set.
+10. For each `partition` in `processed_request["partitions"]`:
+    1. Let `current_id_tuple` be the tuple `{partition["compression_group_id"], partition["id"]}`.
+    2. If `partitionInputMap[current_id_tuple]` exists, return failure.
+    3. Else, set `partitionInputMap[current_id_tuple]` to `partition`.
+11. If `checkPartitionLevelMetadata(processed request)` in {{check-partition-metadata}} returns `false`, return failure.
+12. Return `processed request`, `partitionInputMap`, and `rctxt`.
+
+#### Checking partition-level metadata in the request {#check-partition-metadata}
+
+This section describes how the Key Value Service MUST check for duplicate partition-level metadata in the request.
+
+The algorithm takes as input a `processed request` from {{request-parsing}}.
+
+The output is either `true` or `false`.
+
+The *checkPartitionLevelMetadata(processed request)* steps are:
+
+1. Let `perPartitionMetadataMap` be an empty map.
+   The keys of this map are tuples of partition IDs and compression group IDs, and the values are metadata structs.
+2. Let `globalPerPartitionMetadata` be an empty map.
+3. For each field `(metadata name, contextual data entry list)` in `processed request["perPartitionMetadata"]:
+    1. If `contextual data entry list` is not a list or is unset, return `false`.
+    2. For each `contextual data entry` in `contextual data entry list`:
+        1. If `contextual data entry` is not a map, return `false`.
+        2. If `contextual data entry["value"]` does not exist or is not a string, return `false`.
+        3. Else, set `metadata_value` to `contextual data entry["value"]`.
+        4. If `contextual data entry["ids"]` does not exist:
+           1. If `globalPerPartitionMetadata["metadata name"]` exists, return `false`.
+           2. Else, set `globalPerPartitionMetadata["metadata name"]` to `metadata_value`.
+        5. Else:
+           1. If `contextual data entry["ids"]` is not a list, return `false`.
+           2. For each `id tuple` in `contextual data entry["ids"]`:
+              1. If `id tuple` is not a list or does not contain exactly two number values, return `false`.
+              2. Else, let `compression group id` be the first element of `id tuple` and `partition id` be the second element.
+              3. Set `current id` to `{compression group id, partition id}`.
+              4. Let `metadataMap` be an empty map.
+              5. If `perPartitionMetadataMap[current id]` exists, set `metadataMap` to it.
+              6. If `metadataMap[metadata name]` exists, return `false`.
+              7. Set `metadataMap[metadata name]` to `metadata value`.
+              8. Set `perPartitionMetadataMap[current id]` to `metadataMap`.
+4. For each `partition` in `processed request["partitions"]`:
+   1. Compare `globalPerPartitionMetadata` keys with `partition["metadata"]` keys.
+      1. If there are duplicate keys, return `false`.
+   2. Let `id` be `{partition["compressionGroupId"],partition["id"]}`
+   3. If `perPartitionMetadataMap[id]` exists:
+      1. Compare `perPartitionMetadata[id]` keys with `partition["metadata"]` keys.
+      1. If there are duplicate keys, return `false`.
+5. Return `true`.
 
 ## Response Data {#response}
 
@@ -626,28 +669,30 @@ serialized to string.
 
 The Key Value Service runs user-defined functions (UDF) as part of request handling
 and response generation. User-Defined Functions (UDFs) are custom functions implemented by adtech that encapsulate adtech-specific business logic for processing partitions within the Key Value Service. These functions are executed within a sandboxed environment without network or disk access, but have read access to data loaded into the Key Value Service.
-Each UDF receives a single `partition` object from the client request as input. The output of a UDF is a `partitionOutput` object that contains the results of processing the partition.
+Each UDF receives a single `partition` object from the client request as input.
+The output of a UDF is a `partitionOutput` object that contains the results of processing the partition.
 
 The below algorithm describes how the Key Value Service MAY generate a response to a request.
 
-The input is a list of [deterministically encoded CBOR](https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c) `partitionOutputs` in {{response-schema}} as well as
-the `compressionGroupMap` and the HPKE receiver, `rctxt`, context saved in {{request-parsing}}.
+The input is a map of partition outputs `partitionOutputMap`. The keys are a tuple of `{compression group id, partition id}`. The values are [deterministically encoded CBOR](https://www.rfc-editor.org/rfc/rfc8949.html#name-deterministically-encoded-c) `partitionOutputs` in {{response-schema}}. This is the output equivalent to the `partitionInputMap` saved in {{request-parsing}}.
+Additional inputs include the HPKE receiver, `rctxt`, context saved in {{request-parsing}}.
 Assume that this response is to a request that includes `gzip` in `acceptCompression`.
 
 The output is a `response` to be sent to a Client.
 
 1. Create an empty `payload` object, corresponding to {{response-schema}}.
 2. Set `compression groups` to an empty list.
-3. Set `partitionOutputMap` to an empty map.
-4. For each `partitionOutput` in the list of `partitionOutputs`:
-   1. Set `partitionOutputMap[partitionOutput["id"]]` to `partitionOutput`.
-5. For each (`compression group id`, `partition ids`) in `compressionGroupMap`:
+3. Set `compressionGroupMap` to an empty map.
+4. For each `({compression group id, partition id}, partition output)` in the list of `partitionOutputMap`:
+   1. Create an empty list `partition outputs`.
+   2. If `compressionGroupMap[compression group id]` exists, set `partition outputs` to it.
+   3. Add `partition output` to `partition outputs`.
+   4. Set `compressionGroupMap[compression group id]` to `partition outputs`.
+5. For each (`compression group id`, `partition outputs`) in `compressionGroupMap`:
    1. Create an empty `compression group` object, corresponding to {{compression-group}}.
    2. Set `cbor partitions array` to an empty CBOR array.
-   3. For each `partition id` in `partition ids`:
-      1. Set `partition output` to `partitionOutputMap[partition id]`.
-         1. On failure to find the `partition id`, continue.
-      2. Append `partition output` to `cbor partitions array`.
+   3. For each `partition output` in `partition outputs`:
+      1. Append `partition output` to `cbor partitions array`.
    4. Set `cbor serialized payload` to the CBOR serialized `cbor partitions array`.
       1. On serialization failure, continue.
    5. Set `compression group content` to the [GZIP] compressed `cbor serialized payload`.
