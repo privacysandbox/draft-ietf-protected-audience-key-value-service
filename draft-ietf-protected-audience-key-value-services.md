@@ -322,7 +322,7 @@ requestArgument = {
 perPartitionMetadata = {
   ? "contextualData" => [* contextualDataEntry]
   ; Contextual data, i.e. `sellerTKVSignals` or `buyerTKVSignals`
-  ; Each `contextualDataEntry` specifies a value and a list of 
+  ; Each `contextualDataEntry` specifies a value and a list of
   ; [compression group id, partition id] the value applies to.
   ; Duplicate partition-level metadata specification
   ; for a single partition will result in an error.
