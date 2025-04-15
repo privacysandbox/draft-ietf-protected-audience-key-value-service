@@ -384,32 +384,32 @@ The output is an [HPKE] ciphertext encrypted `request` and a context
 1. Let `partitions` be an empty array.
 1. Let `perPartitionMetadata` be an empty map.
 1. For each `group` in `compression groups`:
-  1. For each `partition` in `group`'s `partitions`:
-    1. Let `p` be an empty map.
-    1. Set `p["compressionGroupId"]` to `group`'s `compression group id`.
-    1. Set `p["id"]` to `partition`'s `id`.
-    1. Set `p["metadata"]` to `partition`'s `metadata`.
-    1. Let `arguments` be an empty array.
-    1. For each `tag` → `value` in `partition`'s `namespace`:
-      1. If `tag` is one of {{tags}}:
-        1. Let `argument` be an empty map.
-        1. Set `argument["tags"]` to [`tag`].
-        1. Set `argument["data"]` to `value`.
-        1. Insert `argument` into `arguments`.
-    1. Set `p["arguments"]` to `arguments`.
-    1. Insert `p` into `partitions`.
+    1. For each `partition` in `group`'s `partitions`:
+        1. Let `p` be an empty map.
+        1. Set `p["compressionGroupId"]` to `group`'s `compression group id`.
+        1. Set `p["id"]` to `partition`'s `id`.
+        1. Set `p["metadata"]` to `partition`'s `metadata`.
+        1. Let `arguments` be an empty array.
+        1. For each `tag` → `value` in `partition`'s `namespace`:
+            1. If `tag` is one of {{tags}}:
+                1. Let `argument` be an empty map.
+                1. Set `argument["tags"]` to [`tag`].
+                1. Set `argument["data"]` to `value`.
+                1. Insert `argument` into `arguments`.
+        1. Set `p["arguments"]` to `arguments`.
+        1. Insert `p` into `partitions`.
 1. Let `contextualData` be an empty array.
 1. For each `signal` → `indices` in `contextual data`:
-   1. Let `data` be an empty map.
-   1. Let `ids` be an empty array.
-   1. For each `index` in `indices`:
-      1. Let `idPair` be an empty array.
-      1. Append `index`'s `compression group id` to `idPair`.
-      1. Append `index`'s `id` to `idPair`.
-      1. Append `idPair` to `ids`.
-   1. Set `data["ids"]` to `ids`.
-   1. Set `data["value"]` to `signal`.
-   1. Append `data` to `contextualData`.
+    1. Let `data` be an empty map.
+    1. Let `ids` be an empty array.
+    1. For each `index` in `indices`:
+        1. Let `idPair` be an empty array.
+        1. Append `index`'s `compression group id` to `idPair`.
+        1. Append `index`'s `id` to `idPair`.
+        1. Append `idPair` to `ids`.
+    1. Set `data["ids"]` to `ids`.
+    1. Set `data["value"]` to `signal`.
+    1. Append `data` to `contextualData`.
 1. Set `perPartitionMetadata["contextualData"]` to `contextualData`.
 1. Set `requestMap["metadata"]` to `metadata`.
 1. Set `requestMap["partitions"]` to `partitions`.
