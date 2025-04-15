@@ -358,13 +358,13 @@ This algorithm takes as input:
 * an [HPKE] `public key`.
 * a `key id` integer associated with `public key`.
 * a `metadata` map for global configuration, where both keys and
-values are strings.
+  values are strings.
 * a `contextual data` map for contextual signals configuration,
   where keys are strings, and values are lists of `index`. Each
   `index` has the following parameters:
-  1. `compression group id`, which is an identifier indicates a
+  * `compression group id`, which is an identifier indicates a
      compression group.
-  1. `id`, which is an identifier indicates a partition in the
+  * `id`, which is an identifier indicates a partition in the
      compression group.
 * a `compression groups`, which is a list of `group`s, each
   with the following parameters:
