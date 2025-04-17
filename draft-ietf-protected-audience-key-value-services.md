@@ -358,10 +358,17 @@ This algorithm takes as input:
 * an [HPKE] `public key`.
 * a `key id` integer associated with `public key`.
 * a `metadata` map for global configuration, where both keys and
-values are strings.
+  values are strings.
+* a `contextual data` map for contextual signals configuration,
+  where keys are strings, and values are lists of `index`. Each
+  `index` has the following parameters:
+  * `compression group id`, which is an identifier indicates a
+     compression group.
+  * `id`, which is an identifier indicates a partition in the
+     compression group.
 * a `compression groups`, which is a list of `group`s, each
-with the following parameters:
- * a `compressionGroupId` integer identifier of this compression
+  with the following parameters:
+ * a `compression group id` integer identifier of this compression
    group.
  * a `partitions`, which is a list of `partition`s belonging to this compression
    group. Each `partition` has the following parameters:
@@ -373,27 +380,42 @@ with the following parameters:
 The output is an [HPKE] ciphertext encrypted `request` and a context
 `request context`.
 
-1. Let `request map` be an empty map.
+1. Let `requestMap` be an empty map.
 1. Let `partitions` be an empty array.
+1. Let `perPartitionMetadata` be an empty map.
 1. For each `group` in `compression groups`:
-  1. For each `partition` in `group`'s `partitions`:
-    1. Let `p` be an empty map.
-    1. Set `p["compressionGroupId"]` to `group`'s `compressionGroupId`.
-    1. Set `p["id"]` to `partition`'s `id`.
-    1. Set `p["metadata"]` to `partition`'s `metadata`.
-    1. Let `arguments` be an empty array.
-    1. For each `tag` → `value` in `partition`'s `namespace`:
-      1. If `tag` is one of {{tags}}:
-        1. Let `argument` be an empty map.
-        1. Set `argument["tags"]` to [`tag`].
-        1. Set `argument["data"]` to `value`.
-        1. Insert `argument` into `arguments`.
-    1. Set `p["arguments"]` to `arguments`.
-    1. Insert `p` into `partitions`.
-1. Set `request map["metadata"]` to `metadata`.
-1. Set `request map["partitions"]` to `partitions`.
-1. Set `request map["acceptCompression"]` to `["none", "gzip"]`.
-1. [CBOR] encode `request map` to `payload`.
+    1. For each `partition` in `group`'s `partitions`:
+        1. Let `p` be an empty map.
+        1. Set `p["compressionGroupId"]` to `group`'s `compression group id`.
+        1. Set `p["id"]` to `partition`'s `id`.
+        1. Set `p["metadata"]` to `partition`'s `metadata`.
+        1. Let `arguments` be an empty array.
+        1. For each `tag` → `value` in `partition`'s `namespace`:
+            1. If `tag` is one of {{tags}}:
+                1. Let `argument` be an empty map.
+                1. Set `argument["tags"]` to [`tag`].
+                1. Set `argument["data"]` to `value`.
+                1. Insert `argument` into `arguments`.
+        1. Set `p["arguments"]` to `arguments`.
+        1. Insert `p` into `partitions`.
+1. Let `contextualData` be an empty array.
+1. For each `signal` → `indices` in `contextual data`:
+    1. Let `data` be an empty map.
+    1. Let `ids` be an empty array.
+    1. For each `index` in `indices`:
+        1. Let `idPair` be an empty array.
+        1. Append `index`'s `compression group id` to `idPair`.
+        1. Append `index`'s `id` to `idPair`.
+        1. Append `idPair` to `ids`.
+    1. Set `data["ids"]` to `ids`.
+    1. Set `data["value"]` to `signal`.
+    1. Append `data` to `contextualData`.
+1. Set `perPartitionMetadata["contextualData"]` to `contextualData`.
+1. Set `requestMap["metadata"]` to `metadata`.
+1. Set `requestMap["partitions"]` to `partitions`.
+1. Set `requestMap["acceptCompression"]` to `["none", "gzip"]`.
+1. Set `requestMap["perPartitionMetadata"]` to `perPartitionMetadata`.
+1. [CBOR] encode `requestMap` to `payload`.
 1. Create a `framed payload`, as described in {{framing}}:
     1. Create a {{framing}} header `framing header`.
     1. Set `framing header`'s `Compression` to 1.
