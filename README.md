@@ -29,11 +29,15 @@ Command line usage requires that you have the necessary software installed.  See
 
 ## CD Failures
 
-Sometimes, CD will fail on Github to generate a HTML version.
+Sometimes, CD will fail on Github to generate a HTML version. Check the template repo for any commits that may need to be applied to this repo: https://github.com/martinthomson/internet-draft-template
 
-In that case, you will need to generate them manually in your local repo.
+If that doesn't help, you may be able to generate the HTML and txt drafts manually in your local repo.
+
+You may have to create a local `gh-pages` branch to track the remote `gh-pages`.
+
+Switch to the main branch.
 
 `make gh-pages`
 
-Then switch to your local `gh-pages` branch and push to the remote gh-pages branch.
+Then switch to your local `gh-pages` branch and push to the remote `gh-pages` branch.
 
