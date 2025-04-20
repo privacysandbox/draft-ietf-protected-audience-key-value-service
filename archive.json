@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T01:12:47.034826+00:00",
+  "timestamp": "2025-04-20T00:21:57.447446+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2544,6 +2544,432 @@
           "body": "",
           "createdAt": "2025-01-02T16:11:23Z",
           "updatedAt": "2025-01-02T16:11:23Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOMnZLYc6KJBcj",
+      "title": "Add IANA considerations section",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/4",
+      "state": "MERGED",
+      "author": "lusayaa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As per https://datatracker.ietf.org/doc/html/rfc6838",
+      "createdAt": "2025-02-05T13:25:07Z",
+      "updatedAt": "2025-02-05T13:36:03Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "60a0b7612641f2c31818d2a8ef761a25b7396233",
+      "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "main",
+      "headRefOid": "a9ca8743dbd1ca790d904721e04e31b6e7542a40",
+      "closedAt": "2025-02-05T13:36:03Z",
+      "mergedAt": "2025-02-05T13:36:03Z",
+      "mergedBy": "lusayaa",
+      "mergeCommit": {
+        "oid": "03cc49ab101ffcc04421e871a1f43b40efc1773c"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOMnZLYc6M-G-h",
+      "title": "specify compression group id",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/5",
+      "state": "MERGED",
+      "author": "lusayaa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-28T17:37:06Z",
+      "updatedAt": "2025-02-28T17:59:57Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "372bea5f8a235762a8b8ba68a75277cd8ea9e73e",
+      "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "main",
+      "headRefOid": "74fd6a1494bccad5f8151c3158bfc7498b418e3b",
+      "closedAt": "2025-02-28T17:59:57Z",
+      "mergedAt": "2025-02-28T17:59:57Z",
+      "mergedBy": "lusayaa",
+      "mergeCommit": {
+        "oid": "1cdefbd4bba64306c6dc44daad292f3282f1ea5b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOMnZLYc6SsJq-",
+      "title": "Add perPartitionMetadata to spec",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/6",
+      "state": "MERGED",
+      "author": "lusayaa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-04-15T15:20:36Z",
+      "updatedAt": "2025-04-15T15:20:51Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "0caeb1ae64ba4ae3711c74dede9f217a9874c9d9",
+      "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "main",
+      "headRefOid": "e5b969106d8a410348ae8fb7b54a3c342b7611ed",
+      "closedAt": "2025-04-15T15:20:43Z",
+      "mergedAt": "2025-04-15T15:20:43Z",
+      "mergedBy": "lusayaa",
+      "mergeCommit": {
+        "oid": "5f2886576de476dac978f2b983755ce25faf9c7b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMnZLYc6lCUBc",
+          "commit": {
+            "abbreviatedOid": "e5b9691"
+          },
+          "author": "gemini-code-assist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "Hello @lusayaa, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!\n\n## Summary of Changes\nThis pull request introduces the `perPartitionMetadata` field to the request specification. This allows for partition-level metadata to be included in requests, which can contain contextual data such as `sellerTKVSignals` or `buyerTKVSignals`. The changes involve adding the `perPartitionMetadata` field to the `request` object and defining the structure of `perPartitionMetadata` and `contextualDataEntry` objects in the `draft-ietf-protected-audience-key-value-services.md` file.\n\n### Highlights\n* **New field: `perPartitionMetadata`**: Adds a new optional field `perPartitionMetadata` to the `request` object, enabling the inclusion of partition-specific metadata.\n* **Definition of `perPartitionMetadata`**: Defines the structure of the `perPartitionMetadata` object, which includes an optional `contextualData` field.\n* **Definition of `contextualDataEntry`**: Defines the structure of the `contextualDataEntry` object, which contains a `value` and an optional list of `ids` representing [compression group id, partition id] pairs.\n\n### Changelog\n* **draft-ietf-protected-audience-key-value-services.md**\n  * Added `perPartitionMetadata` field to the `request` object (line 285).\n  * Defined the `perPartitionMetadata` object structure (lines 322-330).\n  * Defined the `contextualDataEntry` object structure (lines 332-338).\n\n\n<details>\n\n<summary><b>Using Gemini Code Assist</b></summary>\n<br>\n\nThe full guide for Gemini Code Assist can be found on our [documentation page](https://developers.google.com/gemini-code-assist/docs/review-github-code), here are some quick tips.\n\n<b>Invoking Gemini</b>\n\nYou can request assistance from Gemini at any point in your pull request via creating an issue comment (i.e. comment on the pull request page) using either `/gemini <command>` or `@gemini-code-assist <command>`. Below is a summary of the supported commands.\n\nFeature | Command | Description\n--- | --- | ---\nCode Review | `/gemini review` | Performs a code review for the current pull request in its current state.\nPull Request Summary | `/gemini summary` | Provides a summary of the current pull request in its current state.\nComment | @gemini-code-assist | Responds in comments when explicitly tagged, both in issue comments and review comments.\nHelp | `/gemini help` | Displays a list of available commands.\n\n<b>Customization</b>\n\nTo customize Gemini Code Assist for GitHub experience, repository maintainers can create a configuration file and/or provide a custom code review style guide (such as PEP-8 for Python) by creating and adding files to a `.gemini/` folder in the base of the repository. Detailed instructions can be found [here](https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github).\n\n<b>Limitations & Feedback</b>\n\nGemini Code Assist is currently in preview and may make mistakes. Please leave feedback on any instances where its feedback is incorrect or counter productive. You can react with :thumbsup: and :thumbsdown: on @gemini-code-assist comments to provide feedback.\n\n</details>\n\n<b>You can also get AI-powered code generation, chat, as well as code reviews directly in the IDE at no cost with the [Gemini Code Assist IDE Extension](https://cloud.google.com/products/gemini/code-assist).</b>\n\n\n[^1]: Review the [Privacy Notices](https://policies.google.com/privacy), [Generative AI Prohibited Use Policy](https://policies.google.com/terms/generative-ai/use-policy), [Terms of Service](https://policies.google.com/terms), and learn how to configure Gemini Code Assist in GitHub [here](https://developers.google.com/gemini-code-assist/docs/review-github-code). Gemini can make mistakes, so double check it and [use code with caution](https://support.google.com/legal/answer/13505487).\n\n---\n\n> Metadata's dance,\n> Partitioned whispers enhance,\n> Context takes its stage.\n\n",
+          "createdAt": "2025-04-15T15:20:44Z",
+          "updatedAt": "2025-04-15T15:20:44Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6lCUHH",
+          "commit": {
+            "abbreviatedOid": "e5b9691"
+          },
+          "author": "gemini-code-assist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "## Code Review\nThis pull request introduces the `perPartitionMetadata` field to the request schema, allowing clients to send partition-level metadata to the Key Value Service. This metadata can contain contextual data like `sellerTKVSignals` or `buyerTKVSignals`. The changes also define the structure of `perPartitionMetadata` and `contextualDataEntry`. Overall, this is a useful addition to the specification.\n\n### Merge Readiness\nThe changes introduce a new feature to the specification, which seems well-defined. I did not find any critical or high severity issues. Therefore, the pull request appears to be in good shape to be merged, but I would recommend considering the medium severity issue before merging. I am unable to directly approve this pull request, and recommend that others review and approve this code before merging.",
+          "createdAt": "2025-04-15T15:20:51Z",
+          "updatedAt": "2025-04-15T15:20:51Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "![medium](https://img.shields.io/badge/priority-medium-yellow)\n\nConsider rephrasing this sentence for clarity. It currently states that duplicate metadata specification will result in an error, but it's unclear what constitutes a 'duplicate' in this context. Specifying the exact conditions that trigger the error would be helpful. For example, does it apply only to identical values, or also to different values for the same key?",
+              "createdAt": "2025-04-15T15:20:51Z",
+              "updatedAt": "2025-04-15T15:20:51Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOMnZLYc6SsPm9",
+      "title": "fix lint",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/7",
+      "state": "MERGED",
+      "author": "lusayaa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-04-15T15:30:12Z",
+      "updatedAt": "2025-04-15T15:31:23Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "5f2886576de476dac978f2b983755ce25faf9c7b",
+      "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "main",
+      "headRefOid": "a17581c62b2d67a131e748922c55b8aa46217d0f",
+      "closedAt": "2025-04-15T15:31:23Z",
+      "mergedAt": "2025-04-15T15:31:23Z",
+      "mergedBy": "lusayaa",
+      "mergeCommit": {
+        "oid": "3abc481c198391df4748cc239a2700c859a533e0"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMnZLYc6lCc4q",
+          "commit": {
+            "abbreviatedOid": "a17581c"
+          },
+          "author": "gemini-code-assist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "Hello @lusayaa, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!\n\n## Summary of Changes\nThis pull request, titled \"fix lint\", appears to address a minor linting issue in the `draft-ietf-protected-audience-key-value-services.md` file. Specifically, it corrects a grammatical error in a comment, changing \"a list of\" to \"a list of\". This change improves the readability and clarity of the document.\n\n### Highlights\n* **Linting**: The primary focus of this pull request is to fix a linting issue related to grammar within a comment in the markdown file.\n* **Readability**: The change enhances the readability of the documentation by correcting a minor grammatical error.\n\n### Changelog\n* **draft-ietf-protected-audience-key-value-services.md**\n  * Corrected a grammatical error in a comment, changing \"a list of\" to \"a list of\".\n\n\n<details>\n\n<summary><b>Using Gemini Code Assist</b></summary>\n<br>\n\nThe full guide for Gemini Code Assist can be found on our [documentation page](https://developers.google.com/gemini-code-assist/docs/review-github-code), here are some quick tips.\n\n<b>Invoking Gemini</b>\n\nYou can request assistance from Gemini at any point in your pull request via creating an issue comment (i.e. comment on the pull request page) using either `/gemini <command>` or `@gemini-code-assist <command>`. Below is a summary of the supported commands.\n\nFeature | Command | Description\n--- | --- | ---\nCode Review | `/gemini review` | Performs a code review for the current pull request in its current state.\nPull Request Summary | `/gemini summary` | Provides a summary of the current pull request in its current state.\nComment | @gemini-code-assist | Responds in comments when explicitly tagged, both in issue comments and review comments.\nHelp | `/gemini help` | Displays a list of available commands.\n\n<b>Customization</b>\n\nTo customize Gemini Code Assist for GitHub experience, repository maintainers can create a configuration file and/or provide a custom code review style guide (such as PEP-8 for Python) by creating and adding files to a `.gemini/` folder in the base of the repository. Detailed instructions can be found [here](https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github).\n\n<b>Limitations & Feedback</b>\n\nGemini Code Assist is currently in preview and may make mistakes. Please leave feedback on any instances where its feedback is incorrect or counter productive. You can react with :thumbsup: and :thumbsdown: on @gemini-code-assist comments to provide feedback.\n\n</details>\n\n<b>You can also get AI-powered code generation, chat, as well as code reviews directly in the IDE at no cost with the [Gemini Code Assist IDE Extension](https://cloud.google.com/products/gemini/code-assist).</b>\n\n\n[^1]: Review the [Privacy Notices](https://policies.google.com/privacy), [Generative AI Prohibited Use Policy](https://policies.google.com/terms/generative-ai/use-policy), [Terms of Service](https://policies.google.com/terms), and learn how to configure Gemini Code Assist in GitHub [here](https://developers.google.com/gemini-code-assist/docs/review-github-code). Gemini can make mistakes, so double check it and [use code with caution](https://support.google.com/legal/answer/13505487).\n\n---\n\n> A tiny fix,\n> A linting error's plight,\n> Code clarity blooms.\n\n",
+          "createdAt": "2025-04-15T15:30:20Z",
+          "updatedAt": "2025-04-15T15:30:20Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6lCc8_",
+          "commit": {
+            "abbreviatedOid": "a17581c"
+          },
+          "author": "gemini-code-assist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "## Code Review\nThe pull request addresses a minor typo in the documentation. The change improves the clarity of the document.\n\n### Merge Readiness\nThe pull request is ready for merging as it fixes a minor typo and improves the clarity of the documentation. I am unable to directly approve the pull request, and users should have others review and approve this code before merging.",
+          "createdAt": "2025-04-15T15:30:26Z",
+          "updatedAt": "2025-04-15T15:30:26Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOMnZLYc6SswkT",
+      "title": "Add contextual data to fetch request format",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/8",
+      "state": "CLOSED",
+      "author": "xtlsheep",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "1. Add `perPartitionMetadata` in request.\r\n2. Add `contextualData` in `perPartitionMetadata`.\r\n3. Align the name format in section request formatting:\r\n    * Use lower case with space for all names in pass-in arguments.\r\n    * Use camel case for all variables in request construction description.",
+      "createdAt": "2025-04-15T16:26:58Z",
+      "updatedAt": "2025-04-15T16:29:31Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "3abc481c198391df4748cc239a2700c859a533e0",
+      "headRepository": "xtlsheep/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "patch-1",
+      "headRefOid": "d135d867654c5c8c46fd289209d74b204aa71deb",
+      "closedAt": "2025-04-15T16:29:07Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMnZLYc6lDKpB",
+          "commit": {
+            "abbreviatedOid": "d135d86"
+          },
+          "author": "gemini-code-assist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "Hello @xtlsheep, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!\n\n## Summary of Changes\nThis pull request focuses on adding contextual data to the fetch request format within the Protected Audience Key-Value Services draft. The changes involve incorporating `perPartitionMetadata` in the request, adding `contextualData` within `perPartitionMetadata`, and aligning the naming conventions in the request formatting section. Specifically, it advocates for using lowercase with spaces for pass-in arguments and camel case for variables used in request construction descriptions. The changes also remove the previous definition of `perPartitionMetadata` and `contextualDataEntry`.\n\n### Highlights\n* **Feature Addition**: Introduces `perPartitionMetadata` and `contextualData` to the request format, enabling the inclusion of contextual signals in fetch requests.\n* **Naming Convention Alignment**: Standardizes naming conventions by using lowercase with spaces for input arguments and camel case for internal variables.\n* **Data Structure Modification**: The pull request modifies the structure of the request to include contextual data, enhancing the flexibility of data transmission.\n\n### Changelog\n* **draft-ietf-protected-audience-key-value-services.md**\n  * Removes the `perPartitionMetadata` property from the base request structure (lines 285-287).\n  * Removes the definitions for `perPartitionMetadata` and `contextualDataEntry` (lines 322-339).\n  * Adds `contextual data` to the algorithm input parameters, defining its structure with compression group and partition identifiers (lines 341-347).\n  * Adds `perPartitionMetadata` initialization (line 364).\n  * Changes `compressionGroupId` to `compression group id` (line 368).\n  * Introduces logic to process `contextual data` and populate `perPartitionMetadata` (lines 380-392).\n  * Adds `perPartitionMetadata` to the `requestMap` (line 396).\n\n\n<details>\n\n<summary><b>Using Gemini Code Assist</b></summary>\n<br>\n\nThe full guide for Gemini Code Assist can be found on our [documentation page](https://developers.google.com/gemini-code-assist/docs/review-github-code), here are some quick tips.\n\n<b>Invoking Gemini</b>\n\nYou can request assistance from Gemini at any point in your pull request via creating an issue comment (i.e. comment on the pull request page) using either `/gemini <command>` or `@gemini-code-assist <command>`. Below is a summary of the supported commands.\n\nFeature | Command | Description\n--- | --- | ---\nCode Review | `/gemini review` | Performs a code review for the current pull request in its current state.\nPull Request Summary | `/gemini summary` | Provides a summary of the current pull request in its current state.\nComment | @gemini-code-assist | Responds in comments when explicitly tagged, both in issue comments and review comments.\nHelp | `/gemini help` | Displays a list of available commands.\n\n<b>Customization</b>\n\nTo customize Gemini Code Assist for GitHub experience, repository maintainers can create a configuration file and/or provide a custom code review style guide (such as PEP-8 for Python) by creating and adding files to a `.gemini/` folder in the base of the repository. Detailed instructions can be found [here](https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github).\n\n<b>Limitations & Feedback</b>\n\nGemini Code Assist is currently in preview and may make mistakes. Please leave feedback on any instances where its feedback is incorrect or counter productive. You can react with :thumbsup: and :thumbsdown: on @gemini-code-assist comments to provide feedback.\n\n</details>\n\n<b>You can also get AI-powered code generation, chat, as well as code reviews directly in the IDE at no cost with the [Gemini Code Assist IDE Extension](https://cloud.google.com/products/gemini/code-assist).</b>\n\n\n[^1]: Review the [Privacy Notices](https://policies.google.com/privacy), [Generative AI Prohibited Use Policy](https://policies.google.com/terms/generative-ai/use-policy), [Terms of Service](https://policies.google.com/terms), and learn how to configure Gemini Code Assist in GitHub [here](https://developers.google.com/gemini-code-assist/docs/review-github-code). Gemini can make mistakes, so double check it and [use code with caution](https://support.google.com/legal/answer/13505487).\n\n---\n\n> A request takes form,\n> Context added, weathering the storm,\n> Signals now align,\n> Data starts to shine,\n> A better fetch, keeping code warm.\n\n",
+          "createdAt": "2025-04-15T16:27:09Z",
+          "updatedAt": "2025-04-15T16:27:09Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6lDKwq",
+          "commit": {
+            "abbreviatedOid": "d135d86"
+          },
+          "author": "gemini-code-assist",
+          "authorAssociation": "NONE",
+          "state": "CHANGES_REQUESTED",
+          "body": "## Code Review\nThe pull request introduces contextual data to the fetch request format, adding `perPartitionMetadata` and `contextualData` to the request structure. The changes also aim to align the naming format within the request formatting section. Overall, the changes seem reasonable, but there are a few areas that could be improved for clarity and correctness.\n\n### Summary of Findings\n* **Inconsistent Naming Conventions**: The pull request aims to align naming conventions, but inconsistencies remain, particularly regarding the use of camel case versus lowercase with spaces. Specifically, the description of the 'compression group id' parameter is inconsistent.\n* **Missing perPartitionMetadata in Request Schema**: The `perPartitionMetadata` field is added to the request generation algorithm but is missing from the `request` schema definition, which could lead to validation issues.\n* **Clarification of 'index' Parameters**: The description of the `index` parameters (compression group id and id) within `contextual data` could benefit from more explicit language to avoid ambiguity.\n\n### Merge Readiness\nWhile the pull request introduces important functionality, there are a few issues that should be addressed before merging. Specifically, the missing `perPartitionMetadata` in the request schema is a critical issue that needs to be resolved. Additionally, the inconsistent naming conventions and the unclear description of 'index' parameters should be clarified. I am unable to approve this pull request, and recommend that another reviewer approves this code before merging.",
+          "createdAt": "2025-04-15T16:27:20Z",
+          "updatedAt": "2025-04-15T16:27:20Z",
+          "comments": [
+            {
+              "originalPosition": 60,
+              "body": "![high](https://img.shields.io/badge/priority-high-orange)\n\nYou're introducing `perPartitionMetadata` here, but it's not present in the `request` schema defined earlier (lines 278-286). This could lead to validation issues.  Shouldn't the schema be updated to include this field?",
+              "createdAt": "2025-04-15T16:27:20Z",
+              "updatedAt": "2025-04-15T16:27:20Z"
+            },
+            {
+              "originalPosition": 50,
+              "body": "![medium](https://img.shields.io/badge/priority-medium-yellow)\n\nThe description uses 'compression group id' (lowercase with spaces), while the variable name in the algorithm uses camel case (`compressionGroupId`).  For consistency, consider using camel case here as well, or consistently use lowercase with spaces throughout the document.",
+              "createdAt": "2025-04-15T16:27:20Z",
+              "updatedAt": "2025-04-15T16:27:20Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOMnZLYc6Ss87x",
+      "title": "Add contextualData to #request-generate",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/9",
+      "state": "OPEN",
+      "author": "xtlsheep",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "1. Add `perPartitionMetadata` to `requestMap`.\r\n2. Add `contextualData` to `perPartitionMetadata`.\r\n3. Align naming rules:\r\n  * Use lower case with space for pass-in arguments.\r\n  * Use camel case for variables in request generation.",
+      "createdAt": "2025-04-15T16:51:41Z",
+      "updatedAt": "2025-04-15T18:05:17Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "a0a71d35eafebbe1bfdc97a704eea2ae3d783d9b",
+      "headRepository": "xtlsheep/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "xtlsheep-patch-1",
+      "headRefOid": "af2e363de2a4439dd6fc57833696928eeeed04c3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMnZLYc6lDbPm",
+          "commit": {
+            "abbreviatedOid": "706ee38"
+          },
+          "author": "gemini-code-assist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "Hello @xtlsheep, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!\n\n## Summary of Changes\nThis pull request introduces `contextualData` to the `#request-generate` process within the Protected Audience Key-Value Services specification. It modifies the request generation algorithm to include contextual signals configuration. The changes involve adding `perPartitionMetadata` to `requestMap`, incorporating `contextualData` into `perPartitionMetadata`, and aligning naming conventions for arguments and variables.\n\n### Highlights\n* **Feature Addition**: Adds `contextualData` to the request generation process, allowing for contextual signals configuration.\n* **Data Structure Modification**: Introduces `perPartitionMetadata` to `requestMap` to encapsulate contextual data.\n* **Naming Convention Alignment**: Standardizes naming rules by using lowercase with spaces for pass-in arguments and camel case for variables in request generation.\n\n### Changelog\n* **draft-ietf-protected-audience-key-value-services.md**\n  * Added `contextual data` map to the algorithm input, defining its structure with keys as strings and values as lists of `index`.\n  * Modified the request generation algorithm to include `perPartitionMetadata` in `requestMap`.\n  * Implemented logic to populate `contextualData` based on the input `contextual data` map, creating a list of data maps with 'ids' and 'value' fields.\n  * Updated `requestMap` to include `perPartitionMetadata`.\n  * Corrected `compression group id` reference on line 381 to `compression group id` on line 389.\n\n\n<details>\n\n<summary><b>Using Gemini Code Assist</b></summary>\n<br>\n\nThe full guide for Gemini Code Assist can be found on our [documentation page](https://developers.google.com/gemini-code-assist/docs/review-github-code), here are some quick tips.\n\n<b>Invoking Gemini</b>\n\nYou can request assistance from Gemini at any point in your pull request via creating an issue comment (i.e. comment on the pull request page) using either `/gemini <command>` or `@gemini-code-assist <command>`. Below is a summary of the supported commands.\n\nFeature | Command | Description\n--- | --- | ---\nCode Review | `/gemini review` | Performs a code review for the current pull request in its current state.\nPull Request Summary | `/gemini summary` | Provides a summary of the current pull request in its current state.\nComment | @gemini-code-assist | Responds in comments when explicitly tagged, both in issue comments and review comments.\nHelp | `/gemini help` | Displays a list of available commands.\n\n<b>Customization</b>\n\nTo customize Gemini Code Assist for GitHub experience, repository maintainers can create a configuration file and/or provide a custom code review style guide (such as PEP-8 for Python) by creating and adding files to a `.gemini/` folder in the base of the repository. Detailed instructions can be found [here](https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github).\n\n<b>Limitations & Feedback</b>\n\nGemini Code Assist is currently in preview and may make mistakes. Please leave feedback on any instances where its feedback is incorrect or counter productive. You can react with :thumbsup: and :thumbsdown: on @gemini-code-assist comments to provide feedback.\n\n</details>\n\n<b>You can also get AI-powered code generation, chat, as well as code reviews directly in the IDE at no cost with the [Gemini Code Assist IDE Extension](https://cloud.google.com/products/gemini/code-assist).</b>\n\n\n[^1]: Review the [Privacy Notices](https://policies.google.com/privacy), [Generative AI Prohibited Use Policy](https://policies.google.com/terms/generative-ai/use-policy), [Terms of Service](https://policies.google.com/terms), and learn how to configure Gemini Code Assist in GitHub [here](https://developers.google.com/gemini-code-assist/docs/review-github-code). Gemini can make mistakes, so double check it and [use code with caution](https://support.google.com/legal/answer/13505487).\n\n---\n\n> A map of requests takes form,\n> With data to weather the norm,\n> Contextual signals arise,\n> In encoded CBOR skies,\n> A new standard to perform.\n\n",
+          "createdAt": "2025-04-15T16:51:50Z",
+          "updatedAt": "2025-04-15T16:51:50Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6lDbd-",
+          "commit": {
+            "abbreviatedOid": "706ee38"
+          },
+          "author": "gemini-code-assist",
+          "authorAssociation": "NONE",
+          "state": "CHANGES_REQUESTED",
+          "body": "## Code Review\nThe pull request introduces contextual data to the request generation process, enhancing the flexibility of the Key Value Service. The changes seem well-structured and align with the overall goals of the project. However, there are a few areas where improvements can be made to enhance clarity and maintainability.\n\n### Summary of Findings\n* **Naming Consistency**: The pull request aims to align naming rules, but inconsistencies remain. Specifically, the use of `compression group id` (with spaces) in the input parameters and `compressionGroupId` (camel case) in the code could lead to confusion. Consistent naming is crucial for maintainability.\n* **Clarity of 'contextual data' Processing**: The logic for processing `contextual data` involves multiple nested loops and map creations. While functional, it could benefit from improved readability and potentially be refactored into smaller, more manageable functions.\n\n### Merge Readiness\nThe pull request is almost ready for merging. Addressing the naming inconsistencies and improving the clarity of the `contextual data` processing logic would significantly enhance the code's quality. I am unable to directly approve the pull request, and other reviewers should review and approve this code before merging. I recommend that the pull request not be merged until the high severity issues are addressed.",
+          "createdAt": "2025-04-15T16:51:59Z",
+          "updatedAt": "2025-04-15T16:51:59Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "![high](https://img.shields.io/badge/priority-high-orange)\n\nConsider using a consistent naming convention. The input parameter uses `compression group id` (lowercase with space), while the code uses `compressionGroupId` (camel case). Using `compressionGroupId` consistently would improve readability and reduce potential confusion.\n\n```suggestion\n    1. Set `p[\"compressionGroupId\"]` to `group`'s `compressionGroupId`.\n```",
+              "createdAt": "2025-04-15T16:51:59Z",
+              "updatedAt": "2025-04-15T16:51:59Z"
+            },
+            {
+              "originalPosition": 56,
+              "body": "![medium](https://img.shields.io/badge/priority-medium-yellow)\n\nThis section processes the `contextual data`. Consider breaking this down into smaller functions to improve readability. For example, the inner loop that creates `idPair` and appends it to `ids` could be extracted into a separate function.",
+              "createdAt": "2025-04-15T16:51:59Z",
+              "updatedAt": "2025-04-15T16:51:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6lEFze",
+          "commit": {
+            "abbreviatedOid": "706ee38"
+          },
+          "author": "lusayaa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-15T17:57:00Z",
+          "updatedAt": "2025-04-15T17:57:01Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "This is still messed up if you click on the rich diff view: https://screenshot.googleplex.com/9vrRvrnx7iqwZzU\r\n\r\nI think it's an indentation error? Needs to be probably 4 spaces, see the \"Parsing a request\" section below.",
+              "createdAt": "2025-04-15T17:57:00Z",
+              "updatedAt": "2025-04-15T17:57:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6lEKaZ",
+          "commit": {
+            "abbreviatedOid": "706ee38"
+          },
+          "author": "xtlsheep",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-15T18:05:16Z",
+          "updatedAt": "2025-04-15T18:05:16Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "Yeah you are correct, it was due to the indentation. Fixed.",
+              "createdAt": "2025-04-15T18:05:16Z",
+              "updatedAt": "2025-04-15T18:05:17Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOMnZLYc6SuqGf",
+      "title": "Update request parsing and response generation sections",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/10",
+      "state": "MERGED",
+      "author": "lusayaa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-04-15T20:34:08Z",
+      "updatedAt": "2025-04-15T21:14:32Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "a0a71d35eafebbe1bfdc97a704eea2ae3d783d9b",
+      "headRepository": "lusayaa/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "main",
+      "headRefOid": "4e990bad0d3fbb9c06575a732363f0f5710b4f69",
+      "closedAt": "2025-04-15T21:14:32Z",
+      "mergedAt": "2025-04-15T21:14:32Z",
+      "mergedBy": "lusayaa",
+      "mergeCommit": {
+        "oid": "e0d4150265cc6e19370c6ab71ba67b683714aa20"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMnZLYc6lFtdW",
+          "commit": {
+            "abbreviatedOid": "4e990ba"
+          },
+          "author": "gemini-code-assist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "Hello @lusayaa, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!\n\n## Summary of Changes\nThis pull request focuses on updating the request parsing and response generation sections of the specification. The changes include modifications to the request parsing algorithm, specifically around how partitions and their metadata are handled. A new function `checkPartitionLevelMetadata` is introduced to validate partition-level metadata. The response generation algorithm is also updated to use a map of partition outputs instead of a list, and the logic for creating compression groups is adjusted accordingly.\n\n### Highlights\n* **Request Parsing Update**: The request parsing section is updated to include a check for duplicate partition-level metadata using the new `checkPartitionLevelMetadata` function. It also changes how partition data is stored during processing, using `partitionInputMap` instead of `compressionGroupMap`.\n* **Metadata Validation**: Introduces a detailed algorithm for checking partition-level metadata to ensure there are no duplicates and that the metadata structure is valid.\n* **Response Generation Update**: The response generation algorithm is modified to use a map (`partitionOutputMap`) as input, where keys are tuples of compression group ID and partition ID. The logic for creating compression groups is updated to reflect this change.\n\n### Changelog\n* **draft-ietf-protected-audience-key-value-services.md**\n  * Updates the request parsing algorithm to use `partitionInputMap` and introduces `checkPartitionLevelMetadata` function.\n  * Adds a detailed algorithm for `checkPartitionLevelMetadata` to validate partition-level metadata.\n  * Modifies the response generation algorithm to use `partitionOutputMap` as input and updates the compression group creation logic.\n\n\n<details>\n\n<summary><b>Using Gemini Code Assist</b></summary>\n<br>\n\nThe full guide for Gemini Code Assist can be found on our [documentation page](https://developers.google.com/gemini-code-assist/docs/review-github-code), here are some quick tips.\n\n<b>Invoking Gemini</b>\n\nYou can request assistance from Gemini at any point in your pull request via creating an issue comment (i.e. comment on the pull request page) using either `/gemini <command>` or `@gemini-code-assist <command>`. Below is a summary of the supported commands.\n\nFeature | Command | Description\n--- | --- | ---\nCode Review | `/gemini review` | Performs a code review for the current pull request in its current state.\nPull Request Summary | `/gemini summary` | Provides a summary of the current pull request in its current state.\nComment | @gemini-code-assist | Responds in comments when explicitly tagged, both in issue comments and review comments.\nHelp | `/gemini help` | Displays a list of available commands.\n\n<b>Customization</b>\n\nTo customize Gemini Code Assist for GitHub experience, repository maintainers can create a configuration file and/or provide a custom code review style guide (such as PEP-8 for Python) by creating and adding files to a `.gemini/` folder in the base of the repository. Detailed instructions can be found [here](https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github).\n\n<b>Limitations & Feedback</b>\n\nGemini Code Assist is currently in preview and may make mistakes. Please leave feedback on any instances where its feedback is incorrect or counter productive. You can react with :thumbsup: and :thumbsdown: on @gemini-code-assist comments to provide feedback.\n\n</details>\n\n<b>You can also get AI-powered code generation, chat, as well as code reviews directly in the IDE at no cost with the [Gemini Code Assist IDE Extension](https://cloud.google.com/products/gemini/code-assist).</b>\n\n\n[^1]: Review the [Privacy Notices](https://policies.google.com/privacy), [Generative AI Prohibited Use Policy](https://policies.google.com/terms/generative-ai/use-policy), [Terms of Service](https://policies.google.com/terms), and learn how to configure Gemini Code Assist in GitHub [here](https://developers.google.com/gemini-code-assist/docs/review-github-code). Gemini can make mistakes, so double check it and [use code with caution](https://support.google.com/legal/answer/13505487).\n\n---\n\n> A map for outputs,\n> A check for metadata's keep,\n> Response takes new form.\n\n",
+          "createdAt": "2025-04-15T20:34:16Z",
+          "updatedAt": "2025-04-15T20:34:16Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6lFtlo",
+          "commit": {
+            "abbreviatedOid": "4e990ba"
+          },
+          "author": "gemini-code-assist",
+          "authorAssociation": "NONE",
+          "state": "CHANGES_REQUESTED",
+          "body": "## Code Review\nThe pull request updates the request parsing and response generation sections of the document. The changes introduce new checks for partition-level metadata and modify the response generation algorithm to use a map of partition outputs. Overall, the changes seem well-structured and improve the clarity and correctness of the document.\n\n### Summary of Findings\n* **Missing check for `partition` existence**: In the `checkPartitionLevelMetadata` function, there is no check to ensure that `partition` exists before accessing its properties. This could lead to a potential error if a partition is missing.\n* **Inconsistent naming**: The variable `current id` is sometimes referred to as `current id` and sometimes as `current_id`. It would be good to make this consistent.\n* **Potential infinite loop**: In the response generation section, there's a potential for an infinite loop if the serialization fails repeatedly.\n\n### Merge Readiness\nThe pull request introduces significant changes to the request parsing and response generation sections. While the changes appear to be well-structured, there are a few issues that need to be addressed before merging. Specifically, the missing check for `partition` existence in `checkPartitionLevelMetadata` and the potential infinite loop in response generation should be fixed. I am unable to approve this pull request, and recommend that others review and approve this code before merging.",
+          "createdAt": "2025-04-15T20:34:25Z",
+          "updatedAt": "2025-04-15T20:34:26Z",
+          "comments": [
+            {
+              "originalPosition": 55,
+              "body": "![high](https://img.shields.io/badge/priority-high-orange)\n\nIt's good to iterate through the partitions, but there's no check to ensure that `partition` exists before accessing its properties. This could lead to a potential error if a partition is missing. Consider adding a check to ensure that `partition` exists before accessing its properties.\n\n```suggestion\n4. For each `partition` in `processed request[\"partitions\"]`:\n   1. If `partition` exists:\n      1. Compare `globalPerPartitionMetadata` keys with `partition[\"metadata\"]` keys.\n```",
+              "createdAt": "2025-04-15T20:34:25Z",
+              "updatedAt": "2025-04-15T20:34:26Z"
+            },
+            {
+              "originalPosition": 106,
+              "body": "![medium](https://img.shields.io/badge/priority-medium-yellow)\n\nIf the serialization fails repeatedly, this could lead to an infinite loop. Consider adding a check to prevent this.\n\n```suggestion\n      1. On serialization failure, continue.\n      2. If serialization fails more than N times, return failure.\n```",
+              "createdAt": "2025-04-15T20:34:26Z",
+              "updatedAt": "2025-04-15T20:34:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMnZLYc6lF3l5",
+          "commit": {
+            "abbreviatedOid": "4e990ba"
+          },
+          "author": "lx3-g",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-15T20:47:16Z",
+          "updatedAt": "2025-04-15T20:47:16Z",
           "comments": []
         }
       ]
