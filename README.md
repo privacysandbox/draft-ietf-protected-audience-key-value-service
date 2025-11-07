@@ -1,3 +1,13 @@
+**This API is scheduled for deprecation.** 
+
+This repository will be archived and will no longer be updated.
+
+See our [Update on Plans for Privacy Sandbox Technologies](https://privacysandbox.com/news/update-on-plans-for-privacy-sandbox-technologies/).
+
+[Privacy Sandbox feature status](https://privacysandbox.google.com/overview/status) provides more information about the status of individual APIs and platform features.
+
+---
+
 # Protected Audience Key Value Server Api
 
 This is the working area for the IETF [PROTECTED Working Group](https://datatracker.ietf.org/wg/protected/documents/) Internet-Draft, "Protected Audience Key Value Server Api".
