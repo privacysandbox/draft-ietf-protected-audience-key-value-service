@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-06T00:21:34.353680+00:00",
+  "timestamp": "2025-11-09T00:23:25.695961+00:00",
   "repo": "privacysandbox/draft-ietf-protected-audience-key-value-service",
   "labels": [
     {
@@ -2970,6 +2970,48 @@
           "body": "",
           "createdAt": "2025-04-15T20:47:16Z",
           "updatedAt": "2025-04-15T20:47:16Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOMnZLYc6yN5X7",
+      "title": "Update README.md to add deprecation warning",
+      "url": "https://github.com/privacysandbox/draft-ietf-protected-audience-key-value-service/pull/11",
+      "state": "MERGED",
+      "author": "samdutton",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-11-07T20:07:45Z",
+      "updatedAt": "2025-11-07T21:57:40Z",
+      "baseRepository": "privacysandbox/draft-ietf-protected-audience-key-value-service",
+      "baseRefName": "main",
+      "baseRefOid": "2934d9f33990b8e28de2cd99a67ef0b921e49dfd",
+      "headRepository": "samdutton/draft-ietf-protected-audience-key-value-service",
+      "headRefName": "patch-1",
+      "headRefOid": "ef8b8bb4fab57c1baff026d9bd2aaec37e3d7b19",
+      "closedAt": "2025-11-07T21:57:39Z",
+      "mergedAt": "2025-11-07T21:57:39Z",
+      "mergedBy": "brusshamilton",
+      "mergeCommit": {
+        "oid": "a45e308795b764f13fafd9f2677e469f2b0692c2"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMnZLYc7M1iW0",
+          "commit": {
+            "abbreviatedOid": "ef8b8bb"
+          },
+          "author": "brusshamilton",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-07T21:57:30Z",
+          "updatedAt": "2025-11-07T21:57:30Z",
           "comments": []
         }
       ]
